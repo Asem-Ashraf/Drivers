@@ -1,6 +1,7 @@
 // INCLUDES
-#include "../../stdTypes.h"
-#include "ErrorStates.h"
+#include "../../LIB/stdTypes.h"
+#include "../../LIB/ErrorStates.h"
+#include "../../LIB/Bit_Math.h"
 #include "DIO_priv.h"
 #include "DIO_config.h"
 

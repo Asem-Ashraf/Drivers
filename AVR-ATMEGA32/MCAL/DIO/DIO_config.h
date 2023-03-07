@@ -2,13 +2,14 @@
 #define DIO_CONFIG_H_
 
 /* * * * * * * * * * * * * * * * * * * *\
- * CONFIGURATION FOR DIO DRIVER        *
+ * CONFIGURATION FOR DIO DRIVER.       *
  * SET PIN DIRECTION AND INITIAL VALUE *
- * BY USING THE AVAIBALBLE VALUES      *
+ * BY USING THE AVAIBALBLE VALUES.     *
 \* * * * * * * * * * * * * * * * * * * */
+
  
 // INPUT or OUPUT can be used for each pin.
-#define PORTA0_DIR INPUT
+#define PORTA0_DIR OUTPUT
 #define PORTA1_DIR OUTPUT
 #define PORTA2_DIR OUTPUT
 #define PORTA3_DIR OUTPUT
@@ -45,7 +46,7 @@
 #define PORTD7_DIR INPUT
 
 // LOW, HIGH,FLOAT or PULL_UP can be used for each pin.
-#define PORTA0_VAL HIGH
+#define PORTA0_VAL LOW
 #define PORTA1_VAL LOW
 #define PORTA2_VAL LOW
 #define PORTA3_VAL LOW

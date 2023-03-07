@@ -3,11 +3,11 @@
 
 
 // INCLUDES
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/ErrorStates.h"
+#include "../../stdTypes.h"
+#include "ErrorStates.h"
 
 
-// ARGUMENTS
+// args
 #define DIO_u8PORTA 3
 #define DIO_u8PORTB 2
 #define DIO_u8PORTC 1

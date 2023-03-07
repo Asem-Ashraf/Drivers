@@ -1,10 +1,10 @@
 #ifndef SW_CONFIG_H
 #define SW_CONFIG_H
 
-#include "../../LIB/stdTypes.h"
+#include "stdTypes.h"
 
 // Define the number of switches in the system [1-255],
-#define SW_u8NUM 2
+#define SW_u8NUM 1
 
 // define the switch(es) values in SW_config.c according to the following struct
 typedef struct{

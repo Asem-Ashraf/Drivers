@@ -2,12 +2,12 @@
 #define SW_INIT_H
 
 // INCLUDES
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/ErrorStates.h"
+#include "stdTypes.h"
+#include "ErrorStates.h"
 #include "SW_config.h"
 
-// FUNCTIONS PROTOTYPES
 
+// FUNCTIONS PROTOTYPES
 
 // Copy_pstructSwitches : pointer to the switches struct
 ES_t SW_enuInit(SW_t *SW_AstructSwitches);

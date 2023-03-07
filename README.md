@@ -1,2 +1,2 @@
 # Drivers
-Drivers for various Microcontrollers
+Embedded drivers for various Microcontrollers

@@ -3,9 +3,6 @@
 
 #include "../../LIB/stdTypes.h"
 
-// Define the number of switches in the system [1-255],
-#define SW_u8NUM 2
-
 // define the switch(es) values in SW_config.c according to the following struct
 typedef struct{
     u8 SW_u8Mode;   // DIO_u8pull_up or DIO_u8FLOAT

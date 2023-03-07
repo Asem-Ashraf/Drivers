@@ -5,9 +5,9 @@
 #include "../../LIB/ErrorStates.h"
 #include "LED_config.h"
 
-/*  ======================= *\
-   || FUNCTIONS PROTOTYPE ||
-\*  ======================= */
+/*  ======================== *\
+   || FUNCTIONS' PROTOTYPE ||
+\*  ======================== */
 
 
 // LED_AstructLed  : pointer to the LED Array

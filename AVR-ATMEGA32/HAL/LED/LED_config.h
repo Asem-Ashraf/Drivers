@@ -3,8 +3,11 @@
 
 #include "../../LIB/stdTypes.h"
 
-#define LED_u8NUM_OF_LEDS  1
+#define LED_u8SINK         1
+#define LED_u8SOURCE       0
 
+#define LED_u8ON           1
+#define LED_u8OFF          0
 
 typedef struct {
     u8 LED_u8PORTID;        // DIO_u8PORTA, DIO_u8PORTB, DIO_u8PORTC, DIO_u8PORTD

@@ -8,7 +8,6 @@
 
 // FUNCTIONS PROTOTYPES
 
-
 // Copy_pstructSwitches : pointer to the switches struct
 ES_t SW_enuInit(SW_t *SW_AstructSwitches);
 

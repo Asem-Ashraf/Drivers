@@ -9,7 +9,7 @@
 // FUNCTIONS IMPLEMENTATION
 ES_t SW_enuInit(SW_t* Copy_AstructSwitchs){
     ES_t Local_enuErrorState = ES_NOK;
-    for (u8 i; i<SW_u8NUM; i++) {
+    for (u8 i = 0; i<SW_u8NUM; i++) {
         Local_enuErrorState = DIO_enuSetPinDirection(Copy_AstructSwitchs[i].SW_u8PORTID,
                                                      Copy_AstructSwitchs[i].SW_u8PINID,
                                                      DIO_u8INPUT);

@@ -1,8 +1,6 @@
 #ifndef SW_PRIV_H
 #define SW_PRIV_H
 
-#include "../../LIB/stdTypes.h"
-
 // NON-ARGUMENT DEFINATIONS USED IN SW_prog.c
 
 // define the switch(es) values in SW_config.c according to the following struct

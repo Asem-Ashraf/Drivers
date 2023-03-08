@@ -2,21 +2,11 @@
 #define DIO_INT_H_
 
 
-// INCLUDES
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/ErrorStates.h"
-
-
 // ARGUMENTS
 #define DIO_u8PORTA 3
 #define DIO_u8PORTB 2
 #define DIO_u8PORTC 1
 #define DIO_u8PORTD 0
-
-#define DIO_u8DDRA 3
-#define DIO_u8DDRB 2
-#define DIO_u8DDRC 1
-#define DIO_u8DDRD 0
 
 #define DIO_u8PIN0 0
 #define DIO_u8PIN1 1

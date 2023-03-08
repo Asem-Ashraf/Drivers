@@ -5,7 +5,7 @@
 #include "SW_priv.h"
 
 extern u8 SW_u8NUM;
-extern SW_t *SW_AstuSwitches;
+extern SW_t SW_AstuSwitches[];
 
 // FUNCTIONS IMPLEMENTATION
 ES_t SW_enuInit(SW_t* Copy_AstructSwitchs){
@@ -38,7 +38,7 @@ ES_t SW_enuGetState(SW_t* Copy_pstructSwitch, u8 *pu8State){
     if (Copy_pstructSwitch == NULL) 
         return ES_NULL_POINTER;
     if (Copy_pstructSwitch<SW_AstuSwitches ||
-        Copy_pstructSwitch>SW_AstuSwitches+(SW_u8NUM-1))
+        Copy_pstructSwitch>SW_AstuSwitches+sizeof(SW_t)*(SW_u8NUM-1))
         return ES_OUT_OF_RANGE;
     Local_enuErrorState = DIO_enuGetPinValue(Copy_pstructSwitch->SW_u8PORTID,
                                              Copy_pstructSwitch->SW_u8PINID,
@@ -54,7 +54,7 @@ ES_t SW_enuSetMode(SW_t* Copy_pstructSwitch, u8 Copy_u8Mode){
     if (Copy_pstructSwitch == NULL)
         return Local_enuErrorState;
     if (Copy_pstructSwitch<SW_AstuSwitches ||
-        Copy_pstructSwitch>SW_AstuSwitches+(SW_u8NUM-1))
+        Copy_pstructSwitch>SW_AstuSwitches+sizeof(SW_t)*(SW_u8NUM-1))
         return ES_OUT_OF_RANGE;
     Local_enuErrorState = DIO_enuSetPinValue(Copy_pstructSwitch->SW_u8PORTID,
                                              Copy_pstructSwitch->SW_u8PINID,

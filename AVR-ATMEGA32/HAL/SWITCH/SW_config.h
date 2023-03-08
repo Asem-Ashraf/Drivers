@@ -1,7 +1,6 @@
 #ifndef SW_CONFIG_H
 #define SW_CONFIG_H
 
-#include "../../LIB/stdTypes.h"
 
 // define the switch(es) values in SW_config.c according to the following struct
 typedef struct{

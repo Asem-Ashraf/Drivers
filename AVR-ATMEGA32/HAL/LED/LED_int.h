@@ -1,8 +1,6 @@
 #ifndef LED_INT_H_
 #define LED_INT_H_
 
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/ErrorStates.h"
 #include "LED_config.h"
 
 /*  ======================== *\

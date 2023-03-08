@@ -1,9 +1,6 @@
 #ifndef SW_INIT_H
 #define SW_INIT_H
 
-// INCLUDES
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/ErrorStates.h"
 #include "SW_config.h"
 
 // FUNCTIONS PROTOTYPES

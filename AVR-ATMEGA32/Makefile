@@ -19,7 +19,7 @@ INCLUDE= -I.
 #If all Sources File in The Same Location 
 SRC =$(wildcard *.c)
 #else (src) in different locations 
-#SRC = $(main).c
+SRC += $(wildcard ./*/*/*.c)
 #SRC += src/file1.c
 #SRC += src/file2.c
 
@@ -53,7 +53,7 @@ size : $(Firmware).elf
 	$(CCSIZE) --format=avr --mcu=$(DEVICE) $< 
 	
 clean_all:
-	rm *.o *.elf *.hex
+	rm $(OBJ) *.elf *.hex
 	@echo "Everything clean successfully"
 	
 clean:

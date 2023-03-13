@@ -12,19 +12,22 @@
 
 #define ADDRESS_OFFSET_MULTIPLIER 3
 
-#define DIO_u8PORTbaseaddress ((u8*)0x32)
+//                                  0x32
+#define DIO_u8PORTbaseaddress ((u8*)'2')
 #define DIO_u8PORTA 3
 #define DIO_u8PORTB 2
 #define DIO_u8PORTC 1
 #define DIO_u8PORTD 0
 
-#define DIO_u8DDRbaseaddress  ((u8*)0x31)
+//                                  0x31
+#define DIO_u8DDRbaseaddress  ((u8*)'1')
 #define DIO_u8DDRA 3
 #define DIO_u8DDRB 2
 #define DIO_u8DDRC 1
 #define DIO_u8DDRD 0
 
-#define DIO_u8PINbaseaddress  ((volatile u8*)0x30)
+//                                           0x30
+#define DIO_u8PINbaseaddress  ((volatile u8*)'0')
 #define DIO_u8PINA 3
 #define DIO_u8PINB 2
 #define DIO_u8PINC 1

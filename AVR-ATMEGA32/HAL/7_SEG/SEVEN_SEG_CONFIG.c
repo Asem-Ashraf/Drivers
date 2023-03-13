@@ -1,0 +1,32 @@
+#include "../../LIB/stdTypes.h"
+#include "../../LIB/ErrorStates.h"
+#include "../../MCAL/DIO/DIO_int.h"
+
+#include "SEVEN_SEG_CONFIG.h"
+#define SEV_SEG_NUM 2
+
+u8 SEV_SEG_u8NUM = SEV_SEG_NUM;
+SEV_SEG_t SEV_SEG_AstructConfig[SEV_SEG_NUM] = {
+    {SEV_SEG_u8COM_ANODE,
+     DIO_u8PORTC,DIO_u8PIN0,
+     DIO_u8PORTC,DIO_u8PIN1,
+     DIO_u8PORTC,DIO_u8PIN2,
+     DIO_u8PORTC,DIO_u8PIN3,
+     DIO_u8PORTC,DIO_u8PIN4,
+     DIO_u8PORTC,DIO_u8PIN5,
+     DIO_u8PORTC,DIO_u8PIN6,
+     DIO_u8PORTC,DIO_u8PIN7,
+     0xf,SEV_SEG_u8DOT_ON
+    },
+    {SEV_SEG_u8COM_CATHODE,
+     DIO_u8PORTD,DIO_u8PIN0,
+     DIO_u8PORTD,DIO_u8PIN1,
+     DIO_u8PORTD,DIO_u8PIN2,
+     DIO_u8PORTD,DIO_u8PIN3,
+     DIO_u8PORTD,DIO_u8PIN4,
+     DIO_u8PORTD,DIO_u8PIN5,
+     DIO_u8PORTD,DIO_u8PIN6,
+     DIO_u8PORTD,DIO_u8PIN7,
+     0xf,SEV_SEG_u8DOT_ON
+    }
+};

@@ -43,7 +43,7 @@
 #define DIO_u8PIN7 7
 
 
-#define Value(baseaddress,register) (*(baseaddress+(ADDRESS_OFFSET_MULTIPLIER*register)))
+#define Value(baseaddress,register) (*((baseaddress)+(ADDRESS_OFFSET_MULTIPLIER*(register))))
 
 #define CONC_HELP(PIN7,PIN6,PIN5,PIN4,PIN3,PIN2,PIN1,PIN0) 0b##PIN7##PIN6##PIN5##PIN4##PIN3##PIN2##PIN1##PIN0
 #define CONC(PIN7,PIN6,PIN5,PIN4,PIN3,PIN2,PIN1,PIN0)      CONC_HELP(PIN7,PIN6,PIN5,PIN4,PIN3,PIN2,PIN1,PIN0)

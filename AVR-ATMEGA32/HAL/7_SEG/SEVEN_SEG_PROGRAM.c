@@ -87,7 +87,7 @@ ES_t SEV_SEG_enuDotOff(SEV_SEG_t *Copy_pstructSeg){
 
     Local_u8ES = DIO_enuSetPinValue(Copy_pstructSeg->SEG_u8SegDotPort,
                                     Copy_pstructSeg->SEG_u8SegDotPin,
-                                    (~Copy_pstructSeg->SEG_u8ComPolarity)&1);
+                                    !Copy_pstructSeg->SEG_u8ComPolarity);
     Copy_pstructSeg->SEG_u8SegDotInitVal = SEV_SEG_u8DOT_OFF;
     return Local_u8ES;
 }

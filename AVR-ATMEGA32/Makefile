@@ -8,7 +8,7 @@ CC=avr-gcc
 #avr-gcc.exe
 #arm none-eabi
 
-CFLAGS= -gdwarf-2
+CFLAGS= -gdwarf-2 -g
 
 # The headers files needed for building the application ex -I<dir1> -I<dir2> !!!no space between I & dir!!! 
 #--> dot "." means current directory ".." back one folder 

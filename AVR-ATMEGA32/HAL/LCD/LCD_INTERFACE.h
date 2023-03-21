@@ -22,7 +22,7 @@ ES_t LCD_enuDisplayOn(LCD_t* LCD_pstructDisplay);
 
 ES_t LCD_enuDisplayOff(LCD_t* LCD_pstructDisplay);
 
-ES_t LCD_enuSendCommand(LCD_t* LCD_pstructDisplay,u8 Command);
+ES_t LCD_enuSendWriteCommand(LCD_t* LCD_pstructDisplay,u8 Command);
 
 
 #endif /* LCD_INTERFACE_H_ */

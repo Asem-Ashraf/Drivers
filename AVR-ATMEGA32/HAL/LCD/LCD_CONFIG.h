@@ -7,21 +7,22 @@
 
 #include "../../MCAL/DIO/DIO_int.h"
 
-#define LCD_u8MODE_8BIT 1
-#define LCD_u8MODE_4BIT 0
+#define LCD_u8MODE_8BIT 0x1
+#define LCD_u8MODE_4BIT 0x0
 
-#define LCD_u8CURSOR_ON 1
-#define LCD_u8CURSOR_OFF 0
+#define LCD_u8CURSOR_ON 0x1
+#define LCD_u8CURSOR_OFF 0x0
 
-#define LCD_u8CURSOR_BLINK_ON 1
-#define LCD_u8CURSOR_BLINK_OFF 0
+#define LCD_u8CURSOR_BLINK_ON 0x1
+#define LCD_u8CURSOR_BLINK_OFF 0x0
 
-#define LCD_u8LINES_2 1
-#define LCD_u8LINES_1 0
+#define LCD_u8LINES_2 0x1
+#define LCD_u8LINES_1 0x0
 
-#define LCD_u8BLOCK_SIZE_5x10 1
-#define LCD_u8BLOCK_SIZE_5x7 0
+#define LCD_u8BLOCK_SIZE_5x10 0x1
+#define LCD_u8BLOCK_SIZE_5x7 0x0
 
+#define LCD_u8NOT_USED 0xFF
 
 typedef struct {
     // MODE

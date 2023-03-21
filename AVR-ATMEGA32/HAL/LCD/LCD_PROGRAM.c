@@ -5,7 +5,6 @@
 
 #include "../../MCAL/DIO/DIO_int.h"
 
-#include "LCD_CONFIG.h"
 #include "LCD_PRIVATE.h"
 
 extern LCD_t LCD_AstructDisplays[];
@@ -203,6 +202,19 @@ static inline ES_t LCD_DisplayOnOff(LCD_t* LCD_pstructDisplay,u8 D, u8 C, u8 B) 
 static inline ES_t LCD_enuFunctionSet(LCD_t* LCD_pstructDisplay,u8 DL, u8 N, u8 F) {
     if(DL > 1 || N > 1 || F > 1) { return ES_OUT_OF_RANGE; }
     u8 command = 0b00100000|DL<<4|N<<3|F<<2;
+    u8 Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8LOW);
+    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+    Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8RSPort, LCD_pstructDisplay->LCD_u8RSPin, DIO_u8LOW);
+    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+    Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8RWPort, LCD_pstructDisplay->LCD_u8RWPin, DIO_u8LOW);
+    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+    Local_ESErrorState = LCD_enuWriteBits(LCD_pstructDisplay,command);
+    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+    Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8HIGH);
+    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+    _delay_ms(1);
+    Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8LOW);
+    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
     return LCD_enuWriteCommand(LCD_pstructDisplay,command);
 }
 static inline ES_t LCD_SetCGRAMAddress(LCD_t* LCD_pstructDisplay,u8 Address) {
@@ -309,7 +321,7 @@ ES_t LCD_enuDisplayOff(LCD_t* LCD_pstructDisplay){
     if (LCD_pstructDisplay<LCD_AstructDisplays || LCD_pstructDisplay>(LCD_AstructDisplays+sizeof(LCD_t)*LCD_u8DisplayNum)) { return ES_OUT_OF_RANGE; }
     return LCD_DisplayOnOff(LCD_pstructDisplay,0,0,0);
 }
-ES_t LCD_enuSendCommand(LCD_t* LCD_pstructDisplay,u8 Command){
+ES_t LCD_enuSendWriteCommand(LCD_t* LCD_pstructDisplay,u8 Command){
     if (LCD_pstructDisplay == NULL) { return ES_NULL_POINTER;}
     if (LCD_pstructDisplay<LCD_AstructDisplays || LCD_pstructDisplay>(LCD_AstructDisplays+sizeof(LCD_t)*LCD_u8DisplayNum)) { return ES_OUT_OF_RANGE; }
     if(Command > 0b11111111) { return ES_OUT_OF_RANGE; }

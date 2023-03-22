@@ -202,19 +202,22 @@ static inline ES_t LCD_DisplayOnOff(LCD_t* LCD_pstructDisplay,u8 D, u8 C, u8 B) 
 static inline ES_t LCD_enuFunctionSet(LCD_t* LCD_pstructDisplay,u8 DL, u8 N, u8 F) {
     if(DL > 1 || N > 1 || F > 1) { return ES_OUT_OF_RANGE; }
     u8 command = 0b00100000|DL<<4|N<<3|F<<2;
-    u8 Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8LOW);
-    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
-    Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8RSPort, LCD_pstructDisplay->LCD_u8RSPin, DIO_u8LOW);
-    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
-    Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8RWPort, LCD_pstructDisplay->LCD_u8RWPin, DIO_u8LOW);
-    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
-    Local_ESErrorState = LCD_enuWriteBits(LCD_pstructDisplay,command);
-    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
-    Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8HIGH);
-    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
-    _delay_ms(1);
-    Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8LOW);
-    if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+    // Send the function set command one time to initialize the LCD to receive 4 bit commands
+    if(LCD_pstructDisplay->LCD_u8Mode == LCD_u8MODE_4BIT){
+        u8 Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8LOW);
+        if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+        Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8RSPort, LCD_pstructDisplay->LCD_u8RSPin, DIO_u8LOW);
+        if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+        Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8RWPort, LCD_pstructDisplay->LCD_u8RWPin, DIO_u8LOW);
+        if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+        Local_ESErrorState = LCD_enuWriteBits(LCD_pstructDisplay,command);
+        if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+        Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8HIGH);
+        if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+        _delay_ms(1);
+        Local_ESErrorState = DIO_enuSetPinValue(LCD_pstructDisplay->LCD_u8EPort, LCD_pstructDisplay->LCD_u8EPin, DIO_u8LOW);
+        if(Local_ESErrorState != ES_OK) { return Local_ESErrorState; }
+    }
     return LCD_enuWriteCommand(LCD_pstructDisplay,command);
 }
 static inline ES_t LCD_SetCGRAMAddress(LCD_t* LCD_pstructDisplay,u8 Address) {

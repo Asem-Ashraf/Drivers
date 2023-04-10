@@ -20,13 +20,6 @@
 #define INT0           6
 #define INT2           5
 
-#define GIFR           (*(u8*)0x5a)
-#define INTF1          7
-#define INTF0          6
-#define INTF2          5
-
-#define SREG           (*(u8*)0x5f)
-
 #define LEVEL_LOW      0b11111100
 #define LEVEL_CHANGE   0b11111101
 #define FALLING_EDGE   0b11111110

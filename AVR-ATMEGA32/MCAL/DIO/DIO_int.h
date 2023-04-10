@@ -4,6 +4,39 @@
 #include "../../LIB/stdTypes.h"
 #include "../../LIB/ErrorStates.h"
 
+// ARGUMENTS
+#define DIO_u8INPUT  0
+#define DIO_u8OUTPUT 1
+
+#define DIO_u8LOW  0
+#define DIO_u8HIGH 1
+#define DIO_u8FLOAT 0
+#define DIO_u8PULL_UP 1
+
+#define DIO_u8PORTA 3
+#define DIO_u8PORTB 2
+#define DIO_u8PORTC 1
+#define DIO_u8PORTD 0
+
+#define DIO_u8DDRA 3
+#define DIO_u8DDRB 2
+#define DIO_u8DDRC 1
+#define DIO_u8DDRD 0
+
+#define DIO_u8PINA 3
+#define DIO_u8PINB 2
+#define DIO_u8PINC 1
+#define DIO_u8PIND 0
+
+#define DIO_u8PIN0 0
+#define DIO_u8PIN1 1
+#define DIO_u8PIN2 2
+#define DIO_u8PIN3 3
+#define DIO_u8PIN4 4
+#define DIO_u8PIN5 5
+#define DIO_u8PIN6 6
+#define DIO_u8PIN7 7
+
 
 // FUNCTIONS PROTOTYPES
 ES_t DIO_enuInit                (void);

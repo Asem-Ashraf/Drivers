@@ -83,7 +83,7 @@ ES_t DIO_enuSetPinDirection(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8Value){
             SetBit(Value(DIO_u8DDRbaseaddress, Copy_u8PortID), Copy_u8PinID);
         }
         else{
-            ClearBit(Value(DIO_u8DDRbaseaddress, Copy_u8PortID), Copy_u8PinID);
+            ClrBit(Value(DIO_u8DDRbaseaddress, Copy_u8PortID), Copy_u8PinID);
         }
         Local_enuErrorState = ES_OK;
     }
@@ -100,7 +100,7 @@ ES_t DIO_enuSetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8Value){
             SetBit(Value(DIO_u8PORTbaseaddress, Copy_u8PortID), Copy_u8PinID);
         }
         else{
-            ClearBit(Value(DIO_u8PORTbaseaddress, Copy_u8PortID), Copy_u8PinID);
+            ClrBit(Value(DIO_u8PORTbaseaddress, Copy_u8PortID), Copy_u8PinID);
         }
         Local_enuErrorState = ES_OK;
     }
@@ -131,7 +131,7 @@ ES_t DIO_enuGetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 *Copy_pu8Value){
 ES_t DIO_enuTogglePinValue(u8 Copy_u8PortID, u8 Copy_u8PinID){
     ES_t Local_enuErrorState = ES_NOK;
     if((Copy_u8PortID <= DIO_u8PORTA) && (Copy_u8PinID <= DIO_u8PIN7)){
-        ToggleBit(Value(DIO_u8PORTbaseaddress, Copy_u8PortID), Copy_u8PinID);
+        TglBit(Value(DIO_u8PORTbaseaddress, Copy_u8PortID), Copy_u8PinID);
         Local_enuErrorState = ES_OK;
     }
     else{

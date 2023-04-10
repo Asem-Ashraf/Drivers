@@ -37,10 +37,14 @@ static void (*EXTI_AFptrCallback[3])(void)={NULL,NULL,NULL};
 
 
 ES_t EXTI_enuInitInterrupt(u8 EXTI_u8InterruptID, void (*EXTI_FptrCallback)(void)){
+    if (EXTI_u8InterruptID>2) { return ES_OUT_OF_RANGE; }
+    if (EXTI_FptrCallback==NULL) { return ES_NULL_POINTER; }
     EXTI_AFptrCallback[EXTI_u8InterruptID]=EXTI_FptrCallback;
     return ES_OK;
 }
 ES_t EXTI_enuSetSenseControl(u8 EXTI_u8InterruptID, u8 EXTI_u8SenseControl){
+    if (EXTI_u8InterruptID>2) { return ES_OUT_OF_RANGE; }
+    if (EXTI_u8SenseControl<0b11111100) { return ES_OUT_OF_RANGE; }
     switch (EXTI_u8InterruptID) {
         case int0:
             MCUCR&=EXTI_u8SenseControl;
@@ -55,6 +59,7 @@ ES_t EXTI_enuSetSenseControl(u8 EXTI_u8InterruptID, u8 EXTI_u8SenseControl){
     }
 }
 ES_t EXTI_enuEnableInterrupt(u8 EXTI_u8InterruptID){
+    if (EXTI_u8InterruptID>2) { return ES_OUT_OF_RANGE; }
     switch (EXTI_u8InterruptID) {
         case int0:
             SetBit(GICR,INT0);
@@ -69,6 +74,7 @@ ES_t EXTI_enuEnableInterrupt(u8 EXTI_u8InterruptID){
     }
 }
 ES_t EXTI_enuDisableInterrupt(u8 EXTI_u8InterruptID){
+    if (EXTI_u8InterruptID>2) { return ES_OUT_OF_RANGE; }
     switch (EXTI_u8InterruptID) {
         case int0:
             ClearBit(GICR,INT0);

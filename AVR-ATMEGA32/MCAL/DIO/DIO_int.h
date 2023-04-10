@@ -1,6 +1,9 @@
 #ifndef DIO_INT_H_
 #define DIO_INT_H_
 
+#include "../../LIB/stdTypes.h"
+#include "../../LIB/ErrorStates.h"
+
 
 // FUNCTIONS PROTOTYPES
 ES_t DIO_enuInit                (void);

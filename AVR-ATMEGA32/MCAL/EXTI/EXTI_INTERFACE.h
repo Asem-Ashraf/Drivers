@@ -7,9 +7,9 @@
 // ARGUMENTS
 
 // Interrupt IDs
-#define EXTI_u8INT0 0
-#define EXTI_u8INT1 1
-#define EXTI_u8INT2 2
+#define EXTI_u8INT0    0
+#define EXTI_u8INT1    1
+#define EXTI_u8INT2    2
 // Sense Control
 #define LEVEL_LOW      0b11111100
 #define LEVEL_CHANGE   0b11111101
@@ -22,7 +22,7 @@
 ES_t EXTI_enuInitInterrupt(u8 EXTI_u8InterruptID, void (*EXTI_FptrCallback)(void));
 
 // EXTI_u8InterruptID : EXTI_u8INT0, EXTI_u8INT1, EXTI_u8INT2
-// Sense Control : LEVEL_LOW, LEVEL_CHANGE, FALLING_EDGE, RISING_EDGE
+// Sense Control      : LEVEL_LOW, LEVEL_CHANGE, FALLING_EDGE, RISING_EDGE
 ES_t EXTI_enuSetSenseControl(u8 EXTI_u8InterruptID, u8 EXTI_u8SenseControl);
 
 // EXTI_u8InterruptID : EXTI_u8INT0, EXTI_u8INT1, EXTI_u8INT2

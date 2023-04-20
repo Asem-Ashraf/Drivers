@@ -65,7 +65,7 @@ ES_t ADC_enuGetValuePolling(u16 *ADC_u16Data){
     return ES_OK;
 }
 
-inline ES_t ADC_enuSetCallBack(void (*Copy_ptr)(void)){
+ES_t ADC_enuSetCallBack(void (*Copy_ptr)(void)){
     if (Copy_ptr == NULL) { return ES_NULL_POINTER; }
     ADC_CallBack = Copy_ptr;
     return ES_OK;

@@ -43,7 +43,7 @@ inline ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger){
 
 inline ES_t ADC_enuSetChannel(u8 ADC_u8Channel){
     // check if the channel is valid
-    if (ADC_u8Channel > 7) { return ES_OUT_OF_RANGE; }
+    if (ADC_u8Channel > 0x31) { return ES_OUT_OF_RANGE; }
     // set the channel
     ADMUX = (ADMUX & 0xE0) | ADC_u8Channel;
     return ES_OK;
@@ -74,6 +74,12 @@ inline ES_t ADC_enuSetCallBack(void (*Copy_ptr)(void)){
 inline ES_t ADC_enuEnableInterrupt(){
     // enable the ADC interrupt
     SetBit(ADCSRA,ADIE);
+    return ES_OK;
+}
+
+inline ES_t ADC_enuDisableInterrupt(void){
+    // disable the ADC interrupt
+    ClrBit(ADCSRA,ADIE);
     return ES_OK;
 }
 

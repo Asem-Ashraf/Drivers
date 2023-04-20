@@ -70,13 +70,13 @@ ES_t EXTI_enuDisableInterrupt(u8 EXTI_u8InterruptID){
     if (EXTI_u8InterruptID>2) { return ES_OUT_OF_RANGE; }
     switch (EXTI_u8InterruptID) {
         case int0:
-            ClearBit(GICR,INT0);
+            ClrBit(GICR,INT0);
             return ES_OK;
         case int1:
-            ClearBit(GICR,INT1);
+            ClrBit(GICR,INT1);
             return ES_OK;
         case int2:
-            ClearBit(GICR,INT2);
+            ClrBit(GICR,INT2);
             return ES_OK;
         default: return ES_OUT_OF_RANGE;
     }

@@ -41,6 +41,7 @@ ES_t ADC_enuSetChannel(u8 ADC_u8Channel);
 
 // Manually starts a single conversion and returns immediately.
 // The ADC must be initialized before starting a conversion.
+// A channel must be selected before starting a conversion.
 ES_t ADC_enuStartOneConversion(void);
 
 

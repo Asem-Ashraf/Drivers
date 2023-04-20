@@ -23,23 +23,27 @@ ES_t ADC_enuInit(u8 ADC_u8Prescaler,u8 ADC_u8Adjustment,u8 ADC_u8RefVoltage);
 ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger);
 
 
-// ADC_u8Channel : ADC_u8CH0, ADC_u8CH1, ADC_u8CH2, ADC_u8CH3, ADC_u8CH4,
-//                 ADC_u8CH5, ADC_u8CH6, ADC_u8CH7
+// ADC_u8Channel : ADC_u8CH0, ADC_u8CH1, ADC_u8CH2, ADC_u8CH3,
+//                 ADC_u8CH4, ADC_u8CH5, ADC_u8CH6, ADC_u8CH7
+ES_t ADC_enuSetChannel(u8 ADC_u8Channel);
+
+
+ES_t ADC_enuStartOneConversion(void);
+
+
 // ADC_u16Data   : Pointer to variable to store the result
-ES_t ADC_enuStartConversionPolling(u8 ADC_u8Channel,u16 *ADC_u16Data);
+ES_t ADC_enuGetValuePolling(u16 *ADC_u16Data);
 
 
 // Copy_ptr : Pointer to function to be called by the ISR when conversion is done
 ES_t ADC_enuSetCallBack(void (*Copy_ptr)(void));
 
 
-// ADC_u8Channel : ADC_u8CH0, ADC_u8CH1, ADC_u8CH2, ADC_u8CH3, ADC_u8CH4,
-//                 ADC_u8CH5, ADC_u8CH6, ADC_u8CH7
-ES_t ADC_enuStartConversionInterrupt(u8 ADC_u8Channel);
+ES_t ADC_enuEnableInterrupt(void);
 
 
 // Stops the current ongoing conversion by disabling the ADC
 // The ADC must be reinitialized to start a new conversions
-ES_t ADC_enuStopConversion(void);
+ES_t ADC_enuHultADC(void);
 
 #endif /* ADC_INTERFACE_H_ */

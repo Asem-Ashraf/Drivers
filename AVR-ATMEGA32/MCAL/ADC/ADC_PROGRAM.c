@@ -40,6 +40,11 @@ inline ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger){
     SetBit(ADCSRA,ADATE);
     return ES_OK;
 }
+inline ES_t ADC_enuDisableTrigger(void){
+    // disable the ADC auto trigger 
+    ClrBit(ADCSRA,ADATE);
+    return ES_OK;
+}
 
 inline ES_t ADC_enuSetChannel(u8 ADC_u8Channel){
     // check if the channel is valid

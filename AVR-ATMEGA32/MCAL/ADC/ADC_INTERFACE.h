@@ -30,6 +30,11 @@ ES_t ADC_enuInit(u8 ADC_u8Prescaler,u8 ADC_u8Adjustment,u8 ADC_u8RefVoltage);
 ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger);
 
 
+// Disable the auto trigger functionality.
+// This function sets the ADC to single conversion mode.
+ES_t ADC_enuDisableTrigger(void);
+
+
 // Selects the configuration of the ADC according to the datasheet.
 // Changing the channel during a conversion will not affect the current conversion.
 // ADC_u8Channel : Any number from 0x00 to 0x1F

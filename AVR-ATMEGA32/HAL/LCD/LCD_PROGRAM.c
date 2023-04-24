@@ -3,7 +3,7 @@
 #include "../../LIB/Bit_Math.h"
 #include "../../LIB/ErrorStates.h"
 
-#include "../../MCAL/DIO/DIO_int.h"
+#include "../../MCAL/DIO/DIO_INTERFACE.h"
 
 #include "LCD_PRIVATE.h"
 

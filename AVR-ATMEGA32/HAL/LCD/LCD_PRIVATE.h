@@ -1,12 +1,6 @@
 #ifndef LCD_PRIVATE_H_
 #define LCD_PRIVATE_H_
 
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/Bit_Math.h"
-#include "../../LIB/ErrorStates.h"
-
-#include "../../MCAL/DIO/DIO_int.h"
-
 #define LCD_u8MODE_8BIT 1
 #define LCD_u8MODE_4BIT 0
 

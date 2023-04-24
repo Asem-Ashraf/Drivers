@@ -1,14 +1,6 @@
 #ifndef LCD_INTERFACE_H_
 #define LCD_INTERFACE_H_
 
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/Bit_Math.h"
-#include "../../LIB/ErrorStates.h"
-
-#include "../../MCAL/DIO/DIO_int.h"
-
-#include "LCD_CONFIG.h"
-
 /* LCD Commands */
 ES_t LCD_enuInit(void);
 

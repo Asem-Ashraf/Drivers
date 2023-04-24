@@ -1,8 +1,9 @@
 #include "../../LIB/stdTypes.h"
 #include "../../LIB/ErrorStates.h"
-#include "../../MCAL/DIO/DIO_int.h"
 
-#include "LED_priv.h"
+#include "../../MCAL/DIO/DIO_INTERFACE.h"
+
+#include "LED_PRIVATE.h"
 
 extern u8 LED_u8NUM_OF_LEDS;
 extern LED_t LED_AstructLed[];

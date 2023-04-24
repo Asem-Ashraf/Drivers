@@ -1,5 +1,7 @@
-#ifndef LED_CONFIG_H_
-#define LED_CONFIG_H_
+#include "../../LIB/stdTypes.h"
+#include "../../LIB/ErrorStates.h"
+
+#include "../../MCAL/DIO/DIO_INTERFACE.h"
 
 #define LED_u8SINK         1
 #define LED_u8SOURCE       0
@@ -14,4 +16,15 @@ typedef struct {
     u8 LED_u8InitState;     // LED_u8ON, LED_u8OFF
 }LED_t;
 
-#endif
+#define LED_u8NUMOFLEDS 1
+
+u8 LED_u8NUM_OF_LEDS=LED_u8NUMOFLEDS;
+
+LED_t LED_AstructLed[LED_u8NUMOFLEDS] = {
+    {   
+        DIO_u8PORTA,
+        DIO_u8PIN1,
+        LED_u8SINK,
+        LED_u8OFF
+    }
+};

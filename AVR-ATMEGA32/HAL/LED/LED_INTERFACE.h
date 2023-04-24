@@ -1,8 +1,6 @@
 #ifndef LED_INT_H_
 #define LED_INT_H_
 
-#include "LED_config.h"
-
 /*  ======================== *\
    || FUNCTIONS' PROTOTYPE ||
 \*  ======================== */

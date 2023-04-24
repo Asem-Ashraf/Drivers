@@ -40,6 +40,7 @@
 #define ADC_u8TMR1_OVF              6
 #define ADC_u8TMR1_CAPTURE_EVENT    7
 
+#define ADCSRA      (*(volatile u8 *)0x26)
 #define ADEN    7
 #define ADSC    6
 #define ADATE   5
@@ -49,6 +50,7 @@
 #define ADPS1   1
 #define ADPS0   0
 
+#define ADMUX       (*(volatile u8 *)0x27)
 #define REFS1   7
 #define REFS0   6
 #define ADLAR   5
@@ -58,13 +60,11 @@
 #define MUX1    1
 #define MUX0    0
 
+#define SFIOR       (*(volatile u8 *)0x50)
 #define ADTS2   2
 #define ADTS1   1
 #define ADTS0   0
 
-#define ADMUX       (*(volatile u8 *)0x27)
-#define ADCSRA      (*(volatile u8 *)0x26)
-#define SFIOR       (*(volatile u8 *)0x50)
 #define ADCH        (*(volatile u8 *)0x25)
 #define ADCL        (*(volatile u8 *)0x24)
 #define ADC_VALUE   (*(volatile u16*)0x24)

@@ -1,8 +1,6 @@
 #ifndef SW_INIT_H
 #define SW_INIT_H
 
-#include "SW_config.h"
-
 // FUNCTIONS PROTOTYPES
 
 // Copy_pstructSwitches : pointer to the switches struct

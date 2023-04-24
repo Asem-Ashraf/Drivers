@@ -1,8 +1,6 @@
 #ifndef SEV_SEG_INTERFACE_H_
 #define SEV_SEG_INTERFACE_H_
 
-#include "SEVEN_SEG_CONFIG.h"
-
 /*  ======================== *\
    || FUNCTIONS' PROTOTYPE ||
 \*  ======================== */

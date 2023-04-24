@@ -1,6 +1,7 @@
 #include "../../LIB/stdTypes.h"
 #include "../../LIB/ErrorStates.h"
-#include "../../MCAL/DIO/DIO_int.h"
+
+#include "../../MCAL/DIO/DIO_INTERFACE.h"
 
 #include "SEVEN_SEG_PRIVATE.h"
 

@@ -3,7 +3,6 @@
 
 #include "../../MCAL/DIO/DIO_INTERFACE.h"
 
-// define the switch(es) values in SW_config.c according to the following struct
 typedef struct{
     u8 SW_u8Mode;   // DIO_u8pull_up or DIO_u8FLOAT
     u8 SW_u8PORTID; // DIO_u8PORTA, DIO_u8PORTB, DIO_u8PORTC, DIO_u8PORTD

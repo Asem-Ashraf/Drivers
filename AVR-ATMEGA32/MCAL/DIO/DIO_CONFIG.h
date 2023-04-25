@@ -75,7 +75,7 @@
 
 #define PORTD0_VAL LOW
 #define PORTD1_VAL LOW
-#define PORTD2_VAL LOW
+#define PORTD2_VAL HIGH
 #define PORTD3_VAL LOW
 #define PORTD4_VAL LOW
 #define PORTD5_VAL LOW

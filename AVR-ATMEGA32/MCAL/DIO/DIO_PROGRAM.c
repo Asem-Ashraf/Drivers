@@ -2,13 +2,13 @@
 #include "../../LIB/stdTypes.h"
 #include "../../LIB/ErrorStates.h"
 #include "../../LIB/Bit_Math.h"
-#include "DIO_priv.h"
-#include "DIO_config.h"
+
+#include "DIO_PRIVATE.h"
+#include "DIO_CONFIG.h"
 
 
 // FUNCTIONS IMPLEMENTATION
 ES_t DIO_enuInit(void){
-    ES_t Local_enuErrorState = ES_NOK;
     Value(DIO_u8DDRbaseaddress, DIO_u8DDRA) = CONC(PORTA7_DIR,PORTA6_DIR,PORTA5_DIR,PORTA4_DIR,PORTA3_DIR,PORTA2_DIR,PORTA1_DIR,PORTA0_DIR);
     Value(DIO_u8DDRbaseaddress, DIO_u8DDRB) = CONC(PORTB7_DIR,PORTB6_DIR,PORTB5_DIR,PORTB4_DIR,PORTB3_DIR,PORTB2_DIR,PORTB1_DIR,PORTB0_DIR);
     Value(DIO_u8DDRbaseaddress, DIO_u8DDRC) = CONC(PORTC7_DIR,PORTC6_DIR,PORTC5_DIR,PORTC4_DIR,PORTC3_DIR,PORTC2_DIR,PORTC1_DIR,PORTC0_DIR);
@@ -19,8 +19,7 @@ ES_t DIO_enuInit(void){
     Value(DIO_u8PORTbaseaddress, DIO_u8PORTC) = CONC(PORTC7_VAL,PORTC6_VAL,PORTC5_VAL,PORTC4_VAL,PORTC3_VAL,PORTC2_VAL,PORTC1_VAL,PORTC0_VAL);
     Value(DIO_u8PORTbaseaddress, DIO_u8PORTD) = CONC(PORTD7_VAL,PORTD6_VAL,PORTD5_VAL,PORTD4_VAL,PORTD3_VAL,PORTD2_VAL,PORTD1_VAL,PORTD0_VAL);
 
-    Local_enuErrorState = ES_OK;
-    return Local_enuErrorState;
+    return ES_OK;
 }
 
 ES_t DIO_enuSetPortDirection(u8 Copy_u8PortID, u8 Copy_u8Direction){

@@ -1,9 +1,6 @@
 #ifndef DIO_INT_H_
 #define DIO_INT_H_
 
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/ErrorStates.h"
-
 // ARGUMENTS
 #define DIO_u8INPUT  0
 #define DIO_u8OUTPUT 1

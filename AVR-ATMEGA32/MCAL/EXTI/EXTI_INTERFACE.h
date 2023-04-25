@@ -1,11 +1,7 @@
 #ifndef EXTI_INTERFACE_H
 #define EXTI_INTERFACE_H
 
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/ErrorStates.h"
-
 // ARGUMENTS
-
 // Interrupt IDs
 #define EXTI_u8INT0    0
 #define EXTI_u8INT1    1

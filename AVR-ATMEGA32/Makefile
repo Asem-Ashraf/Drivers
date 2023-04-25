@@ -12,12 +12,13 @@ CFLAGS= -gdwarf-2 -g
 
 # The headers files needed for building the application ex -I<dir1> -I<dir2> !!!no space between I & dir!!! 
 #--> dot "." means current directory ".." back one folder 
-INCLUDE= -I.
+INCLUDE=
+# INCLUDE= -I.
 #INCLUDE += -I../Math/
 #INCLUDE += -I<dir2>
 
 #If all Sources File in The Same Location 
-SRC =$(wildcard *.c)
+SRC =$(wildcard ./APP/*.c)
 #else (src) in different locations 
 SRC += $(wildcard ./*/*/*.c)
 #SRC += src/file1.c
@@ -39,7 +40,10 @@ HFLAGS = -j .text -j .data -O ihex
 project_name = DIO
 Firmware = DIO
 all: $(Firmware).hex $(Firmware).elf size
-	
+
+$(SRC):$(wildcard ./LIB/*.h)
+	touch -m $@
+
 %.o:%.c
 	$(CC) $(INCLUDE) $(OPT) $(CFLAGS) -mmcu=$(DEVICE) -c $< -o $@
 	

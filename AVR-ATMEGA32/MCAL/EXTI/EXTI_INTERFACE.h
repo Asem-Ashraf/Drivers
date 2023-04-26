@@ -7,10 +7,10 @@
 #define EXTI_u8INT1    1
 #define EXTI_u8INT2    2
 // Sense Control
-#define EXTI_u8LEVEL_LOW      0b11111100
-#define EXTI_u8LEVEL_CHANGE   0b11111101
-#define EXTI_u8FALLING_EDGE   0b11111110
-#define EXTI_u8RISING_EDGE    0b11111111
+#define EXTI_u8LEVEL_LOW      0b00000000
+#define EXTI_u8LEVEL_CHANGE   0b00000001
+#define EXTI_u8FALLING_EDGE   0b00000010
+#define EXTI_u8RISING_EDGE    0b00000011
 
 // EXTI_u8InterruptID : EXTI_u8INT0, EXTI_u8INT1, EXTI_u8INT2
 // EXTI_FptrCallback  : pointer to function to be called when interrupt occurs

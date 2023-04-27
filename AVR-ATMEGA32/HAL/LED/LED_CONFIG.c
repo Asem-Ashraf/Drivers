@@ -16,7 +16,7 @@ typedef struct {
     u8 LED_u8InitState;     // LED_u8ON, LED_u8OFF
 }LED_t;
 
-#define LED_u8NUMOFLEDS 1
+#define LED_u8NUMOFLEDS 3
 
 u8 LED_u8NUM_OF_LEDS=LED_u8NUMOFLEDS;
 
@@ -25,6 +25,18 @@ LED_t LED_AstructLed[LED_u8NUMOFLEDS] = {
         DIO_u8PORTA,
         DIO_u8PIN1,
         LED_u8SINK,
+        LED_u8OFF
+    },
+    {   
+        DIO_u8PORTA,
+        DIO_u8PIN6,
+        LED_u8SOURCE,
+        LED_u8ON
+    },
+    {   
+        DIO_u8PORTA,
+        DIO_u8PIN7,
+        LED_u8SOURCE,
         LED_u8OFF
     }
 };

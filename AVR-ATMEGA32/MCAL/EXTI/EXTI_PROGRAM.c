@@ -26,7 +26,7 @@
 #define RISING_EDGE    0b00000011
 
 
-static void (*EXTI_AFptrCallback[3])(void)={NULL,NULL,NULL};
+static volatile void (*EXTI_AFptrCallback[3])(void)={NULL,NULL,NULL};
 
 ES_t EXTI_enuInitInterrupt(u8 EXTI_u8InterruptID, void (*EXTI_FptrCallback)(void)){
     if (EXTI_u8InterruptID>2)           return ES_OUT_OF_RANGE;

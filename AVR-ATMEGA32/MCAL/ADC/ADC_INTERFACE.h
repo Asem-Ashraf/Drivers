@@ -53,10 +53,12 @@
 ES_t ADC_enuInit(u8 ADC_u8Prescaler,u8 ADC_u8Adjustment,u8 ADC_u8RefVoltage);
 
 
-// Sets the trigger source for the ADC and enables the auto trigger 
-// Functionalities.
+// Sets the trigger source for the ADC and enables the auto trigger Functionalities.
 // The ADC must be initialized before setting the trigger.
 // A channel must be selected before setting the trigger.
+// This fucntion can not start a conversion.
+// The ADC_enuStartOneConversion() function must be used to start a conversions
+// This fucntion can be used even if the ADC's interrupt is enabled.
 // ADC_u8Trigger    : ADC_u8FREE_RUNNING, ADC_u8ANALOG_CMP,
 //                    ADC_u8EXT_INT, ADC_u8TMR0_CMp_MATCH,
 //                    ADC_u8TMR0_OVF, ADC_u8TMR1_CMP_MATCH_B,
@@ -71,9 +73,9 @@ ES_t ADC_enuDisableTrigger(void);
 
 // Selects the configuration of the ADC according to the datasheet.
 // Changing the channel during a conversion will not affect the current conversion.
-// ADC_u8Channel : Any number from 0x00 to 0x1F
-//                 0x00 to 0x07 for single ended input
-//                 0x08 to 0x0F for differential input
+// ADC_u8Channel : Any number from 0x00 to 0x1F,
+//                 0x00 to 0x07 for single ended input,
+//                 0x08 to 0x0F for differential input,
 //                 0x10 to 0x1F for internal channels
 ES_t ADC_enuSetChannel(u8 ADC_u8Channel);
 
@@ -92,8 +94,28 @@ ES_t ADC_enuStartOneConversion(void);
 ES_t ADC_enuGetValuePolling(u16 *ADC_u16Data);
 
 
+// Waits for the current conversion to finish and returns the result.
+// If there is not a conversion in progress, it returns the last result.
+// This fucntion does not depend whether the ADC is in auto trigger mode or not.
+// This fucntion can be used even if the ADC's interrupt is enabled.
+// ADC_u8Data   : Pointer to variable to store the highest 8-bits of the result.
+ES_t ADC_enuGetHighValuePolling(u8 *ADC_u8Data);
+
+
+// Gets the current value of the last conversion immediately.
+// Intended for use in the callback function.
+// ADC_u16Data   : Pointer to variable to store the result
+ES_t ADC_enuGetValue(u16 *ADC_u16Data);
+
+
+// Gets the current value of the last conversion immediately.
+// Intended for use in the callback function.
+// ADC_u8Data   : Pointer to variable to store the highest 8-bits of the result.
+ES_t ADC_enuGetHighValue(u8 *ADC_u8Data);
+
+
 // Copy_ptr : Pointer to function to be called by the ISR when conversion is done.
-ES_t ADC_enuSetCallBack(void (*Copy_ptr)(void));
+ES_t ADC_enuSetCallBack(void (*Copy_pFuncAppFun)(void));
 
 
 // Enables the ADC interrupt

@@ -92,7 +92,7 @@ static void TMR0_SyncDelayISR(){
     TMR0_u32DelayCountSync++;
 }
 
-ES_t TMR0_enuDelaymsSync(u32 TMR0_u32Time){
+ES_t TMR0_enuBusyWait(u32 TMR0_u32Time){
     if(TMR0_u32Time==0) return ES_OK;
     TCCR0 = 0;
     u32 clkCounts = TMR0_u32Time*CPU_u16FreqKHz;
@@ -103,21 +103,22 @@ ES_t TMR0_enuDelaymsSync(u32 TMR0_u32Time){
     TMR0_u32DelayCountSync=0;
     TMR0_CompareMatchCallBack = TMR0_SyncDelayISR;
     SetBit(TIMSK, 0);
-    TMR0_enuInit(TMR0_u8Clk_1024, TMR0_u8NormalMode, TMR0_u8OC0Disconnected, startValue, 0);
+    ES_t error;
+    error = TMR0_enuInit(TMR0_u8Clk_1024, TMR0_u8NormalMode, TMR0_u8OC0Disconnected, startValue, 0);
+    if (error != ES_OK) return error;
     while (overflowCount>TMR0_u32DelayCountSync);
     TCCR0 = 0;
     ClrBit(TIMSK, 0);
     return ES_OK;
 }
+ES_t TMR0_enuSetDuty(u8 TMR0_u8Duty){
+    if(TMR0_u8Duty>100) return ES_OUT_OF_RANGE;
+    u8 initialValue = TMR0_u8Duty*255.0/100.0;
+    return TMR0_enuInit(TMR0_u8Clk_8, TMR0_u8FastPWM, TMR0_u8OC0NonInverting, 0, initialValue);
+}
 
 // TODO
 static u32 TMR0_u32DelayCountAsync;
 ES_t TMR0_enuDelaymsAsync(u32 TMR0_u8Time,void (*TMR0_pfuncIsrOC0)()){
-    return ES_OK;
-}
-ES_t TMR0_enuSetDuty(u8 TMR0_u8Duty){
-    if (TMR0_u8Duty==0) return ES_OK;
-    if(TMR0_u8Duty>100) return ES_OUT_OF_RANGE;
-
     return ES_OK;
 }

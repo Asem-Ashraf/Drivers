@@ -76,6 +76,10 @@ ES_t TMR0_enuSetOC0Callback(void (*TMR0_pfuncIsrOC0)());
 void TMR0_StopTimer0();
 
 // FEATURES
-ES_t TMR0_enuDelaymsSync(u32 TMR0_u32Time);
+
+// 
+ES_t TMR0_enuBusyWait(u32 TMR0_u32Time);
+
+ES_t TMR0_enuSetDuty(u8 TMR0_u8Duty);
 
 #endif

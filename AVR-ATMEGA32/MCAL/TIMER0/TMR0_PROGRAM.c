@@ -42,13 +42,11 @@ ES_t TMR0_enuInit(u8 TMR0_u8clkSource, u8 TMR0_u8mode,
     return ES_OK;
 }
 
-ES_t TMR0_enuSetTCNT0(u8 TMR0_u8TCNT0){
+void TMR0_SetTCNT0(u8 TMR0_u8TCNT0){
     TCNT0 = TMR0_u8TCNT0;
-    return ES_OK;
 }
-ES_t TMR0_enuSetOCR0(u8 TMR0_u8OCR0){
+void TMR0_SetOCR0(u8 TMR0_u8OCR0){
     OCR0 = TMR0_u8OCR0;
-    return ES_OK;
 }
 ES_t TMR0_enuSetTOV0Callback(void (*TMR0_pfuncIsrTOV0)()){
     if (TMR0_pfuncIsrTOV0!=NULL) {
@@ -59,13 +57,11 @@ ES_t TMR0_enuSetTOV0Callback(void (*TMR0_pfuncIsrTOV0)()){
         return ES_NULL_POINTER;
     }
 }
-ES_t TMR0_enuEnableTOV0Interrupt(){
+void TMR0_EnableTOV0Interrupt(){
     SetBit(TIMSK, 0);
-    return ES_OK;
 }
-ES_t TMR0_enuDisableTOV0Interrupt(){
+void TMR0_DisableTOV0Interrupt(){
     ClrBit(TIMSK, 0);
-    return ES_OK;
 }
 ES_t TMR0_enuSetOC0Callback(void (*TMR0_pfuncIsrOC0)()){
     if (TMR0_pfuncIsrOC0!=NULL) {
@@ -76,17 +72,14 @@ ES_t TMR0_enuSetOC0Callback(void (*TMR0_pfuncIsrOC0)()){
         return ES_NULL_POINTER;
     }
 }
-ES_t TMR0_enuEnableOC0Interrupt(){
+void TMR0_EnableOC0Interrupt(){
     SetBit(TIMSK, 1);
-    return ES_OK;
 }
-ES_t TMR0_enuDisableOC0Interrupt(){
+void TMR0_DisableOC0Interrupt(){
     ClrBit(TIMSK, 1);
-    return ES_OK;
 }
-ES_t TMR0_enuStopTimer0(){
+void TMR0_StopTimer0(){
     TCCR0=0;
-    return ES_OK;
 }
 
 // FEATURES

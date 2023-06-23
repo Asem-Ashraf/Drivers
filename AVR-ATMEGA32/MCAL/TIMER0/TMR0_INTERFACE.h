@@ -24,14 +24,41 @@
 #define TMR0_u8ExtRisingEdge    7
 
 
+// Starts the counter with the given configuration
+// TMR0_u8clkSource   : TMR0_u8NoClk         
+//                      TMR0_u8Clk           
+//                      TMR0_u8Clk_8         
+//                      TMR0_u8Clk_64        
+//                      TMR0_u8Clk_256       
+//                      TMR0_u8Clk_1024      
+//                      TMR0_u8ExtFallingEdge
+//                      TMR0_u8ExtRisingEdge 
+//
+// TMR0_u8mode        : TMR0_u8NormalMode     
+//                      TMR0_u8PhaseCorrectPWM
+//                      TMR0_u8CTC            
+//                      TMR0_u8FastPWM        
+//
+// TMR0_u8OC0PinConfig: TMR0_u8OC0Disconnected
+//                      TMR0_u8OC0Toggle      
+//                      TMR0_u8OC0Clear       
+//                      TMR0_u8OC0Set         
+//                      TMR0_u8OC0NonInverting
+//                      TMR0_u8OC0Inverting   
+//
+// TMR0_u8TCNT0       : Counter initial value
+//
+// TMR0_u8OCR0        : OCR0 value
 ES_t TMR0_enuInit(u8 TMR0_u8clkSource,
                   u8 TMR0_u8mode,
                   u8 TMR0_u8OC0PinConfig,
                   u8 TMR0_u8TCNT0,
                   u8 TMR0_u8OCR0);
 
+// TMR0_u8TCNT0       : Counter initial value
 void TMR0_SetTCNT0(u8 TMR0_u8TCNT0);
 
+// TMR0_u8OCR0        : OCR0 value
 void TMR0_SetOCR0(u8 TMR0_u8OCR0);
 
 void TMR0_EnableTOV0Interrupt();

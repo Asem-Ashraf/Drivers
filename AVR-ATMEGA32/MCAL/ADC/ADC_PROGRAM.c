@@ -40,10 +40,9 @@ ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger){
     SetBit(ADCSRA,ADATE);
     return ES_OK;
 }
-ES_t ADC_enuDisableTrigger(void){
+void ADC_enuDisableTrigger(){
     // disable the ADC auto trigger 
     ClrBit(ADCSRA,ADATE);
-    return ES_OK;
 }
 
 ES_t ADC_enuSetChannel(u8 ADC_u8Channel){
@@ -54,10 +53,9 @@ ES_t ADC_enuSetChannel(u8 ADC_u8Channel){
     return ES_OK;
 }
 
-ES_t ADC_enuStartOneConversion(){
+void ADC_enuStartOneConversion(){
     // start conversion
     SetBit(ADCSRA,ADSC);
-    return ES_OK;
 }
 
 ES_t ADC_enuGetValue(u16 *ADC_u16Data){
@@ -103,19 +101,16 @@ ES_t ADC_enuSetCallBack(void (*Copy_ptr)(void)){
     return ES_OK;
 }
 
-ES_t ADC_enuEnableInterrupt(){
+void ADC_enuEnableInterrupt(){
     // enable the ADC interrupt
     SetBit(ADCSRA,ADIE);
-    return ES_OK;
 }
 
-ES_t ADC_enuDisableInterrupt(void){
+void ADC_enuDisableInterrupt(){
     // disable the ADC interrupt
     ClrBit(ADCSRA,ADIE);
-    return ES_OK;
 }
 
-ES_t ADC_enuHultADC(void){
+void ADC_enuHultADC(){
     ADCSRA = 0;
-    return ES_OK;
 }

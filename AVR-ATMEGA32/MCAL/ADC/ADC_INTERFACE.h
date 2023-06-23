@@ -68,7 +68,7 @@ ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger);
 
 // Disable the auto trigger functionality.
 // This function sets the ADC to single conversion mode.
-ES_t ADC_enuDisableTrigger(void);
+void ADC_enuDisableTrigger();
 
 
 // Selects the configuration of the ADC according to the datasheet.
@@ -83,7 +83,7 @@ ES_t ADC_enuSetChannel(u8 ADC_u8Channel);
 // Manually starts a single conversion and returns immediately.
 // The ADC must be initialized before starting a conversion.
 // A channel must be selected before starting a conversion.
-ES_t ADC_enuStartOneConversion(void);
+void ADC_enuStartOneConversion();
 
 
 // Waits for the current conversion to finish and returns the result.
@@ -119,15 +119,15 @@ ES_t ADC_enuSetCallBack(void (*Copy_pFuncAppFun)(void));
 
 
 // Enables the ADC interrupt
-ES_t ADC_enuEnableInterrupt(void);
+void ADC_enuEnableInterrupt();
 
 
 // Disables the ADC interrupt
-ES_t ADC_enuDisableInterrupt(void);
+void ADC_enuDisableInterrupt();
 
 
 // Stops the current ongoing conversion by disabling the ADC
 // The ADC must be reinitialized to start a new conversions
-ES_t ADC_enuHultADC(void);
+void ADC_enuHultADC();
 
 #endif /* ADC_INTERFACE_H_ */

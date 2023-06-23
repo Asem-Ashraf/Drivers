@@ -92,12 +92,12 @@ static void TMR0_SyncDelayISR(){
     TMR0_u32DelayCountSync++;
 }
 
-ES_t TMR0_enuBusyWait(u32 TMR0_u32Time){
-    if(TMR0_u32Time==0) return ES_OK;
+ES_t TMR0_enuBusyWaitms(u32 TMR0_u32Timems){
+    if(TMR0_u32Timems==0) return ES_OK;
     TCCR0 = 0;
-    u32 clkCounts = TMR0_u32Time*CPU_u16FreqKHz;
+    u32 clkCounts = TMR0_u32Timems*CPU_u16FreqKHz;
     u32 prescaledClkCounts = clkCounts/TMR0_u32DelayPrescale;
-    if (TMR0_u32Time==1) prescaledClkCounts = 1;
+    if (TMR0_u32Timems==1) prescaledClkCounts = 1;
     u32 overflowCount =1 + prescaledClkCounts/256;
     u32 startValue = 256 - prescaledClkCounts%256;
     TMR0_u32DelayCountSync=0;

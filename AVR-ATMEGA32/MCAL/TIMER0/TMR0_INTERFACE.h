@@ -55,30 +55,39 @@ ES_t TMR0_enuInit(u8 TMR0_u8clkSource,
                   u8 TMR0_u8TCNT0,
                   u8 TMR0_u8OCR0);
 
+
 // TMR0_u8TCNT0       : Counter initial value
 void TMR0_SetTCNT0(u8 TMR0_u8TCNT0);
+
 
 // TMR0_u8OCR0        : OCR0 value
 void TMR0_SetOCR0(u8 TMR0_u8OCR0);
 
+
 void TMR0_EnableTOV0Interrupt();
+
 
 void TMR0_DisableTOV0Interrupt();
 
+
 void TMR0_EnableOC0Interrupt();
+
 
 void TMR0_DisableOC0Interrupt();
 
+
 ES_t TMR0_enuSetTOV0Callback(void (*TMR0_pfuncIsrTOV0)());
 
+
 ES_t TMR0_enuSetOC0Callback(void (*TMR0_pfuncIsrOC0)());
+
 
 void TMR0_StopTimer0();
 
 // FEATURES
 
 // 
-ES_t TMR0_enuBusyWait(u32 TMR0_u32Time);
+ES_t TMR0_enuBusyWaitms(u32 TMR0_u32Timems);
 
 ES_t TMR0_enuSetDuty(u8 TMR0_u8Duty);
 

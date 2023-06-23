@@ -1,8 +1,8 @@
 #ifndef GIE_INTERFACE_H
 #define GIE_INTERFACE_H
 
-ES_t GIE_enuEnable(void);
+void GIE_Enable();
 
-ES_t GIE_enuDisable(void);
+void GIE_Disable();
 
 #endif // !GIE_INTERFACE_H

@@ -3,7 +3,7 @@
 
 #define TMR0_u8NormalMode       0
 #define TMR0_u8PhaseCorrectPWM  1
-#define TMR0_u8CTC              2
+#define TMR0_u8CTCMode          2
 #define TMR0_u8FastPWM          3
 
 #define TMR0_u8OC0Disconnected  0
@@ -52,16 +52,18 @@
 ES_t TMR0_enuInit(u8 TMR0_u8clkSource,
                   u8 TMR0_u8mode,
                   u8 TMR0_u8OC0PinConfig,
-                  u8 TMR0_u8TCNT0,
-                  u8 TMR0_u8OCR0);
+                  u8 TMR0_u8Preload,
+                  u8 TMR0_u8CTC);
 
 
-// TMR0_u8TCNT0       : Counter initial value
-void TMR0_SetTCNT0(u8 TMR0_u8TCNT0);
+// Set Initial counter value
+// TMR0_u8Preload     : Counter initial value
+void TMR0_SetPreload(u8 TMR0_u8Preload);
 
 
-// TMR0_u8OCR0        : OCR0 value
-void TMR0_SetOCR0(u8 TMR0_u8OCR0);
+// Set Clear on Compare Match value
+// TMR0_u8CTC        : CTC value
+void TMR0_SetCTC(u8 TMR0_u8CTC);
 
 
 void TMR0_EnableTOV0Interrupt();
@@ -84,10 +86,17 @@ ES_t TMR0_enuSetOC0Callback(void (*TMR0_pfuncIsrOC0)());
 
 void TMR0_StopTimer0();
 
+
+
 // FEATURES
 
-// 
+// The MCU stops execution for the time specified
 ES_t TMR0_enuBusyWaitms(u32 TMR0_u32Timems);
+
+// The function is executed after the time specified Asynchronously
+// The function is continuously executed with the time specified between each
+// execution
+ES_t TMR0_enuDelayedExecutionContiniuousms(u32 TMR0_u32Timems,void (*TMR0_pfuncIsr)());
 
 ES_t TMR0_enuSetDuty(u8 TMR0_u8Duty);
 

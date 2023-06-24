@@ -1,8 +1,8 @@
 #ifndef GIE_INTERFACE_H
 #define GIE_INTERFACE_H
 
-void GIE_Enable();
+#define GIE_Enable() asm("SEI")
 
-void GIE_Disable();
+#define GIE_Disable() asm("CLI")
 
 #endif // !GIE_INTERFACE_H

@@ -1,23 +1,9 @@
-# Embedded drivers for various Microcontrollers
-
+# Overview
 ## ATmega32
-
-### APP
-**main.c**
-
-### HAL
-**LCD - 
-LED - 
-SWITCH - 
-SEVEN SEGMENT**
-
-### LIB
-**Bit_Math - 
-ErrorStates - 
-stdTypes**
-
-### MCAL
-**ADC - 
-DIO - 
-GIE - 
-EXTI**
+|APPLICATION|HAL DRIVERS  |LIBRARIES |MCAL DRIVERS|
+|:---------:|:-----------:|:--------:|:----------:|
+|main.c     |LCD          |BIT_MATH  |ADC         |
+|           |LED          |STD_TYPE  |DIO         |
+|           |SWITCH       |ERR_TYPE  |GIE         |
+|           |SEVEN SEGMENT|CPU_FREQ  |EXTI        |
+|           |Thermistor   |          |Timer0      |

@@ -1,7 +1,7 @@
 #include <util/delay.h>
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/Bit_Math.h"
-#include "../../LIB/ErrorStates.h"
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 #include "../../MCAL/DIO/DIO_INTERFACE.h"
 

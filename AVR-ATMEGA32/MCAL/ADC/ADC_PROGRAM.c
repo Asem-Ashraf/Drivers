@@ -1,6 +1,6 @@
-#include "../../LIB/stdTypes.h"
-#include "../../LIB/ErrorStates.h"
-#include "../../LIB/Bit_Math.h"
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 #include "ADC_PRIVATE.h"
 

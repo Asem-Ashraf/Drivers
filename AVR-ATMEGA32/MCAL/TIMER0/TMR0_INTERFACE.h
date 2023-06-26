@@ -134,23 +134,6 @@ void TMR0_StopTimer0();
  */
 ES_t TMR0_enuBusyWaitms(u32 Copy_u32Timems);
 
-
-/**
- * @brief  Waits for a specified number of microseconds using busy-waiting and 
- *         Timer0 interrupts.
- *         This function uses the Timer0 hardware to generate interrupts at a 
- *         specified interval to count the delay time.
- *         The function waits for the specified delay time to elapse before 
- *         returning.
- *
- * @param  Copy_u32Timeus Delay time in microseconds to wait for.
- *
- * @return ES_t Returns ES_OK if the function was executed successfully, or an 
- *         error code if execution failed.
- */
-ES_t TMR0_enuBusyWaitus(u32 Copy_u32Timeus);
-
-
 /**
  * @brief  Executes a function continuously with a specified delay between each 
  *         execution.

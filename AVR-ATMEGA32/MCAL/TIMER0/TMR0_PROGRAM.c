@@ -111,7 +111,7 @@ void TMR0_SyncDelayISR(){
 ES_t TMR0_enuBusyWaitms(u32 Copy_u32Timems){
     if(Copy_u32Timems==0) return ES_OK;
     TCCR0 = 0;
-    const f32 fullCountTimems = ((1000.0/CPU_u32Freq)*Copy_f32RegisterCounts)/Copy_u32DelayPrescale;
+    const f32 fullCountTimems = ((1000.0/CPU_u32Freq)*Copy_f32RegisterCounts)*Copy_u32DelayPrescale;
     f32 perciseOvf = Copy_u32Timems/fullCountTimems;
     u32 overflowCountSync = perciseOvf;
     u8 startValueSync = Copy_u8RegisterMAX*(1 - (perciseOvf-(u32)perciseOvf));
@@ -130,6 +130,8 @@ ES_t TMR0_enuBusyWaitms(u32 Copy_u32Timems){
     ClrBit(TIMSK, 0);
     return ES_OK;
 }
+// It does not go bellow 1.1ms because the MCU instruction take 1us on 1MHz freq
+// useless function
 ES_t TMR0_enuBusyWaitus(u32 Copy_u32Timeus){
     if(Copy_u32Timeus==0) return ES_OK;
     TCCR0 = 0;
@@ -172,8 +174,8 @@ void TMR0_AsyncDelayISR(){
 ES_t TMR0_enuDelayedExecutionContiniuousms(u32 Copy_u32Timems,void (*TMR0_pfuncIsr)()){
     if (TMR0_pfuncIsr==NULL) return ES_NULL_POINTER;
     TCCR0 = 0;
-    const f32 fullCountTime = (CPU_u32Freq*Copy_f32RegisterCounts/Copy_u32DelayPrescalems);
-    f32 perciseOvf = Copy_u32Timems/fullCountTime;
+    const f32 fullCountTimems = ((1000.0/CPU_u32Freq)*Copy_f32RegisterCounts)*Copy_u32DelayPrescale;
+    f32 perciseOvf = Copy_u32Timems/fullCountTimems;
     overflowCount = (u32)perciseOvf;
     startValue = Copy_u8RegisterMAX*(1 - (perciseOvf-overflowCount));
     if (startValue!=0) overflowCount++;

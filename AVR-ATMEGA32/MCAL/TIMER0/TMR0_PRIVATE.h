@@ -31,7 +31,6 @@
 #define DDRB  (*(volatile u8*)0x37)
 
 #define Copy_u32DelayPrescale 1024
-#define Copy_u32DelayPrescaleus 1
 #define Copy_f32RegisterCounts 256.0
 #define Copy_u8RegisterMAX 255
 

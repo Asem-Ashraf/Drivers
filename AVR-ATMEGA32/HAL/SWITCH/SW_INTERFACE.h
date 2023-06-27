@@ -1,5 +1,8 @@
 #ifndef SW_INIT_H
 #define SW_INIT_H
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 typedef struct{
     u8 SW_u8Mode;   // DIO_u8pull_up or DIO_u8FLOAT

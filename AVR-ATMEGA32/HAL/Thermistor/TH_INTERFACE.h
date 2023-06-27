@@ -1,5 +1,8 @@
 #ifndef SW_INIT_H
 #define SW_INIT_H
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 typedef struct{
     u8 TH_u8Type;   // TH_u8Positive, TH_u8Negative

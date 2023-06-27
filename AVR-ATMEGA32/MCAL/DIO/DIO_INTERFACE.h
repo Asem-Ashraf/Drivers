@@ -1,5 +1,8 @@
 #ifndef DIO_INT_H_
 #define DIO_INT_H_
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 // ARGUMENTS
 #define DIO_u8INPUT  0

@@ -1,5 +1,8 @@
 #ifndef TMR0_INTERFACE_H
 #define TMR0_INTERFACE_H
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 #define TMR0_u8NormalMode       0
 #define TMR0_u8PhaseCorrectPWM  1

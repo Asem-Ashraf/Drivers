@@ -1,5 +1,8 @@
 #ifndef ADC_INTERFACE_H_
 #define ADC_INTERFACE_H_
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 // ADMUX Register
 #define ADC_u8CH0           0

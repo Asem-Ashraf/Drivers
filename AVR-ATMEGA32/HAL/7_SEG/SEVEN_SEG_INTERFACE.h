@@ -1,5 +1,8 @@
 #ifndef SEV_SEG_INTERFACE_H_
 #define SEV_SEG_INTERFACE_H_
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 typedef struct {
     u8 SEG_u8ComPolarity;

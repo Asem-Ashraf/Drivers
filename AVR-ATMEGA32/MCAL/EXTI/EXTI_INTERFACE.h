@@ -1,5 +1,8 @@
 #ifndef EXTI_INTERFACE_H
 #define EXTI_INTERFACE_H
+#include "../../LIB/STD_TYPE.h"
+#include "../../LIB/ERR_TYPE.h"
+#include "../../LIB/BIT_MATH.h"
 
 // ARGUMENTS
 // Interrupt IDs

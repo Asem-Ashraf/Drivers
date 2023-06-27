@@ -1,25 +1,37 @@
+ /* LCD_INTERFACE_H_ */
+/**
+ * @file LCD_Interface.h
+ *
+ * @brief This file contains the interface for controlling an LCD display.
+ */
+
 #ifndef LCD_INTERFACE_H_
 #define LCD_INTERFACE_H_
+
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"
-#include "../../LIB/BIT_MATH.h"
 
+/**
+ * @struct LCD_t
+ *
+ * @brief This struct contains the configuration settings for an LCD display.
+ */
 typedef struct {
     // MODE
-    u8 LCD_u8Mode;          // LCD_u8MODE_8BIT,         LCD_u8MODE_4BIT
+    u8 LCD_u8Mode;          /**< LCD_u8MODE_8BIT, LCD_u8MODE_4BIT */
 
 
     // CURSOR
-    u8 LCD_u8Cursor;        // LCD_u8CURSOR_ON,         LCD_u8CURSOR_OFF
-    u8 LCD_u8CursorBlink;   // LCD_u8CURSOR_BLINK_ON,   LCD_u8CURSOR_BLINK_OFF
+    u8 LCD_u8Cursor;        /**< LCD_u8CURSOR_ON, LCD_u8CURSOR_OFF */
+    u8 LCD_u8CursorBlink;   /**< LCD_u8CURSOR_BLINK_ON, LCD_u8CURSOR_BLINK_OFF */
 
 
     // LINES
-    u8 LCD_u8LinesNum;      // LCD_u8LINES_2,           LCD_u8LINES_1
+    u8 LCD_u8LinesNum;      /**< LCD_u8LINES_2, LCD_u8LINES_1 */
 
 
     // BLOCK
-    u8 LCD_u8BlockSize;     // LCD_u8BLOCK_SIZE_5x10,   LCD_u8BLOCK_SIZE_5x7
+    u8 LCD_u8BlockSize;     /**< LCD_u8BLOCK_SIZE_5x10, LCD_u8BLOCK_SIZE_5x7 */
 
 
     // CONTROL
@@ -60,20 +72,108 @@ typedef struct {
 } LCD_t;
 
 
-/* LCD Commands */
+/**
+ * @brief Initializes the LCD display.
+ *
+ * This function initializes the LCD display using the configuration settings in 
+ * the provided LCD_t struct.
+ *
+ * @param None.
+ *
+ * @return ES_t - Error status.
+ *         ES_OK if initialization is successful, ES_NOK otherwise.
+ */
 ES_t LCD_enuInit(void);
 
-ES_t LCD_enuGotoPosition(LCD_t* LCD_pstructDisplay,u8 x,u8 y);
 
-ES_t LCD_enuWriteChar(LCD_t* LCD_pstructDisplay,u8 Data);
+/**
+ * @brief Moves the cursor to a specified position on the LCD display.
+ *
+ * This function moves the cursor to the specified position (x,y) on the LCD 
+ * display.
+ *
+ * @param LCD_pstructDisplay - Pointer to an LCD_t struct containing the LCD 
+ * display configuration settings.
+ *        x - Column number (0-15) to move the cursor to.
+ *        y - Row number (0-1) to move the cursor to.
+ *
+ * @return ES_t - Error status.
+ *         ES_OK if the cursor is moved successfully, ES_NOK otherwise.
+ */ 
+ES_t LCD_enuGotoPosition(LCD_t* LCD_pstructDisplay, u8 x, u8 y);
 
+
+/**
+ * @brief Writes a character to the LCD display.
+ *
+ * This function writes the provided character to the LCD display at the 
+ * current cursor position.
+ *
+ * @param LCD_pstructDisplay - Pointer to an LCD_t struct containing the LCD d
+ * isplay configuration settings.
+ *        Data - The character to write to the LCD display.
+ *
+ * @return ES_t - Error status.
+ *         ES_OK if the character is written successfully, ES_NOK otherwise.
+ */
+ES_t LCD_enuWriteChar(LCD_t* LCD_pstructDisplay, u8 Data);
+
+
+/**
+ * @brief Clears the LCD display.
+ *
+ * This function clears the entire LCD display.
+ *
+ * @param LCD_pstructDisplay - Pointer to an LCD_t struct containing the LCD 
+ * display configuration settings.
+ *
+ * @return ES_t - Error status.
+ *         ES_OK if the display is cleared successfully, ES_NOK otherwise.
+ */
 ES_t LCD_enuClear(LCD_t* LCD_pstructDisplay);
 
+
+/**
+ * @brief Turns on the LCD display.
+ *
+ * This function turns on the LCD display.
+ *
+ * @param LCD_pstructDisplay - Pointer to an LCD_t struct containing the LCD 
+ * display configuration settings.
+ *
+ * @return ES_t - Error status.
+ *         ES_OK if the display is turned on successfully, ES_NOK otherwise.
+ */
 ES_t LCD_enuDisplayOn(LCD_t* LCD_pstructDisplay);
 
+
+/**
+ * @brief Turns off the LCD display.
+ *
+ * This function turns off the LCD display.
+ *
+ * @param LCD_pstructDisplay - Pointer to an LCD_t struct containing the LCD 
+ * display configurationsettings.
+ *
+ * @return ES_t - Error status.
+ *         ES_OK if the display is turned off successfully, ES_NOK otherwise.
+ */
 ES_t LCD_enuDisplayOff(LCD_t* LCD_pstructDisplay);
 
-ES_t LCD_enuSendWriteCommand(LCD_t* LCD_pstructDisplay,u8 Command);
+
+/**
+ * @brief Sends a write command to the LCD display.
+ *
+ * This function sends the provided command code to the LCD display.
+ *
+ * @param LCD_pstructDisplay - Pointer to an LCD_t struct containing the LCD 
+ * display configuration settings.
+ *        Command - The command code to send to the LCD display.
+ *
+ * @return ES_t - Error status.
+ *         ES_OK if the command is sent successfully, ES_NOK otherwise.
+ */
+ES_t LCD_enuSendWriteCommand(LCD_t* LCD_pstructDisplay, u8 Command);
 
 
 #endif /* LCD_INTERFACE_H_ */

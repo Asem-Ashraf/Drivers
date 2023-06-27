@@ -11,12 +11,29 @@ typedef struct{
 }TH_t;
 
 
-// Copy_pstructThemistor: pointer to the thermistor structure.
-ES_t TH_enuInit   (TH_t *TH_AstructThemistors);
+/**
+ * @brief Initialize all thermistors defined in TH_AstuThemistors array.
+ * 
+ * @param[in] Copy_AstructThemistors Pointer to an array of TH_t structures containing the thermistor configurations.
+ * 
+ * @return ES_t Error status.
+ *         - ES_OK: Initialization successful.
+ *         - ES_NULL_POINTER: Null pointer passed as argument.
+ *         - ES_OUT_OF_RANGE: Invalid pointer passed as argument.
+ */
+ES_t TH_enuInit(TH_t* Copy_AstructThemistors);
 
-
-// Copy_pstructThemistor: pointer to the thermistor structure.
-// pf32temp             : pointer to f32 variable to store the temperature in.
+/**
+ * @brief Get the temperature reading from a thermistor.
+ * 
+ * @param[in] Copy_pstructThemistor Pointer to a TH_t structure containing the thermistor configuration.
+ * @param[out] pf32temp Pointer to a variable that will hold the temperature reading in degrees Celsius.
+ * 
+ * @return ES_t Error status.
+ *         - ES_OK: Get temperature operation successful.
+ *         - ES_NULL_POINTER: Null pointer passed as argument.
+ *         - ES_OUT_OF_RANGE: Invalid pointer passed as argument.
+ */
 ES_t TH_enuGetTemp(TH_t* Copy_pstructThemistor, f32 *pf32temp);
 
 #endif // SW_INIT_H

@@ -12,20 +12,54 @@ typedef struct {
 }LED_t;
 
 
-// LED_AstructLed  : pointer to the LED Array
-ES_t LED_enuInit      (LED_t* LED_AstructLed);
+/**
+ * @brief Initialize all LEDs defined in LED_AstructLed array.
+ * 
+ * @param[in] Copy_AstructLed Pointer to an array of LED_t structures containing 
+ *            the LED configurations.
+ * 
+ * @return ES_t Error status.
+ *         - ES_OK: Initialization successful.
+ *         - ES_NULL_POINTER: Null pointer passed as argument.
+ *         - ES_OUT_OF_RANGE: Invalid pointer or LED configuration passed as argument.
+ */
+ES_t LED_enuInit(LED_t* Copy_AstructLed);
 
+/**
+ * @brief Turn on an LED.
+ * 
+ * @param[in] Copy_pstructLed Pointer to a LED_t structure containing the LED 
+ *            configuration.
+ * 
+ * @return ES_t Error status.
+ *         - ES_OK: Turn on operation successful.
+ *         - ES_NULL_POINTER: Null pointer passed as argument.
+ *         - ES_OUT_OF_RANGE: Invalid pointer or LED configuration passed as argument.
+ */
+ES_t LED_enuTurnOn(LED_t* Copy_pstructLed);
 
-// LED_AstructLed  : pointer to a LED struct
-ES_t LED_enuTurnOn    (LED_t* LED_pstructLed);
+/**
+ * @brief Turn off an LED.
+ * 
+ * @param[in] Copy_pstructLed Pointer to a LED_t structure containing the LED configuration.
+ * 
+ * @return ES_t Error status.
+ *         - ES_OK: Turn off operation successful.
+ *         - ES_NULL_POINTER: Null pointer passed as argument.
+ *         - ES_OUT_OF_RANGE: Invalid pointer or LED configuration passed as argument.
+ */
+ES_t LED_enuTurnOff(LED_t* Copy_pstructLed);
 
-
-// LED_AstructLed  : pointer to a LED struct
-ES_t LED_enuTurnOff   (LED_t* LED_pstructLed);
-
-
-// LED_AstructLed  : pointer to a LED struct
-ES_t LED_enuToggle    (LED_t* LED_pstructLed);
-
+/**
+ * @brief Toggle an LED.
+ * 
+ * @param[in] Copy_pstructLed Pointer to a LED_t structure containing the LED configuration.
+ * 
+ * @return ES_t Error status.
+ *         - ES_OK: Toggle operation successful.
+ *         - ES_NULL_POINTER: Null pointer passed as argument.
+ *         - ES_OUT_OF_RANGE: Invalid pointer or LED configuration passed as argument.
+ */
+ES_t LED_enuToggle(LED_t* Copy_pstructLed);
 
 #endif

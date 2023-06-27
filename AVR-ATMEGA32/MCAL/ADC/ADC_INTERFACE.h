@@ -1,5 +1,19 @@
+/**
+ * @file ADC_interface.h
+ * @brief This is a header file that contains the interface for the ADC driver.
+ *
+ * This file contains the interface for the ADC driver. It provides functions 
+ * to initialize the ADC, set the prescaler, adjustment, reference voltage, 
+ * trigger, and channel, start one conversion and get the ADC value. It also 
+ * provides functions to enable/disable the ADC interrupt, set the callback 
+ * function, and halt the ADC.
+ *
+ * @author Asem Ashraf
+ */
+
 #ifndef ADC_INTERFACE_H_
 #define ADC_INTERFACE_H_
+
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"
 #include "../../LIB/BIT_MATH.h"
@@ -44,93 +58,150 @@
 #define ADC_u8TMR1_CAPTURE_EVENT    7
 
 
-// Initializes the ADC with the given configuration.
-// The ADC must be initialized before starting a conversion.
-// The ADC must be initialized before setting the trigger.
-// ADC_u8Prescaler  : ADC_u8PRESCALER_2, ADC_u8PRESCALER_4, 
-//                    ADC_u8PRESCALER_8, ADC_u8PRESCALER_16,
-//                    ADC_u8PRESCALER_32, ADC_u8PRESCALER_64, 
-//                    ADC_u8PRESCALER_128
-// ADC_u8Adjustment : ADC_u8RIGHT_ADJ, ADC_u8LEFT_ADJ
-// ADC_u8RefVoltage : ADC_u8AREF, ADC_u8AVCC, ADC_u8INTERNAL
-ES_t ADC_enuInit(u8 ADC_u8Prescaler,u8 ADC_u8Adjustment,u8 ADC_u8RefVoltage);
+/**
+ * @brief Initialize the ADC.
+ *
+ * This function initializes the ADC by setting the prescaler, adjustment, and 
+ * reference voltage.
+ * The ADC must be initialized before starting a conversion.
+ * The ADC must be initialized before setting the trigger.
+ *
+ * @param[in] ADC_u8Prescaler The prescaler value. From the values above.
+ * @param[in] ADC_u8Adjustment The adjustment value. From the values above.
+ * @param[in] ADC_u8RefVoltage The reference voltage value.
+ *
+ * @return ES_t Returns ES_OK if the initialization is successful, otherwise 
+ *         returns ES_OUT_OF_RANGE if any of the input parameters is out of range.
+ */
+ES_t ADC_enuInit(u8 ADC_u8Prescaler, u8 ADC_u8Adjustment, u8 ADC_u8RefVoltage);
 
 
-// Sets the trigger source for the ADC and enables the auto trigger Functionalities.
-// The ADC must be initialized before setting the trigger.
-// A channel must be selected before setting the trigger.
-// This fucntion can not start a conversion.
-// The ADC_enuStartOneConversion() function must be used to start a conversions
-// This fucntion can be used even if the ADC's interrupt is enabled.
-// ADC_u8Trigger    : ADC_u8FREE_RUNNING, ADC_u8ANALOG_CMP,
-//                    ADC_u8EXT_INT, ADC_u8TMR0_CMp_MATCH,
-//                    ADC_u8TMR0_OVF, ADC_u8TMR1_CMP_MATCH_B,
-//                    ADC_u8TMR1_OVF, ADC_u8TMR1_CAPTURE_EVENT,
+/**
+ * @brief Set the ADC trigger.
+ *
+ * The ADC must be initialized before setting the trigger.
+ * A channel must be selected before setting the trigger.
+ * This fucntion can not start a conversion.
+ * The ADC_enuStartOneConversion() function must be used to start a conversions
+ * This fucntion can be used even if the ADC's interrupt is enabled.
+ *
+ * @param[in] ADC_u8Trigger The trigger value. From the values above.
+ *
+ * @return ES_t Returns ES_OK if the trigger is set successfully, otherwise 
+ *         returns ES_OUT_OF_RANGE if the input parameter is out of range.
+ */
 ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger);
 
 
-// Disable the auto trigger functionality.
-// This function sets the ADC to single conversion mode.
-void ADC_enuDisableTrigger();
+/**
+ * @brief Disable the ADC trigger.
+ *
+ * This function sets the ADC to single conversion mode.
+ *
+ * This function disables the ADC trigger.
+ */
+void ADC_enuDisableTrigger(void);
 
-
-// Selects the configuration of the ADC according to the datasheet.
-// Changing the channel during a conversion will not affect the current conversion.
-// ADC_u8Channel : Any number from 0x00 to 0x1F,
-//                 0x00 to 0x07 for single ended input,
-//                 0x08 to 0x0F for differential input,
-//                 0x10 to 0x1F for internal channels
-ES_t ADC_enuSetChannel(u8 ADC_u8Channel);
-
-
-// Manually starts a single conversion and returns immediately.
-// The ADC must be initialized before starting a conversion.
-// A channel must be selected before starting a conversion.
-void ADC_enuStartOneConversion();
-
-
-// Waits for the current conversion to finish and returns the result.
-// If there is not a conversion in progress, it returns the last result.
-// This fucntion does not depend whether the ADC is in auto trigger mode or not.
-// This fucntion can be used even if the ADC's interrupt is enabled.
-// ADC_u16Data   : Pointer to variable to store the result
-ES_t ADC_enuGetValuePolling(u16 *ADC_u16Data);
-
-
-// Waits for the current conversion to finish and returns the result.
-// If there is not a conversion in progress, it returns the last result.
-// This fucntion does not depend whether the ADC is in auto trigger mode or not.
-// This fucntion can be used even if the ADC's interrupt is enabled.
-// ADC_u8Data   : Pointer to variable to store the highest 8-bits of the result.
-ES_t ADC_enuGetHighValuePolling(u8 *ADC_u8Data);
-
-
-// Gets the current value of the last conversion immediately.
-// Intended for use in the callback function.
-// ADC_u16Data   : Pointer to variable to store the result
-ES_t ADC_enuGetValue(u16 *ADC_u16Data);
-
-
-// Gets the current value of the last conversion immediately.
-// Intended for use in the callback function.
-// ADC_u8Data   : Pointer to variable to store the highest 8-bits of the result.
-ES_t ADC_enuGetHighValue(u8 *ADC_u8Data);
-
-
-// Copy_ptr : Pointer to function to be called by the ISR when conversion is done.
+/**
+ * @brief Set the ADC callback function.
+ *
+ * @param[in] Copy_ptr The function pointer to the callback function.
+ *
+ * @return ES_t Returns ES_OK if the callback function is set successfully, 
+ *         otherwise returns ES_NULL_POINTER if the input parameter is a null 
+ *         pointer.
+ */
 ES_t ADC_enuSetCallBack(void (*Copy_pFuncAppFun)(void));
 
+/**
+ * @brief Disable the ADC interrupt.
+ */
+void ADC_enuDisableInterrupt(void);
 
-// Enables the ADC interrupt
-void ADC_enuEnableInterrupt();
+/**
+ * @brief Set the ADC channel.
+ *
+ * This function sets the ADC channel.
+ * Changing the channel during a conversion will not affect the current conversion.
+ *
+ * @param[in] ADC_u8Channel The channel value. (0x00 - 0x1F)
+ *
+ * @return ES_t Returns ES_OK if the channel is set successfully, otherwise 
+ *         returns ES_OUT_OF_RANGE if the input parameter is out of range.
+ */
+ES_t ADC_enuSetChannel(u8 ADC_u8Channel);
+
+/**
+ * @brief Start one ADC conversion.
+ */
+void ADC_enuStartOneConversion(void);
+
+/**
+ * @brief Get the ADC value.
+ *
+ * Gets the current value of the last conversion immediately.
+ * Intended for use in the callback function.
+ *
+ * @param[out] ADC_u16Data The ADC value.
+ *
+ * @return ES_t Returns ES_OK if the ADC value is fetched successfully, 
+ *         otherwise returns ES_NULL_POINTER if the input parameter is a null 
+ *         pointer.
+ */
+ES_t ADC_enuGetValue(u16* ADC_u16Data);
+
+/**
+ * @brief Get the high byte of the ADC value.
+ *
+ * This function gets the high byte of the ADC value.
+ * Intended for use in the callback function.
+ *
+ * @param[out] ADC_u8Data The high byte of the ADC value.
+ *
+ * @return ES_t Returns ES_OK if the high byte of the ADC value is fetched 
+ *         successfully, otherwise returns ES_NULL_POINTER if the input 
+ *         parameter is a null pointer.
+ */
+ES_t ADC_enuGetHighValue(u8* ADC_u8Data);
+
+/**
+ * @brief Get the ADC value using polling.
+ *
+ * Waits for the current conversion to finish and returns the result.
+ * If there is not a conversion in progress, it returns the last result.
+ *
+ * @param[out] ADC_u16Data The ADC value.
+ *
+ * @return ES_t Returns ES_OK if the ADC value is fetched successfully, 
+ *         otherwise returns ES_NULL_POINTER if the input parameter is a null 
+ *         pointer.
+ */
+ES_t ADC_enuGetValuePolling(u16* ADC_u16Data);
+
+/**
+ * @brief Get the high byte of the ADC value using polling.
+ *
+ * Waits for the current conversion to finish and returns the result.
+ * If there is not a conversion in progress, it returns the last result.
+ *
+ * @param[out] ADC_u8Data The high byte of the ADC value.
+ *
+ * @return ES_t Returns ES_OK if the high byte of the ADC value is fetched 
+ *         successfully, otherwise returns ES_NULL_POINTER if the input 
+ *         parameter is a null pointer.
+ */
+ES_t ADC_enuGetHighValuePolling(u8* ADC_u8Data);
 
 
-// Disables the ADC interrupt
-void ADC_enuDisableInterrupt();
+/**
+ * @brief Enable the ADC interrupt.
+ */
+void ADC_enuEnableInterrupt(void);
 
 
-// Stops the current ongoing conversion by disabling the ADC
-// The ADC must be reinitialized to start a new conversions
-void ADC_enuHultADC();
+/**
+ * @brief Halt the ADC.
+ */
+void ADC_enuHultADC(void);
 
 #endif /* ADC_INTERFACE_H_ */

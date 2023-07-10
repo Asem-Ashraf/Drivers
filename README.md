@@ -7,3 +7,4 @@
 |           |SWITCH       |ERR_TYPE  |GIE         |
 |           |SEVEN SEGMENT|CPU_FREQ  |EXTI        |
 |           |Thermistor   |          |Timer0      |
+|           |             |          |UART        |

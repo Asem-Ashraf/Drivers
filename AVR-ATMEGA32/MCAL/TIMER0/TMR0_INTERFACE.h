@@ -4,18 +4,18 @@
 #include "../../LIB/ERR_TYPE.h"
 #include "../../LIB/BIT_MATH.h"
 
-#define TMR0_u8NormalMode       0
-#define TMR0_u8PhaseCorrectPWM  1
-#define TMR0_u8CTCMode          2
-#define TMR0_u8FastPWM          3
+#define TMR0_u8NormalMode       0b00000000
+#define TMR0_u8PhaseCorrectPWM  0b01000000
+#define TMR0_u8CTCMode          0b00001000
+#define TMR0_u8FastPWM          0b01001000
 
-#define TMR0_u8OC0Disconnected  0
-#define TMR0_u8OC0Toggle        1
-#define TMR0_u8OC0Clear         2
-#define TMR0_u8OC0Set           3
+#define TMR0_u8OC0Disconnected  0b00000000
+#define TMR0_u8OC0Toggle        0b00010000
+#define TMR0_u8OC0Clear         0b00100000
+#define TMR0_u8OC0Set           0b00110000
 
-#define TMR0_u8OC0NonInverting  2
-#define TMR0_u8OC0Inverting     3
+#define TMR0_u8OC0NonInverting  0b00100000
+#define TMR0_u8OC0Inverting     0b00110000
 
 #define TMR0_u8NoClk            0
 #define TMR0_u8Clk              1

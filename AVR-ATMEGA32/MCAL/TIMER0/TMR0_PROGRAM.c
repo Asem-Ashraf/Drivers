@@ -28,8 +28,9 @@ ES_t TMR0_enuInit(u8 Copy_u8clkSource,
                   u8 Copy_u8OC0PinConfig,
                   u8 Copy_u8Preload,
                   u8 Copy_u8OCValue){
-    if ((Copy_u8clkSource>7)||(Copy_u8mode>3)||
-        (Copy_u8OC0PinConfig>3)) {
+    if ((Copy_u8clkSource>7)||
+        ((Copy_u8mode&0b10110111)!=0)||
+        ((Copy_u8OC0PinConfig&0b11001111)!=0)) {
         return ES_OUT_OF_RANGE;
     }
     // Stop T/C
@@ -41,9 +42,8 @@ ES_t TMR0_enuInit(u8 Copy_u8clkSource,
     if (Copy_u8OC0PinConfig>0) SetBit(DDRB,3);
     // Set operation mode
     TCCR0 = Copy_u8clkSource 
-          + (Copy_u8OC0PinConfig<<4)
-          + ((Copy_u8mode&(2))<<2) 
-          + ((Copy_u8mode&(1))<<6);
+          + Copy_u8OC0PinConfig
+          + Copy_u8mode;
     return ES_OK;
 }
 void TMR0_SetPreload(u8 Copy_u8Preload){
@@ -61,13 +61,9 @@ void TMR0_EnableOverflowInterrupt(){
     SetBit(TIMSK, 0);
 }
 ES_t TMR0_enuSetOverflowCallback(void (*Copy_pfuncIsrOverflow)()){
-    if (Copy_pfuncIsrOverflow!=NULL) {
-        TMR0_OverflowCallback = Copy_pfuncIsrOverflow;
-        return ES_OK;
-    }
-    else {
-        return ES_NULL_POINTER;
-    }
+    if (Copy_pfuncIsrOverflow==NULL) return ES_NULL_POINTER;
+    TMR0_OverflowCallback = Copy_pfuncIsrOverflow;
+    return ES_OK;
 }
 void TMR0_DisableOverflowInterrupt(){
     ClrBit(TIMSK, 0);
@@ -77,13 +73,9 @@ void TMR0_DisableOverflowInterrupt(){
 
 
 ES_t TMR0_enuSetCompareMatchCallback(void (*Copy_pfuncIsrCTC)()){
-    if (Copy_pfuncIsrCTC!=NULL) {
-        TMR0_CompareMatchCallBack = Copy_pfuncIsrCTC;
-        return ES_OK;
-    }
-    else {
-        return ES_NULL_POINTER;
-    }
+    if (Copy_pfuncIsrCTC==NULL)  return ES_NULL_POINTER;
+    TMR0_CompareMatchCallBack = Copy_pfuncIsrCTC;
+    return ES_OK;
 }
 void TMR0_EnableCompareMatchInterrupt(){
     SetBit(TIMSK, 1);
@@ -105,7 +97,7 @@ void TMR0_StopTimer0(){
 
 // visible only in this file
 static volatile u32 Copy_u32DelayCountSync;
-void TMR0_SyncDelayISR(){
+static void TMR0_SyncDelayISR(){
     Copy_u32DelayCountSync++;
 }
 ES_t TMR0_enuBusyWaitms(u32 Copy_u32Timems){
@@ -164,7 +156,7 @@ static u32 Copy_u32DelayCountAsync;
 static void (*TMR0_DelayCountAsyncFunc)(void) = NULL;
 static u32 overflowCount;
 static u8 startValue;
-void TMR0_AsyncDelayISR(){
+static void TMR0_AsyncDelayISR(){
     if(!(--Copy_u32DelayCountAsync)) {
         TMR0_DelayCountAsyncFunc();
         TCNT0 = startValue;

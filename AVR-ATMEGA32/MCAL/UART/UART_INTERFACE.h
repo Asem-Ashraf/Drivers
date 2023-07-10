@@ -6,7 +6,7 @@
 #ifndef _UART_INTERFACE_H__
 #define _UART_INTERFACE_H__
 
-#include "../../LIB/STD_TYPES.h"
+#include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"
 
 #define UART_5BIT_DATA          0
@@ -22,8 +22,8 @@
 #define UART_1STOP_BIT          0
 #define UART_2STOP_BIT          1
 
-#define UART_DOUBLE_SPEED_ON    0
-#define UART_DOUBLE_SPEED       1
+#define UART_DOUBLE_SPEED_OFF   0
+#define UART_DOUBLE_SPEED_ON    1
 
 /**
  * @brief  UART Initialization. 
@@ -73,7 +73,7 @@ void UART_voidEnableTransmitUnit(void);
  * @param  Copy_u8Data: Data to be transmitted.
  *
  */
-void UART_enuTransmit(u8 Copy_u8Data);
+void UART_voidTransmit(u8 Copy_u8Data);
 
 
 /**
@@ -86,7 +86,7 @@ void UART_enuTransmit(u8 Copy_u8Data);
  * @param  Copy_u16Data: 9-bit Data to be transmitted.
  *
  */
-void UART_enuTransmit9bit(u16 Copy_u16Data);
+void UART_voidTransmit9bit(u16 Copy_u16Data);
 
 
 /**
@@ -104,7 +104,7 @@ void UART_voidEnableTransmitCompleteInterrupt(void);
  * @return ES_NULL_POINTER: If the pointer is NULL.
  *         ES_OK: If the pointer is not NULL.
  */
-ES_t UART_voidSetTransmitCompleteCallBack(void (*Copy_pvCallBack)(void));
+ES_t UART_enuSetTransmitCompleteCallBack(void (*Copy_pvCallBack)(void));
 
 
 /**
@@ -128,7 +128,7 @@ void UART_voidEnableTransmitRegisterEmptyInterrupt(void);
  * @return ES_NULL_POINTER: If the pointer is NULL.
  *         ES_OK: If the pointer is not NULL.
  */
-ES_t UART_voidSetTransmitRegisterEmptyCallBack(void (*Copy_pvCallBack)(void));
+ES_t UART_enuSetTransmitRegisterEmptyCallBack(void (*Copy_pvCallBack)(void));
 
 
 /**
@@ -194,7 +194,7 @@ void UART_voidEnableReceiveCompleteInterrupt(void);
  * @return ES_NULL_POINTER: If the pointer is NULL.
  *         ES_OK: If the pointer is not NULL.
  */
-ES_t UART_voidSetReceiveCompleteCallBack(void (*Copy_pvCallBack)(void));
+ES_t UART_enuSetReceiveCompleteCallBack(void (*Copy_pvCallBack)(void));
 
 
 /**

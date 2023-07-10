@@ -1,7 +1,7 @@
 #ifndef _UART_PRIVATE_H__
 #define _UART_PRIVATE_H__
 
-#include "../../LIB/STD_TYPES.h"
+#include "../../LIB/STD_TYPE.h"
 #include "../../LIB/BIT_MATH.h"
 
 
@@ -18,8 +18,8 @@
 #define UART_1STOP_BIT          0
 #define UART_2STOP_BIT          1
 
-#define UART_NO_DOUBLE_SPEED    0
-#define UART_DOUBLE_SPEED       1
+#define UART_DOUBLE_SPEED_OFF   0
+#define UART_DOUBLE_SPEED_ON    1
 
 
 #define UDR   *((volatile u8 *) 0x2C)

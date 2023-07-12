@@ -1,5 +1,5 @@
-#ifndef _UART_PRIVATE_H__
-#define _UART_PRIVATE_H__
+#ifndef UART_PRIVATE_H__
+#define UART_PRIVATE_H__
 
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/BIT_MATH.h"

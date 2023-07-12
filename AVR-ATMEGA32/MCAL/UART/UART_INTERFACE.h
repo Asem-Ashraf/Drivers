@@ -3,8 +3,8 @@
  * This file contains all the interfacing information of UART Driver along with
  * doxygen documentation.
  */
-#ifndef _UART_INTERFACE_H__
-#define _UART_INTERFACE_H__
+#ifndef UART_INTERFACE_H__
+#define UART_INTERFACE_H__
 
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"

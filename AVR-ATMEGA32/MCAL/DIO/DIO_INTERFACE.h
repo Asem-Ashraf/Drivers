@@ -53,12 +53,8 @@
 
 /**
  * @brief Initializes the direction and value of all the digital pins according to the configuration in DIO_CONFIG.h file.
- * 
- * @return ES_t Error status.
- *         - ES_OK: If initialization is successful.
- *         - ES_NOK: If initialization failed.
  */
-ES_t DIO_enuInit(void);
+void DIO_voidInit(void);
 
 /**
  * @brief Sets the direction of a whole port.
@@ -68,8 +64,7 @@ ES_t DIO_enuInit(void);
  * 
  * @return ES_t Error status.
  *         - ES_OK: If setting the direction is successful.
- *         - ES_NOK: If setting the direction failed.
- *         - ES_OUT_OF_RANGE: If Copy_u8PortID is out of range.
+ *         - ES_OUT_OF_RANGE: If Copy_u8PortID or Copy_u8Direction is out of range.
  */
 ES_t DIO_enuSetPortDirection(u8 Copy_u8PortID, u8 Copy_u8Direction);
 
@@ -81,8 +76,7 @@ ES_t DIO_enuSetPortDirection(u8 Copy_u8PortID, u8 Copy_u8Direction);
  * 
  * @return ES_t Error status.
  *         - ES_OK: If setting the value is successful.
- *         - ES_NOK: If setting the value failed.
- *         - ES_OUT_OF_RANGE: If Copy_u8PortID is out of range.
+ *         - ES_OUT_OF_RANGE: If Copy_u8PortID or Copy_u8Direction is out of range.
  */
 ES_t DIO_enuSetPortValue(u8 Copy_u8PortID, u8 Copy_u8Value);
 
@@ -94,7 +88,6 @@ ES_t DIO_enuSetPortValue(u8 Copy_u8PortID, u8 Copy_u8Value);
  * 
  * @return ES_t Error status.
  *         - ES_OK: If getting the value is successful.
- *         - ES_NOK: If getting the value failed.
  *         - ES_NULL_POINTER: If Copy_pu8Value is a null pointer.
  *         - ES_OUT_OF_RANGE: If Copy_u8PortID is out of range.
  */
@@ -107,7 +100,6 @@ ES_t DIO_enuGetPortValue(u8 Copy_u8PortID, u8 *Copy_pu8Value);
  * 
  * @return ES_t Error status.
  *         - ES_OK: If toggling the value is successful.
- *         - ES_NOK: If toggling the value failed.
  *         - ES_OUT_OF_RANGE: If Copy_u8PortID is out of range.
  */
 ES_t DIO_enuTogglePortValue(u8 Copy_u8PortID);
@@ -121,7 +113,6 @@ ES_t DIO_enuTogglePortValue(u8 Copy_u8PortID);
  * 
  * @return ES_t Error status.
  *         - ES_OK: If setting the direction is successful.
- *         - ES_NOK: If setting the direction failed.
  *         - ES_OUT_OF_RANGE: If Copy_u8PortID or Copy_u8PinID is out of range, or if Copy_u8Value is not a valid direction.
  */
 ES_t DIO_enuSetPinDirection(u8 Copy_u8PortID, u8 Copy_u8PinID,u8 Copy_u8Value);
@@ -135,7 +126,6 @@ ES_t DIO_enuSetPinDirection(u8 Copy_u8PortID, u8 Copy_u8PinID,u8 Copy_u8Value);
  * 
  * @return ES_t Error status.
  *         - ES_OK: If setting the value is successful.
- *         - ES_NOK: If setting the value failed.
  *         - ES_OUT_OF_RANGE: If Copy_u8PortID or Copy_u8PinID is out of range, or if Copy_u8Value is not a valid value.
  */
 ES_t DIO_enuSetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8Value);
@@ -149,7 +139,6 @@ ES_t DIO_enuSetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 Copy_u8Value);
  * 
  * @return ES_t Error status.
  *         - ES_OK: If getting the value is successful.
- *         - ES_NOK: If getting the value failed.
  *         - ES_NULL_POINTER: If Copy_pu8Value is a null pointer.
  *         - ES_OUT_OF_RANGE: If Copy_u8PortID or Copy_u8PinID is out of range.
  */
@@ -163,7 +152,6 @@ ES_t DIO_enuGetPinValue(u8 Copy_u8PortID, u8 Copy_u8PinID, u8 *Copy_pu8Value);
  * 
  * @return ES_t Error status.
  *         - ES_OK: If toggling the value is successful.
- *         - ES_NOK: If toggling the value failed.
  *         - ES_OUT_OF_RANGE: If Copy_u8PortID or Copy_u8PinID is out of range.
  */
 ES_t DIO_enuTogglePinValue(u8 Copy_u8PortID, u8 Copy_u8PinID);

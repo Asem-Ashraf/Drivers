@@ -8,3 +8,4 @@
 |           |SEVEN SEGMENT|CPU_FREQ  |EXTI        |
 |           |Thermistor   |          |Timer0      |
 |           |             |          |UART        |
+|           |             |          |SPI         |

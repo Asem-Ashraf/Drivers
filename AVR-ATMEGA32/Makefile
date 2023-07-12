@@ -18,14 +18,17 @@ INCLUDE=
 #INCLUDE += -I<dir2>
 
 #If all Sources File in The Same Location 
-SRC =$(wildcard ./APP/*.c)
+SRC = $(wildcard ./*/*/*.c)
+#For Generate .o File From .c
+OBJ =$(SRC:.c=.o)
+
+mainSRC =$(wildcard ./APP/*.c)
+mainOBJ =$(mainSRC:.c=.o)
+
 #else (src) in different locations 
-SRC += $(wildcard ./*/*/*.c)
 #SRC += src/file1.c
 #SRC += src/file2.c
 
-#For Generate .o File From .c
-OBJ =$(SRC:.c=.o)
 
 OBJCOPY = avr-objcopy
 CCSIZE = avr-size
@@ -36,10 +39,7 @@ OPT = -Os
 #For Generate Hex_File
 HFLAGS = -j .text -j .data -O ihex
 
-#My Project Name
-project_name = DIO
-Firmware = DIO
-all: $(Firmware).hex $(Firmware).elf size
+all:  $(mainSRC:.c=.elf) $(mainSRC:.c=.hex)
 
 $(SRC):$(wildcard ./LIB/*.h)
 	touch -m $@
@@ -47,21 +47,21 @@ $(SRC):$(wildcard ./LIB/*.h)
 %.o:%.c
 	$(CC) $(INCLUDE) $(OPT) $(CFLAGS) -mmcu=$(DEVICE) -c $< -o $@
 	
-$(Firmware).elf:$(OBJ)
-	$(CC) $(INCLUDE) $(OPT) $(OBJ) -mmcu=$(DEVICE) -o $@
+APP/%.elf: ./APP/%.o $(OBJ)
+	$(CC) $(INCLUDE) $(OPT) $(OBJ) $< -mmcu=$(DEVICE) -o $@
 	
 %.hex:%.elf
 	$(OBJCOPY) $(HFLAGS) $< $@
 	
-size : $(Firmware).elf
-	$(CCSIZE) --format=avr --mcu=$(DEVICE) $< 
+# size : APP/*.elf
+# 	$(CCSIZE) --format=avr --mcu=$(DEVICE) $< 
 	
 clean_all:
-	rm $(OBJ) *.elf *.hex
+	rm $(OBJ) ./APP/*.elf ./APP/*.hex
 	@echo "Everything clean successfully"
 	
 clean:
-	rm *.elf *.hex
+	rm ./APP/*.elf ./APP/*.hex
 	@echo "Clean Done Successfully"
 	
 	

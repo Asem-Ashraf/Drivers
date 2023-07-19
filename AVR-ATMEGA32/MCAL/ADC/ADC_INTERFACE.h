@@ -1,3 +1,5 @@
+#ifndef ADC_INTERFACE_H_
+#define ADC_INTERFACE_H_
 /**
  * @file ADC_interface.h
  * @brief This is a header file that contains the interface for the ADC driver.
@@ -11,12 +13,9 @@
  * @author Asem Ashraf
  */
 
-#ifndef ADC_INTERFACE_H_
-#define ADC_INTERFACE_H_
 
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"
-#include "../../LIB/BIT_MATH.h"
 
 // ADMUX Register
 #define ADC_u8CH0           0
@@ -28,35 +27,32 @@
 #define ADC_u8CH6           6
 #define ADC_u8CH7           7
 
-#define ADC_u8AREF          0
-#define ADC_u8AVCC          1
-#define ADC_u8INTERNAL      3
+#define ADC_u8AREF          0b00111111
+#define ADC_u8AVCC          0b01111111
+#define ADC_u8INTERNAL      0b11111111
 
-#define ADC_u8RIGHT_ADJ     0
-#define ADC_u8LEFT_ADJ      1
+#define ADC_u8RIGHT_ADJ     0b11011111
+#define ADC_u8LEFT_ADJ      0b11111111
 
-// ADCSRA Register
-#define ADC_u8PRESCALER_2           1
-#define ADC_u8PRESCALER_4           2
-#define ADC_u8PRESCALER_8           3
-#define ADC_u8PRESCALER_16          4
-#define ADC_u8PRESCALER_32          5
-#define ADC_u8PRESCALER_64          6
-#define ADC_u8PRESCALER_128         7
+#define ADC_u8PRESCALER_2           0b11111001
+#define ADC_u8PRESCALER_4           0b11111010
+#define ADC_u8PRESCALER_8           0b11111011
+#define ADC_u8PRESCALER_16          0b11111100
+#define ADC_u8PRESCALER_32          0b11111101
+#define ADC_u8PRESCALER_64          0b11111110
+#define ADC_u8PRESCALER_128         0b11111111
 
-#define ADC_u8INTERRUPT             1
-#define ADC_u8POLLING               0
+#define ADC_u8INTERRUPT             0x01
+#define ADC_u8POLLING               0x00
 
-// SFIOR Register
-#define ADC_u8FREE_RUNNING          0
-#define ADC_u8ANALOG_CMP            1
-#define ADC_u8EXT_INT               2
-#define ADC_u8TMR0_CMp_MATCH        3
-#define ADC_u8TMR0_OVF              4
-#define ADC_u8TMR1_CMP_MATCH_B      5
-#define ADC_u8TMR1_OVF              6
-#define ADC_u8TMR1_CAPTURE_EVENT    7
-
+#define ADC_u8FREE_RUNNING          0b00011111
+#define ADC_u8ANALOG_CMP            0b00111111
+#define ADC_u8EXT_INT               0b01011111
+#define ADC_u8TMR0_CMp_MATCH        0b01111111
+#define ADC_u8TMR0_OVF              0b10011111
+#define ADC_u8TMR1_CMP_MATCH_B      0b10111111
+#define ADC_u8TMR1_OVF              0b11011111
+#define ADC_u8TMR1_CAPTURE_EVENT    0b11111111
 
 /**
  * @brief Initialize the ADC.
@@ -142,13 +138,9 @@ void ADC_enuStartOneConversion(void);
  * Gets the current value of the last conversion immediately.
  * Intended for use in the callback function.
  *
- * @param[out] ADC_u16Data The ADC value.
- *
- * @return ES_t Returns ES_OK if the ADC value is fetched successfully, 
- *         otherwise returns ES_NULL_POINTER if the input parameter is a null 
- *         pointer.
+ * @return u16 The ADC value.
  */
-ES_t ADC_enuGetValue(u16* ADC_u16Data);
+u16 ADC_enuGetValue();
 
 /**
  * @brief Get the high byte of the ADC value.
@@ -156,13 +148,9 @@ ES_t ADC_enuGetValue(u16* ADC_u16Data);
  * This function gets the high byte of the ADC value.
  * Intended for use in the callback function.
  *
- * @param[out] ADC_u8Data The high byte of the ADC value.
- *
- * @return ES_t Returns ES_OK if the high byte of the ADC value is fetched 
- *         successfully, otherwise returns ES_NULL_POINTER if the input 
- *         parameter is a null pointer.
+ * @return u8 The high byte of the ADC value.
  */
-ES_t ADC_enuGetHighValue(u8* ADC_u8Data);
+u8 ADC_enuGetHighValue();
 
 /**
  * @brief Get the ADC value using polling.
@@ -170,13 +158,9 @@ ES_t ADC_enuGetHighValue(u8* ADC_u8Data);
  * Waits for the current conversion to finish and returns the result.
  * If there is not a conversion in progress, it returns the last result.
  *
- * @param[out] ADC_u16Data The ADC value.
- *
- * @return ES_t Returns ES_OK if the ADC value is fetched successfully, 
- *         otherwise returns ES_NULL_POINTER if the input parameter is a null 
- *         pointer.
+ * @return u16 The ADC value.
  */
-ES_t ADC_enuGetValuePolling(u16* ADC_u16Data);
+u16 ADC_enuGetValuePolling();
 
 /**
  * @brief Get the high byte of the ADC value using polling.
@@ -184,13 +168,9 @@ ES_t ADC_enuGetValuePolling(u16* ADC_u16Data);
  * Waits for the current conversion to finish and returns the result.
  * If there is not a conversion in progress, it returns the last result.
  *
- * @param[out] ADC_u8Data The high byte of the ADC value.
- *
- * @return ES_t Returns ES_OK if the high byte of the ADC value is fetched 
- *         successfully, otherwise returns ES_NULL_POINTER if the input 
- *         parameter is a null pointer.
+ * @return u8 The high byte of the ADC value.
  */
-ES_t ADC_enuGetHighValuePolling(u8* ADC_u8Data);
+u8 ADC_enuGetHighValuePolling();
 
 
 /**
@@ -200,7 +180,7 @@ void ADC_enuEnableInterrupt(void);
 
 
 /**
- * @brief Halt the ADC.
+ * @brief Halt the ADC without changing the settings.
  */
 void ADC_enuHultADC(void);
 

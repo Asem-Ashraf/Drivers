@@ -11,34 +11,34 @@
 #define ADC_u8CH6           0x06
 #define ADC_u8CH7           0x07
 
-#define ADC_u8AREF          0x00
-#define ADC_u8AVCC          0x01
-#define ADC_u8INTERNAL      0x03
+#define ADC_u8AREF          0b00111111
+#define ADC_u8AVCC          0b01111111
+#define ADC_u8INTERNAL      0b11111111
 
-#define ADC_u8RIGHT_ADJ     0x00
-#define ADC_u8LEFT_ADJ      0x01
+#define ADC_u8RIGHT_ADJ     0b11011111
+#define ADC_u8LEFT_ADJ      0b11111111
 
 // ADCSRA Register
-#define ADC_u8PRESCALER_2           0x01
-#define ADC_u8PRESCALER_4           0x02
-#define ADC_u8PRESCALER_8           0x03
-#define ADC_u8PRESCALER_16          0x04
-#define ADC_u8PRESCALER_32          0x05
-#define ADC_u8PRESCALER_64          0x06
-#define ADC_u8PRESCALER_128         0x07
+#define ADC_u8PRESCALER_2           0b11111001
+#define ADC_u8PRESCALER_4           0b11111010
+#define ADC_u8PRESCALER_8           0b11111011
+#define ADC_u8PRESCALER_16          0b11111100
+#define ADC_u8PRESCALER_32          0b11111101
+#define ADC_u8PRESCALER_64          0b11111110
+#define ADC_u8PRESCALER_128         0b11111111
 
 #define ADC_u8INTERRUPT             0x01
 #define ADC_u8POLLING               0x00
 
 // SFIOR Register
-#define ADC_u8FREE_RUNNING          0x00
-#define ADC_u8ANALOG_CMP            0x01
-#define ADC_u8EXT_INT               0x02
-#define ADC_u8TMR0_CMp_MATCH        0x03
-#define ADC_u8TMR0_OVF              0x04
-#define ADC_u8TMR1_CMP_MATCH_B      0x05
-#define ADC_u8TMR1_OVF              0x06
-#define ADC_u8TMR1_CAPTURE_EVENT    0x07
+#define ADC_u8FREE_RUNNING          0b00011111
+#define ADC_u8ANALOG_CMP            0b00111111
+#define ADC_u8EXT_INT               0b01011111
+#define ADC_u8TMR0_CMp_MATCH        0b01111111
+#define ADC_u8TMR0_OVF              0b10011111
+#define ADC_u8TMR1_CMP_MATCH_B      0b10111111
+#define ADC_u8TMR1_OVF              0b11011111
+#define ADC_u8TMR1_CAPTURE_EVENT    0b11111111
 
 #define ADCSRA      (*(volatile u8 *)0x26)
 #define ADEN    0x07

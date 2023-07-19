@@ -14,18 +14,18 @@ void __vector_16(void) {
 }
 
 ES_t ADC_enuInit(u8 ADC_u8Prescaler,u8 ADC_u8Adjustment,u8 ADC_u8RefVoltage){
-    // check if the prescaler is valid
-    if (ADC_u8Prescaler > 7) { return ES_OUT_OF_RANGE; }
-    // check if the adjustment is valid
-    if (ADC_u8Adjustment > 1) { return ES_OUT_OF_RANGE; }
-    // check if the reference voltage is valid
-    if (ADC_u8RefVoltage > 3) { return ES_OUT_OF_RANGE; }
+    if (((ADC_u8Prescaler &0b11111000) != 0b11111000)||
+        ((ADC_u8Adjustment&0b11011111) != 0b11011111)||
+        ((ADC_u8RefVoltage&0b00111111) != 0b00111111)||
+         (ADC_u8RefVoltage == 0b10111111)) 
+        return ES_OUT_OF_RANGE;
+
+    // set the adjustment
+    ADMUX  &= ADC_u8Adjustment;
+    // set the reference voltage
+    ADMUX  &= ADC_u8RefVoltage;
     // set the prescaler 
-    ADCSRA = (ADCSRA & 0xF8) | ADC_u8Prescaler;
-    // set the adjustment 
-    ADMUX  = (ADMUX & 0xDF) | (ADC_u8Adjustment << ADLAR);
-    // set the reference voltage 
-    ADMUX  = (ADMUX & 0x3F) | (ADC_u8RefVoltage << REFS0);
+    ADCSRA &= ADC_u8Prescaler;
     // set ADEN
     SetBit(ADCSRA,ADEN);
     return ES_OK;
@@ -33,9 +33,10 @@ ES_t ADC_enuInit(u8 ADC_u8Prescaler,u8 ADC_u8Adjustment,u8 ADC_u8RefVoltage){
 
 ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger){
     // check if the trigger is valid
-    if (ADC_u8Trigger > 0x07) { return ES_OUT_OF_RANGE; }
-    // set the trigger
-    SFIOR = (SFIOR & 0x1F) | (ADC_u8Trigger<<5);
+    if (ADC_u8Trigger < 0b00011111) 
+        return ES_OUT_OF_RANGE;
+    // overwrite the trigger
+    SFIOR &=ADC_u8Trigger;
     // enable the ADC auto trigger 
     SetBit(ADCSRA,ADATE);
     return ES_OK;
@@ -47,8 +48,9 @@ void ADC_enuDisableTrigger(){
 
 ES_t ADC_enuSetChannel(u8 ADC_u8Channel){
     // check if the channel is valid
-    if (ADC_u8Channel > 0x31) { return ES_OUT_OF_RANGE; }
-    // set the channel
+    if (ADC_u8Channel > 0x31) 
+        return ES_OUT_OF_RANGE;
+    // overwrite channel
     ADMUX = (ADMUX & 0xE0) | ADC_u8Channel;
     return ES_OK;
 }
@@ -58,40 +60,28 @@ void ADC_enuStartOneConversion(){
     SetBit(ADCSRA,ADSC);
 }
 
-ES_t ADC_enuGetValue(u16 *ADC_u16Data){
-    // check if the pointer is valid
-    if (ADC_u16Data == NULL) { return ES_NULL_POINTER; }
+u16 ADC_enuGetValue(){
     // store the result
-    *ADC_u16Data = ADC_VALUE;
-    return ES_OK;
+    return ADC_VALUE;
 }
 
-ES_t ADC_enuGetHighValue(u8 *ADC_u8Data){
-    // check if the pointer is valid
-    if (ADC_u8Data == NULL) { return ES_NULL_POINTER; }
+u8 ADC_enuGetHighValue(){
     // store the result
-    *ADC_u8Data = ADCH;
-    return ES_OK;
+    return ADCH;
 }
 
-ES_t ADC_enuGetValuePolling(u16 *ADC_u16Data){
-    // check if the pointer is valid
-    if (ADC_u16Data == NULL) { return ES_NULL_POINTER; }
+u16 ADC_enuGetValuePolling(){
     // wait until conversion is done
     while (GetBit(ADCSRA,ADSC));
     // store the result
-    *ADC_u16Data = ADC_VALUE;
-    return ES_OK;
+    return  ADC_VALUE;
 }
 
-ES_t ADC_enuGetHighValuePolling(u8 *ADC_u8Data){
-    // check if the pointer is valid
-    if (ADC_u8Data == NULL) { return ES_NULL_POINTER; }
+u8 ADC_enuGetHighValuePolling(){
     // wait until conversion is done
     while (GetBit(ADCSRA,ADSC));
     // store the result
-    *ADC_u8Data = ADCH;
-    return ES_OK;
+    return ADCH;
 }
 
 

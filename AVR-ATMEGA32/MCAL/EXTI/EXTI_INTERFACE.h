@@ -1,11 +1,11 @@
+#ifndef EXTI_INTERFACE_H
+#define EXTI_INTERFACE_H
 /**
  * @file EXTI_Interface.h
  *
  * @brief This file contains the interface for configuring and controlling external interrupts (EXTI) in a microcontroller.
  */
 
-#ifndef EXTI_INTERFACE_H
-#define EXTI_INTERFACE_H
 
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"

@@ -119,22 +119,16 @@ void UART_voidEnableReceiveUnit(void){
     SetBit(UCSRB,RXEN);
 }
 
-ES_t UART_enuReceive(u8 * Copy_pu8Data){
-    if(Copy_pu8Data==NULL) return ES_NULL_POINTER;
+u8 UART_enuReceive(){
     // wait until receive buffer is full
     while(GetBit(UCSRA,RXC)==0);
-    *Copy_pu8Data = UDR;
-    return ES_OK;
+    return UDR;
 }
 
-ES_t UART_enuReceive9bit(u16 * Copy_pu8Data){
-    if(Copy_pu8Data==NULL) return ES_NULL_POINTER;
+u16 UART_enuReceive9bit(){
     // wait until receive buffer is full
     while(GetBit(UCSRA,RXC)==0);
-    *Copy_pu8Data = UDR;
-    // Getting 9th bit
-    *Copy_pu8Data |= (UCSRB&2)<<7;
-    return ES_OK;
+    return  UDR | (UCSRB&2)<<7;
 }
 
 void UART_voidEnableReceiveCompleteInterrupt(void){

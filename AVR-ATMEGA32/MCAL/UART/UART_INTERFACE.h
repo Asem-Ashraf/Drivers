@@ -156,12 +156,9 @@ void UART_voidEnableReceiveUnit(void);
  *        This function is used only if the UART is initialized with 8-bit data.
  *        This function is blocking.
  *
- * @param  Copy_pu8Data: Pointer to variable to store the received data.
- *
- * @return ES_NULL_POINTER: If the pointer is NULL.
- *         ES_OK: If the pointer is not NULL.
+ * @return 8-bit Data received.
  */
-ES_t UART_enuReceive(u8 * Copy_pu8Data);
+u8 UART_enuReceive();
 
 
 /**
@@ -170,13 +167,9 @@ ES_t UART_enuReceive(u8 * Copy_pu8Data);
  *         This function is used only if the UART is initialized with 9-bit data.
  *         This function is blocking.
  *
- * @param  Copy_pu16Data: Pointer to a variable containing 9-bits of the 
- *                        received data.
- *
- * @return ES_NULL_POINTER: If the pointer is NULL.
- *         ES_OK: If the pointer is not NULL.
+ * @return 9-bit Data received in a 16-bit variable.
  */
-ES_t UART_enuReceive9bit(u16 * Copy_pu16Data);
+u16 UART_enuReceive9bit();
 
 
 /**

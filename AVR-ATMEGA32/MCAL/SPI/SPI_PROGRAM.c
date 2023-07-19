@@ -3,6 +3,8 @@
 #include "../../LIB/BIT_MATH.h"
 #include "../../LIB/CPU_FREQ.h"
 
+#include "../DIO/DIO_INTERFACE.h"
+
 #include "SPI_PRIVATE.h"
 
 static void (*SPI_pvCallBack)(void) = NULL;
@@ -26,11 +28,9 @@ ES_t SPI_enuMasterInit(u8 Copy_u8SBFirst, u8 Copy_u8DoubleSpeed,
     SPCR = (Copy_u8SBFirst)| (Copy_u8ClkRate)| (Copy_u8ClkPol)| (Copy_u8ClkPh)|
            (SPI_MASTER);
     SPSR = Copy_u8DoubleSpeed;
-    ClrBit(DDRB, SS);
-    DDRB |= (Copy_u8Duplex<<MOSI)|(1<<SCK);
     // PORTB pins are automatically configured based on the values of SPCR
     // see DIO pins alternative operation modes in the datasheet
-    return ES_OK;
+    return DIO_enuSetPortDirection(DIO_u8DDRB,(DIO_u8OUTPUT<<SCK)|(Copy_u8Duplex<<MOSI)|(DIO_u8INPUT<<SS));
 }
 
 ES_t SPI_enuSlaveInit(u8 Copy_u8SBFirst, u8 Copy_u8ClkPol, u8 Copy_u8ClkPh, 
@@ -38,10 +38,9 @@ ES_t SPI_enuSlaveInit(u8 Copy_u8SBFirst, u8 Copy_u8ClkPol, u8 Copy_u8ClkPh,
     if(Copy_u8SBFirst>1|| Copy_u8ClkPol>1|| Copy_u8ClkPh>1)
         return ES_OUT_OF_RANGE;
     SPCR = (Copy_u8SBFirst)|(Copy_u8ClkPol)| (Copy_u8ClkPh);
-    DDRB |= (Copy_u8Duplex<<MISO);
     // PORTB pins are automatically configured based on the values of SPCR
     // see DIO pins alternative operation modes in the datasheet
-    return ES_OK;
+    return DIO_enuSetPinDirection(DIO_u8DDRB,MISO, Copy_u8Duplex);
 }
 
 

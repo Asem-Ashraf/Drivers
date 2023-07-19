@@ -100,20 +100,16 @@ ES_t SPI_enuSlaveInit(u8 Copy_u8SBFirst, u8 Copy_u8ClkPol, u8 Copy_u8ClkPh,
                       u8 Copy_u8Duplex);
 
 /**
-* @brief: This function starts the SPI
+* @brief: This function starts the SPI based on the settings used in the init 
+*         fucntion.
 */
 void SPI_voidStart(void);
 
 /**
-* @brief: This function stops the SPI
+* @brief: This function stops the SPI without changing its settings.
 */
 void SPI_voidStop(void);
 
-
-/**
-* @brief: This function enables the SPI interrupt
-*/
-void SPI_voidEnableTransferCompleteInterrupt();
 
 /**
  * @brief: This function sets the callback function for the SPI interrupt
@@ -127,12 +123,23 @@ void SPI_voidEnableTransferCompleteInterrupt();
 ES_t SPI_enuSetTransferCompleteCallback(void (*Copy_pvCallBack)(void));
 
 /**
-* @brief: This function disables the SPI interrupt
+* @brief: This function enables the SPI interrupt.
+*
+* The callback function must be called before this function with a valid 
+* function to run when the interrupt occurs.
 */
 void SPI_voidEnableTransferCompleteInterrupt();
 
 /**
+* @brief: This function disables the SPI interrupt without changing the callback 
+* function.
+*/
+void SPI_voidDisableTransferCompleteInterrupt();
+
+/**
 * @brief: This function sends a byte of data
+*
+* Can only be used when the SPI is configured to send.
 *
 * @param Copy_u8Data: The data to be sent
 */
@@ -141,12 +148,16 @@ void SPI_voidSendByte(u8 Copy_u8Data);
 /**
 * @brief: This function sends a byte of data
 *
+* The SPI is always configured as receive in the ATmega32.
+*
 * return: Received data
 */
 u8 SPI_enuReceiveByte();
 
 /**
 * @brief: This function sends a byte of data and receives a byte of data
+*         
+* Can only be used when the SPI is configured to send and receives.
 *
 * @param Copy_u8SendData: The data to be sent
 *

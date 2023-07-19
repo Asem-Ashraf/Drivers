@@ -24,11 +24,26 @@
 #define TMR0_u8ExtRisingEdge    7
 
 #define TIMSK (*(volatile u8*)0x59)
+#define TOIE0 0
+#define OCIE0 1
+
 #define TCCR0 (*(volatile u8*)0x53)
+#define CS00  0
+#define CS01  1
+#define CS02  2
+#define WGM01 3
+#define COM00 4
+#define COM01 5
+#define WGM00 6
+#define FOC0  7
+
 #define TCNT0 (*(volatile u8*)0x52)
+
 #define OCR0  (*(volatile u8*)0x5C)
+
 #define TIFR  (*(volatile u8*)0x58)
-#define DDRB  (*(volatile u8*)0x37)
+
+#define OC0   DIO_u8PIN3
 
 #define Copy_u32DelayPrescale 1024
 #define Copy_f32RegisterCounts 256.0

@@ -3,10 +3,13 @@
 #include "../../LIB/BIT_MATH.h"
 #include "../../LIB/CPU_FREQ.h"
 
+#include "../DIO/DIO_INTERFACE.h"
+
 #include "TMR0_PRIVATE.h"
 
 // Timer0 Overflow interrupt
 static void (*TMR0_OverflowCallback)(void) = NULL;
+
 void __vector_11(void) __attribute__((signal));
 void __vector_11(void){ 
     if (TMR0_OverflowCallback!=NULL)
@@ -14,6 +17,7 @@ void __vector_11(void){
 }
 // Timer0 Compare Match interrupt
 static void (*TMR0_CompareMatchCallBack)(void) = NULL;
+
 void __vector_10(void) __attribute__((signal));
 void __vector_10(void){
     if (TMR0_CompareMatchCallBack!=NULL)
@@ -38,13 +42,15 @@ ES_t TMR0_enuInit(u8 Copy_u8clkSource,
     // Set register values
     OCR0  = Copy_u8OCValue;
     TCNT0 = Copy_u8Preload;
+    ES_t local_error = ES_OK;
     // Setting OC0 pin to output
-    if (Copy_u8OC0PinConfig>0) SetBit(DDRB,3);
+    if (Copy_u8OC0PinConfig>0)
+        local_error = DIO_enuSetPinDirection(DIO_u8DDRB, OC0, DIO_u8OUTPUT);
     // Set operation mode
     TCCR0 = Copy_u8clkSource 
           + Copy_u8OC0PinConfig
           + Copy_u8mode;
-    return ES_OK;
+    return local_error;
 }
 void TMR0_SetPreload(u8 Copy_u8Preload){
     TCNT0 = Copy_u8Preload;
@@ -58,7 +64,7 @@ void TMR0_SetOutputCompareValue(u8 Copy_u8OCValue){
 
 
 void TMR0_EnableOverflowInterrupt(){
-    SetBit(TIMSK, 0);
+    SetBit(TIMSK, TOIE0);
 }
 ES_t TMR0_enuSetOverflowCallback(void (*Copy_pfuncIsrOverflow)()){
     if (Copy_pfuncIsrOverflow==NULL) return ES_NULL_POINTER;
@@ -66,7 +72,7 @@ ES_t TMR0_enuSetOverflowCallback(void (*Copy_pfuncIsrOverflow)()){
     return ES_OK;
 }
 void TMR0_DisableOverflowInterrupt(){
-    ClrBit(TIMSK, 0);
+    ClrBit(TIMSK, TOIE0);
 }
 
 
@@ -78,10 +84,10 @@ ES_t TMR0_enuSetCompareMatchCallback(void (*Copy_pfuncIsrCTC)()){
     return ES_OK;
 }
 void TMR0_EnableCompareMatchInterrupt(){
-    SetBit(TIMSK, 1);
+    SetBit(TIMSK, OCIE0);
 }
 void TMR0_DisableCompareMatchInterrupt(){
-    ClrBit(TIMSK, 1);
+    ClrBit(TIMSK, OCIE0);
 }
 
 

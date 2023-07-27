@@ -1,3 +1,5 @@
+#ifndef DIO_INTERFACE_H_
+#define DIO_INTERFACE_H_
 /**
  * @file DIO_interface.h
  * @brief This file contains the interface for the DIO driver.
@@ -5,14 +7,7 @@
  * This driver is responsible for controlling the digital input/output pins of the AVR microcontroller.
  * It provides functions to initialize the pins' direction and value, set and get the value of a single pin or a whole port,
  * toggle the value of a single pin or a whole port, and set the direction of a single pin.
- *
- * @author Your Name
- * @date DD/MM/YYYY
- *
  */
-
-#ifndef DIO_INTERFACE_H_
-#define DIO_INTERFACE_H_
 
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"

@@ -5,57 +5,57 @@
 #include "../../LIB/ERR_TYPE.h"
 
 
-#define I2C_WRITE_OPERATION           (0x00)
-#define I2C_READ_OPERATION            (0x01)
+#define I2C_WRITE_OPERATION                             (0x00)
+#define I2C_READ_OPERATION                              (0x01)
 
-#define I2C_SEND_ACK                       (0x01)
-#define I2C_SEND_NACK                      (0x00)
+#define I2C_SEND_ACK                                    (0x01)
+#define I2C_SEND_NACK                                   (0x00)
 
 
 // MASTER MODE
 
 // start condition transmitted
-#define I2C_MASTER_START_SENT           (0x08)
+#define I2C_MASTER_START_SENT                           (0x08)
 // repeated start condition transmitted 
-#define I2C_MASTER_REPEATED_START_SENT            (0x10)
+#define I2C_MASTER_REPEATED_START_SENT                  (0x10)
 
 
 // Master transmit
 
 // SLA+W transmitted, ACK received
-#define I2C_MASTER_SLA_W_SENT_ACK_RECEIVED                 (0x18)
+#define I2C_MASTER_SLA_W_SENT_ACK_RECEIVED              (0x18)
 // SLA+W transmitted, NACK received
-#define I2C_MASTER_SLA_W_SENT_NACK_RECEIVED                (0x20)
+#define I2C_MASTER_SLA_W_SENT_NACK_RECEIVED             (0x20)
 
 // Data transmitted, ACK received
-#define I2C_MASTER_DATA_SENT_ACK_RECEIVED                  (0x28)
+#define I2C_MASTER_DATA_SENT_ACK_RECEIVED               (0x28)
 // Data transmitted, NACK received
-#define I2C_MASTER_DATA_SENT_NACK_RECEIVED                 (0x30)
+#define I2C_MASTER_DATA_SENT_NACK_RECEIVED              (0x30)
 
 // Master receive
 
 // SLA+R transmitted, ACK received
-#define I2C_MASTER_SLA_R_SENT_ACK_RECEIVED                 (0x40)
+#define I2C_MASTER_SLA_R_SENT_ACK_RECEIVED              (0x40)
 // SLA+R transmitted, NACK received  
-#define I2C_MASTER_SLA_R_SENT_NACK_RECEIVED                (0x48)
+#define I2C_MASTER_SLA_R_SENT_NACK_RECEIVED             (0x48)
 
 // Data received, ACK returned
-#define I2C_MASTER_DATA_RECEIVED_ACK_SENT         (0x50)
+#define I2C_MASTER_DATA_RECEIVED_ACK_SENT               (0x50)
 // Data received, NACK returned
-#define I2C_MASTER_DATA_RECEIVED_NACK_SENT        (0x58)
+#define I2C_MASTER_DATA_RECEIVED_NACK_SENT              (0x58)
 
 
 
 // master arbitration lost in SLA+W/R or data bytes
 
 // Arbitration lost while transmitting or receiving operation or data
-#define I2C_MASTER_ARB_LOST                        (0x38)
+#define I2C_MASTER_ARB_LOST                             (0x38)
 // Arbitration lost, own SLA+W received, ACK returned
-#define I2C_MASTER_ARB_LOST_SLA_W_RECEIVED_ACK_SENT        (0x68)
+#define I2C_MASTER_ARB_LOST_SLA_W_RECEIVED_ACK_SENT     (0x68)
 // Arbitration lost, own SLA+R received, ACK returned
-#define I2C_MASTER_ARB_LOST_SLA_R_RECEIVED_ACK_SENT (0xB0)
+#define I2C_MASTER_ARB_LOST_SLA_R_RECEIVED_ACK_SENT     (0xB0)
 // Arbitration lost, General call received, ACK returned
-#define I2C_MASTER_ARB_LOST_GEN_CALL_RECEIVED_ACK_SENT     (0x78)
+#define I2C_MASTER_ARB_LOST_GEN_CALL_RECEIVED_ACK_SENT  (0x78)
 
 
 
@@ -64,60 +64,67 @@
 
 // Slave receive
 // Own SLA+W received, ACK returned
-#define I2C_SLAVE_SLA_W_RECEIVED_ACK_SENT        (0x60)
+#define I2C_SLAVE_SLA_W_RECEIVED_ACK_SENT               (0x60)
 // General call received, ACK returned 
-#define I2C_SLAVE_GEN_CALL_RECEIVED_ACK_SENT              (0x70)
+#define I2C_SLAVE_GEN_CALL_RECEIVED_ACK_SENT            (0x70)
 
 // Previously addressed, data received, ACK returned
-#define I2C_SLAVE_DATA_RECEIVED_ACK_SENT   (0x80)
+#define I2C_SLAVE_DATA_RECEIVED_ACK_SENT                (0x80)
 // Previously addressed, data received, NACK returned
-#define I2C_SLAVE_DATA_RECEIVED_NACK_SENT  (0x88)
+#define I2C_SLAVE_DATA_RECEIVED_NACK_SENT               (0x88)
 
 
 
 
 // Slave transmit
 // Own SLA+R received, ACK returned  
-#define I2C_SLAVE_SLA_R_RECEIVED_ACK_SENT        (0xA8)
+#define I2C_SLAVE_SLA_R_RECEIVED_ACK_SENT               (0xA8)
 
 // Data transmitted, ACK received
-#define I2C_SLAVE_DATA_SENT_ACK_RECEIVED      (0xB8)
+#define I2C_SLAVE_DATA_SENT_ACK_RECEIVED                (0xB8)
 // Data transmitted, NACK received
-#define I2C_SLAVE_DATA_SENT_NACK_RECEIVED     (0xC0)
+#define I2C_SLAVE_DATA_SENT_NACK_RECEIVED               (0xC0)
 // Last data byte transmitted, ACK received
-#define I2C_SLAVE_LAST_DATA_BYTE_SENT_ACK_RECEIVED        (0xC8)
+#define I2C_SLAVE_LAST_DATA_BYTE_SENT_ACK_RECEIVED      (0xC8)
 
 // STOP or repeated START received while addressed as slave
-#define I2C_SLAVE_STOP_RECEIVED       (0xA0)
+#define I2C_SLAVE_STOP_RECEIVED                         (0xA0)
 
 
 
 
 // general call
-#define I2C_GENERAL_CALL_ACCEPT              (0x00)
-#define I2C_GENERAL_CALL_REJECT              (0x01)
+#define I2C_GENERAL_CALL_ACCEPT                         (0x00)
+#define I2C_GENERAL_CALL_REJECT                         (0x01)
 
 /* 
-* @brief: This function is used to initialize the I2C peripheral as a master and a slave
+* @brief: This function is used to initialize the I2C peripheral as a master and 
+*         a slave
 *
-* @param Copy_u8Address:     The address of the MCU with which the I2C peripheral will be communicated.
-*                            It can be any value from 0x01 to 0x77.
-*                            The address 0x00 is reserved for the general call address.
-*                            The top 8 addresses (0x78 to 0x7F) are reserved.
-* @param Copy_u8BitRate:     The bit rate of the I2C peripheral in KHz. It can be any value from 1 to 400.
-* @param Copy_u8GeneralCall: The general call status. It can be either I2C_GENERAL_CALL_ACCEPT or I2C_GENERAL_CALL_REJECT
+* @param Copy_u8Address: The address of the MCU with which the I2C peripheral 
+*                        will be communicated.
+*                        It can be any value from 0x01 to 0x77.
+*                        The address 0x00 is reserved for the general call 
+*                        address.
+*                        The top 8 addresses (0x78 to 0x7F) are reserved.
+* @param Copy_u16BitRate:     The bit rate of the I2C peripheral in KHz. It can 
+*                             be any value from 1 to 400.
+* @param Copy_u8GeneralCall: The general call status. It can be either 
+*                            I2C_GENERAL_CALL_ACCEPT or I2C_GENERAL_CALL_REJECT
 *
 * @return: Error code
 *         - ES_OK: If the I2C peripheral is initialized successfully
 *         - ES_OUT_OF_RANGE: If any of the input parameters is out of range
 */
-ES_t I2C_enuInit_Master_And_Slave(u8 Copy_u8Address, u8 Copy_u8BitRate, u8 Copy_u8GeneralCall);
+ES_t I2C_enuInit_Master_And_Slave(u8 Copy_u8Address, u16 Copy_u8BitRate, 
+                                  u8 Copy_u8GeneralCall);
 
 
 /*
 * @brief: This function is used to initialize the I2C peripheral as a master
 *
-* @param Copy_u8BitRate: The bit rate of the I2C peripheral in KHz. It can be any value from 1 to 400.
+* @param Copy_u8BitRate: The bit rate of the I2C peripheral in KHz. It can be 
+* any value from 1 to 400.
 *
 * @return: Error code
 *         - ES_OK: If the I2C peripheral is initialized successfully
@@ -129,11 +136,14 @@ ES_t I2C_enuInit_Master(u8 Copy_u8BitRate);
 /*
 * @brief: This function is used to initialize the I2C peripheral as a slave
 *
-* @param Copy_u8Address:    The address of the MCU with which the I2C peripheral will be communicated.
+* @param Copy_u8Address:    The address of the MCU with which the I2C peripheral 
+*                           will be communicated.
 *                           It can be any value from 0x01 to 0x77.
-*                           The address 0x00 is reserved for the general call address.
+*                           The address 0x00 is reserved for the general call 
+*                           address.
 *                           The top 8 addresses (0x78 to 0x7F) are reserved.
-* @param Copy_u8GeneralCall: The general call status. It can be either I2C_GENERAL_CALL_ACCEPT or I2C_GENERAL_CALL_REJECT
+* @param Copy_u8GeneralCall: The general call status. It can be either 
+*                            I2C_GENERAL_CALL_ACCEPT or I2C_GENERAL_CALL_REJECT
 *
 * @return: Error code
 *    - ES_OK: If the I2C peripheral is initialized successfully
@@ -143,10 +153,12 @@ ES_t I2C_enuInit_Slave(u8 Copy_u8Address, u8 Copy_u8GeneralCall);
 
 
 /*
-* @brief: This function is used to send a start condition as a master transmit or receive operation
+* @brief: This function is used to send a start condition as a master transmit 
+*         or receive operation
 *
-* @param Copy_pu8StatusCode: a variable to hold the status code of the I2C peripheral after sending the start condition
-* expected status codes after sending the repeated start condition:
+* @param Copy_pu8StatusCode: a variable to hold the status code of the I2C 
+* peripheral after sending the start condition. Expected status codes after 
+* sending the repeated start condition:
 *  - I2C_MASTER_START_SENT
 *
 * @return: Error code
@@ -157,10 +169,12 @@ ES_t I2C_enuStartCondition_Master(u8 * Copy_pu8StatusCode);
 
 
 /*
-* @brief: This function is used to send a repeated start condition as a master transmit or receive operation
+* @brief: This function is used to send a repeated start condition as a master 
+*         transmit or receive operation
 *
-* @param Copy_pu8StatusCode: a variable to hold the status code of the I2C peripheral after sending the repeated start condition
-* expected status codes after sending the repeated start condition:
+* @param Copy_pu8StatusCode: a variable to hold the status code of the I2C 
+* peripheral after sending the repeated start condition. Expected status codes 
+* after sending the repeated start condition:
 * - I2C_MASTER_REPEATED_START_SENT
 *
 * @return: Error code
@@ -171,13 +185,18 @@ ES_t I2C_enuRepeatedStartCondition_Master(u8 * Copy_pu8StatusCode);
 
 
 /*
-* @brief: This function is used to send a stop condition as a master transmit or receive operation
+* @brief: This function is used to send a stop condition as a master transmit or 
+*         receive operation
 * 
-* Calling this function immediately after calling I2C_enuStartCondition_Master_Only() or I2C_enuRepeatedStartCondition_Master_Only() is illegal.
+* Calling this function immediately after calling 
+* I2C_enuStartCondition_Master_Only() or 
+* I2C_enuRepeatedStartCondition_Master_Only() is illegal.
 *
-* This function is called after I2C_enuStartCondition_Master or I2C_enuRepeatedStartCondition_Master,
-* followed by I2C_enuSendSlaveAddressOperation_Master,
-* followed by any number of I2C_enuSendDataByte_Master, or I2C_enuReceiveDataByte_Master,
+* This function is called after I2C_enuStartCondition_Master or 
+* I2C_enuRepeatedStartCondition_Master, followed by 
+* I2C_enuSendSlaveAddressOperation_Master,
+* followed by any number of I2C_enuSendDataByte_Master, or 
+* I2C_enuReceiveDataByte_Master,
 * if the returned status code from any of these functions is one of:
 *   - I2C_MASTER_DATA_SENT_ACK_RECEIVED
 *   - I2C_MASTER_DATA_SENT_NACK_RECEIVED
@@ -229,7 +248,8 @@ ES_t I2C_enuStopCondition_Master();
 * @return: Error code
 *   - ES_OK: If the slave address and the read/write bit are sent successfully
 */
-ES_t I2C_enuSendSLA_R_W_Master(u8 Copy_u8SlaveAddress, u8 Copy_u8ReadWriteBit, u8 * Copy_pu8StatusCode);
+ES_t I2C_enuSendSLA_R_W_Master(u8 Copy_u8SlaveAddress, u8 Copy_u8ReadWriteBit, 
+                               u8 * Copy_pu8StatusCode);
 
 
 /*

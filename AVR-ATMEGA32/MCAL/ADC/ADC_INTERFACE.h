@@ -72,6 +72,8 @@
 ES_t ADC_enuInit(u8 ADC_u8Prescaler, u8 ADC_u8Adjustment, u8 ADC_u8RefVoltage);
 
 
+
+
 /**
  * @brief Set the ADC trigger.
  *
@@ -88,7 +90,6 @@ ES_t ADC_enuInit(u8 ADC_u8Prescaler, u8 ADC_u8Adjustment, u8 ADC_u8RefVoltage);
  */
 ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger);
 
-
 /**
  * @brief Disable the ADC trigger.
  *
@@ -98,21 +99,9 @@ ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger);
  */
 void ADC_enuDisableTrigger(void);
 
-/**
- * @brief Set the ADC callback function.
- *
- * @param[in] Copy_ptr The function pointer to the callback function.
- *
- * @return ES_t Returns ES_OK if the callback function is set successfully, 
- *         otherwise returns ES_NULL_POINTER if the input parameter is a null 
- *         pointer.
- */
-ES_t ADC_enuSetCallBack(void (*Copy_pFuncAppFun)(void));
 
-/**
- * @brief Disable the ADC interrupt.
- */
-void ADC_enuDisableInterrupt(void);
+
+
 
 /**
  * @brief Set the ADC channel.
@@ -127,10 +116,20 @@ void ADC_enuDisableInterrupt(void);
  */
 ES_t ADC_enuSetChannel(u8 ADC_u8Channel);
 
+
+
+
+
 /**
  * @brief Start one ADC conversion.
  */
 void ADC_enuStartOneConversion(void);
+
+
+
+
+
+
 
 /**
  * @brief Get the ADC value.
@@ -151,6 +150,11 @@ u16 ADC_enuGetValue();
  * @return u8 The high byte of the ADC value.
  */
 u8 ADC_enuGetHighValue();
+
+
+
+
+
 
 /**
  * @brief Get the ADC value using polling.
@@ -173,10 +177,31 @@ u16 ADC_enuGetValuePolling();
 u8 ADC_enuGetHighValuePolling();
 
 
+
+
+
+
+/**
+ * @brief Set the ADC callback function.
+ *
+ * @param[in] Copy_ptr The function pointer to the callback function.
+ *
+ * @return ES_t Returns ES_OK if the callback function is set successfully, 
+ *         otherwise returns ES_NULL_POINTER if the input parameter is a null 
+ *         pointer.
+ */
+ES_t ADC_enuSetCallBack(void (*Copy_pFuncAppFun)(void));
+
+/**
+ * @brief Disable the ADC interrupt.
+ */
+void ADC_enuDisableInterrupt(void);
+
 /**
  * @brief Enable the ADC interrupt.
  */
 void ADC_enuEnableInterrupt(void);
+
 
 
 /**

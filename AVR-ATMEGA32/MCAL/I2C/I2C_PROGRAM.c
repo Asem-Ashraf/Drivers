@@ -18,7 +18,7 @@ void __vector_19(void){
     }
 }
 
-ES_t I2C_enuInit_Master_And_Slave(u8 Copy_u8Address, u8 Copy_u8BitRate, u8 Copy_u8GeneralCall){
+ES_t I2C_enuInit_Master_And_Slave(u8 Copy_u8Address, u16 Copy_u8BitRate, u8 Copy_u8GeneralCall){
     if(Copy_u8Address > 0x77|| Copy_u8Address == 0x00|| // checking the address according to the data sheet bounds
        0xff < GETTWBR(Copy_u8BitRate)||                 // checking the bit rate according to the data sheet bounds
        Copy_u8GeneralCall > I2C_GENERAL_CALL_REJECT)    // checking the general call bound
@@ -37,7 +37,7 @@ ES_t I2C_enuInit_Master_And_Slave(u8 Copy_u8Address, u8 Copy_u8BitRate, u8 Copy_
     return ES_OK;
 }
 
-ES_t I2C_enuInit_Master(u8 Copy_u8BitRate){
+ES_t I2C_enuInit_Master(u16 Copy_u8BitRate){
     if(0xff < GETTWBR(Copy_u8BitRate)) // checking the bit rate according to the data sheet bounds
         return ES_OUT_OF_RANGE;
 

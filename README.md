@@ -9,3 +9,4 @@
 |           |Thermistor   |          |Timer0      |
 |           |             |          |UART        |
 |           |             |          |SPI         |
+|           |             |          |I2C         |

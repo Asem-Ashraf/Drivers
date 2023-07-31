@@ -116,21 +116,21 @@
 *         - ES_OK: If the I2C peripheral is initialized successfully
 *         - ES_OUT_OF_RANGE: If any of the input parameters is out of range
 */
-ES_t I2C_enuInit_Master_And_Slave(u8 Copy_u8Address, u16 Copy_u8BitRate, 
+ES_t I2C_enuInit_Master_And_Slave(u8 Copy_u8Address, u16 Copy_u16BitRate, 
                                   u8 Copy_u8GeneralCall);
 
 
 /*
 * @brief: This function is used to initialize the I2C peripheral as a master
 *
-* @param Copy_u8BitRate: The bit rate of the I2C peripheral in KHz. It can be 
+* @param Copy_u16BitRate: The bit rate of the I2C peripheral in KHz. It can be 
 * any value from 1 to 400.
 *
 * @return: Error code
 *         - ES_OK: If the I2C peripheral is initialized successfully
 *         - ES_OUT_OF_RANGE: If any of the input parameters is out of range
 */
-ES_t I2C_enuInit_Master(u8 Copy_u8BitRate);
+ES_t I2C_enuInit_Master(u16 Copy_u16BitRate);
 
 
 /*
@@ -283,6 +283,8 @@ ES_t I2C_enuSendDataByte_Master(u8 Copy_u8Data, u8 * Copy_pu8StatusCode);
 *
 * @param Copy_pu8Data: a variable to hold the received data byte
 *
+* @param Copy_u8AcknowledgeBit: Whether to send an ACK or a NACK after receiving
+*
 * @param Copy_pu8StatusCode:
 * a variable to hold the status code of the I2C peripheral after receiving the 
 * data byte. Expected status codes after receiving the data byte:
@@ -293,7 +295,7 @@ ES_t I2C_enuSendDataByte_Master(u8 Copy_u8Data, u8 * Copy_pu8StatusCode);
 * @return: Error code
 * - ES_OK: If the data byte is received successfully
 */
-ES_t I2C_enuReceiveDataByte_Master(u8 * Copy_pu8Data, u8 * Copy_pu8StatusCode);
+ES_t I2C_enuReceiveDataByte_Master(u8 * Copy_pu8Data, u8 Copy_u8AcknowledgeBit, u8 * Copy_pu8StatusCode);
 
 
 

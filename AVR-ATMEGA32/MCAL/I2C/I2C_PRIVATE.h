@@ -1,15 +1,10 @@
 #ifndef I2C_PRIVATE_H_
 #define I2C_PRIVATE_H_
 
-#include "../../LIB/STD_TYPE.h"
-#include "../../LIB/ERR_TYPE.h"
-#include "../../LIB/BIT_MATH.h"
-#include "../../LIB/CPU_FREQ.h"
-
 #define I2C_WRITE	0
 #define I2C_READ	1
 
-#define GETTWBR(Bitrate) ((((CPU_u32Freq)/(Bitrate*1000))-16)/2)
+#define GETTWBR(Bitrate) ((((CPU_u32Freq/1000)/(Bitrate*2))-8))
 
 
 #define I2C_ACK_ENABLE    1

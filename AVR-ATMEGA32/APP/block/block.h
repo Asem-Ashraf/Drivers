@@ -10,7 +10,6 @@
 typedef struct{
     u32 nonce;   // random number
     u32 prevHash;// hash of the previous block
-    u32 height;  // height of the block in the blockchain
     u32 target;  // if a hash is lower than target, it is valid
     Transaction transactions[NUM_OF_TRANSACTIONS_IN_BLOCK]; // transactions in the block
 } Block;

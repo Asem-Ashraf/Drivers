@@ -4,8 +4,9 @@
 #include "../LIB/CPU_FREQ.h"
 
 #define F_CPU CPU_u32Freq
-
 #include <util/delay.h>
+
+#include "../SERVICE/Type_Conv.h"
 
 #include "../MCAL/DIO/DIO_INTERFACE.h"
 #include "../MCAL/ADC/ADC_INTERFACE.h"
@@ -21,8 +22,6 @@
 #include "../HAL/LCD/LCD_INTERFACE.h"
 #include "../HAL/Thermistor/TH_INTERFACE.h"
 #include "../HAL/EEPROM/EEPROM_INTERFACE.h"
-
-#include "../SERVICE/Type_Conv.h"
 
 extern LED_t LED_AstructLed[];
 extern TH_t TH_AstuThemistors[];
@@ -48,7 +47,6 @@ int main() {
         if (error != ES_OK)  { LED_enuTurnOn(&LED_AstructLed[0]); return 0; }
         floatToString(f32temp, str,8);
         error = LCD_enuGotoPosition(&LCD_AstructDisplays[0], 1, 0);
-        if (error != ES_OK)  { DIO_enuSetPortDirection(DIO_u8PORTB, 0xff);DIO_enuSetPortValue(DIO_u8PORTB, error );return 0; }
         LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)str);
         _delay_ms(3000);
         error = LCD_enuClear(&LCD_AstructDisplays[0]);

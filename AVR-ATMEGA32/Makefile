@@ -19,6 +19,7 @@ INCLUDE=
 
 #If all Sources File in The Same Location 
 SRC = $(wildcard ./*/*/*.c)
+SRC+= $(wildcard ./SERVICE/*.c)
 #For Generate .o File From .c
 OBJ =$(SRC:.c=.o)
 
@@ -34,7 +35,7 @@ OBJCOPY = avr-objcopy
 CCSIZE = avr-size
 
 #optimizations Options {1, 2, 3(fastest), s(smallest), g(for debugging only)}
-OPT = -Os
+OPT = -Og
 
 #For Generate Hex_File
 HFLAGS = -j .text -j .data -O ihex
@@ -56,7 +57,7 @@ APP/%.elf: ./APP/%.o $(OBJ)
 # size : APP/*.elf
 # 	$(CCSIZE) --format=avr --mcu=$(DEVICE) $< 
 	
-clean_all:
+ca:
 	rm $(OBJ) ./APP/*.elf ./APP/*.hex
 	@echo "Everything clean successfully"
 	

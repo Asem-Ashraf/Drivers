@@ -16,31 +16,51 @@ void __vector_12(void){
     }
 }
 
+#define SPI_u8PORT DIO_u8PORTB
 
 
 ES_t SPI_enuMasterInit(u8 Copy_u8SBFirst, u8 Copy_u8DoubleSpeed, 
                        u8 Copy_u8ClkRate, u8 Copy_u8ClkPol, u8 Copy_u8ClkPh, 
                        u8 Copy_u8Duplex){
-    if(Copy_u8SBFirst>1|| Copy_u8DoubleSpeed>1|| Copy_u8ClkPol>1|| Copy_u8ClkPh>1||
-       Copy_u8ClkRate>3|| Copy_u8Duplex>1)
+    if((Copy_u8SBFirst      &0b11011111)!=0||
+       (Copy_u8DoubleSpeed  &0b11111110)!=0||
+       (Copy_u8ClkPol       &0b11110111)!=0||
+       (Copy_u8ClkPh        &0b11111011)!=0||
+       Copy_u8ClkRate       >SPI_u8CLK_128 ||
+       Copy_u8Duplex        >SPI_u8CLK_2X)
         return ES_OUT_OF_RANGE;
 
     SPCR = (Copy_u8SBFirst)| (Copy_u8ClkRate)| (Copy_u8ClkPol)| (Copy_u8ClkPh)|
-           (SPI_MASTER);
+           (SPI_MASTER)|(1<<SPE);
     SPSR = Copy_u8DoubleSpeed;
     // PORTB pins are automatically configured based on the values of SPCR
     // see DIO pins alternative operation modes in the datasheet
-    return DIO_enuSetPortDirection(DIO_u8DDRB,(DIO_u8OUTPUT<<SCK)|(Copy_u8Duplex<<MOSI)|(DIO_u8INPUT<<SS));
+    // the MISO pin is automatically configured as input
+    // the M0SI,SCK and SS pins are user defined as output
+    // the SS pin need not be configured as output if the SPI is in master mode
+    // as the slave select in master mode is done by user in the main program
+    ES_t 
+    error = DIO_enuSetPinDirection(SPI_u8PORT, MOSI, Copy_u8Duplex);
+    if(error!=ES_OK) return error;
+    error = DIO_enuSetPinDirection(SPI_u8PORT, SCK , DIO_u8OUTPUT);
+    return error;
 }
 
-ES_t SPI_enuSlaveInit(u8 Copy_u8SBFirst, u8 Copy_u8ClkPol, u8 Copy_u8ClkPh, 
+ES_t SPI_enuSlaveInit(u8 Copy_u8SBFirst,
+                      u8 Copy_u8ClkPol,
+                      u8 Copy_u8ClkPh, 
                       u8 Copy_u8Duplex){
-    if(Copy_u8SBFirst>1|| Copy_u8ClkPol>1|| Copy_u8ClkPh>1)
+    if((Copy_u8SBFirst&0b11011111)!=0||
+       (Copy_u8ClkPol &0b11110111)!=0||
+       (Copy_u8ClkPh  &0b11111011)!=0)
         return ES_OUT_OF_RANGE;
-    SPCR = (Copy_u8SBFirst)|(Copy_u8ClkPol)| (Copy_u8ClkPh);
+    SPCR = (Copy_u8SBFirst)|(Copy_u8ClkPol)|(Copy_u8ClkPh)|(1<<SPE);
+
     // PORTB pins are automatically configured based on the values of SPCR
     // see DIO pins alternative operation modes in the datasheet
-    return DIO_enuSetPinDirection(DIO_u8DDRB,MISO, Copy_u8Duplex);
+    // the M0SI,SCK and SS pins are automatically configured as input
+    // the MISO pin is User defined
+    return DIO_enuSetPinDirection(SPI_u8PORT, MISO, Copy_u8Duplex);
 }
 
 

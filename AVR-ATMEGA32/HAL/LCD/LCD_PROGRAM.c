@@ -1,7 +1,10 @@
-#include <util/delay.h>
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"
 #include "../../LIB/BIT_MATH.h"
+#include "../../LIB/CPU_FREQ.h"
+
+#define F_CPU CPU_u32Freq
+#include <util/delay.h>
 
 #include "../../MCAL/DIO/DIO_INTERFACE.h"
 
@@ -246,7 +249,7 @@ static ES_t LCD_SetCGRAMAddress(LCD_t* LCD_pstructDisplay,u8 Address) {
 }
 
 static ES_t LCD_SetDDRAMAddress(LCD_t* LCD_pstructDisplay,u8 Address) {
-    if(Address > 0x27) { return ES_OUT_OF_RANGE; }
+    if(Address > 0x7F) { return ES_OUT_OF_RANGE; }
     return LCD_enuWriteCommand(LCD_pstructDisplay,0b10000000|Address);
 }
 
@@ -301,13 +304,27 @@ ES_t LCD_enuGotoPosition(LCD_t* LCD_pstructDisplay,u8 x,u8 y){
     if (LCD_pstructDisplay == NULL) { return ES_NULL_POINTER;}
     if (LCD_pstructDisplay<LCD_AstructDisplays || LCD_pstructDisplay>(LCD_AstructDisplays+sizeof(LCD_t)*LCD_u8DisplayNum)) { return ES_OUT_OF_RANGE; }
     if(x > LCD_pstructDisplay->LCD_u8LinesNum || y > 15) { return ES_OUT_OF_RANGE; }
-    return LCD_SetDDRAMAddress(LCD_pstructDisplay,0b10000000|((x-1)*0x40)+y);
+    return LCD_SetDDRAMAddress(LCD_pstructDisplay,(x*0x40)+y);
 }
 
 ES_t LCD_enuWriteChar(LCD_t* LCD_pstructDisplay,u8 Data){
     if (LCD_pstructDisplay == NULL) { return ES_NULL_POINTER;}
     if (LCD_pstructDisplay<LCD_AstructDisplays || LCD_pstructDisplay>(LCD_AstructDisplays+sizeof(LCD_t)*LCD_u8DisplayNum)) { return ES_OUT_OF_RANGE; }
     return LCD_WriteDataToCGRAMOrDDRAM(LCD_pstructDisplay,Data);
+}
+
+ES_t LCD_enuWriteString(LCD_t* LCD_pstructDisplay,u8* Data){
+    if (LCD_pstructDisplay == NULL||
+        Data == NULL) { return ES_NULL_POINTER;}
+    if (LCD_pstructDisplay<LCD_AstructDisplays || LCD_pstructDisplay>(LCD_AstructDisplays+sizeof(LCD_t)*LCD_u8DisplayNum)) { return ES_OUT_OF_RANGE; }
+    ES_t Local_ESErrorState;
+    while (*Data!='\0') {
+        Local_ESErrorState=LCD_WriteDataToCGRAMOrDDRAM(LCD_pstructDisplay,*Data);
+        if(Local_ESErrorState!=ES_OK) return Local_ESErrorState;
+        Data++;
+    }
+    return ES_OK;
+
 }
 
 ES_t LCD_enuClear(LCD_t* LCD_pstructDisplay){

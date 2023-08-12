@@ -36,7 +36,7 @@
  * This function initializes the specified external interrupt with the provided callback function.
  *
  * @param EXTI_u8InterruptID - The ID number of the external interrupt to be initialized.
- *        EXTI_FptrCallback - A pointer to the function to be called when the interrupt occurs.
+ * @param EXTI_FptrCallback - A pointer to the function to be called when the interrupt occurs.
  *
  * @return ES_t - Error status.
  *         ES_OK if the interrupt is initialized successfully, otherwise if unsuccessful.

@@ -11,34 +11,34 @@
 #define ADC_u8CH6           0x06
 #define ADC_u8CH7           0x07
 
-#define ADC_u8AREF          0b00111111
-#define ADC_u8AVCC          0b01111111
-#define ADC_u8INTERNAL      0b11111111
+#define ADC_u8AREF          0b00000000
+#define ADC_u8AVCC          0b01000000
+#define ADC_u8INTERNAL      0b11000000
 
-#define ADC_u8RIGHT_ADJ     0b11011111
-#define ADC_u8LEFT_ADJ      0b11111111
+#define ADC_u8RIGHT_ADJ     0b00000000
+#define ADC_u8LEFT_ADJ      0b00100000
 
 // ADCSRA Register
-#define ADC_u8PRESCALER_2           0b11111001
-#define ADC_u8PRESCALER_4           0b11111010
-#define ADC_u8PRESCALER_8           0b11111011
-#define ADC_u8PRESCALER_16          0b11111100
-#define ADC_u8PRESCALER_32          0b11111101
-#define ADC_u8PRESCALER_64          0b11111110
-#define ADC_u8PRESCALER_128         0b11111111
+#define ADC_u8PRESCALER_2           0b00000001
+#define ADC_u8PRESCALER_4           0b00000010
+#define ADC_u8PRESCALER_8           0b00000011
+#define ADC_u8PRESCALER_16          0b00000100
+#define ADC_u8PRESCALER_32          0b00000101
+#define ADC_u8PRESCALER_64          0b00000110
+#define ADC_u8PRESCALER_128         0b00000111
 
 #define ADC_u8INTERRUPT             0x01
 #define ADC_u8POLLING               0x00
 
 // SFIOR Register
-#define ADC_u8FREE_RUNNING          0b00011111
-#define ADC_u8ANALOG_CMP            0b00111111
-#define ADC_u8EXT_INT               0b01011111
-#define ADC_u8TMR0_CMp_MATCH        0b01111111
-#define ADC_u8TMR0_OVF              0b10011111
-#define ADC_u8TMR1_CMP_MATCH_B      0b10111111
-#define ADC_u8TMR1_OVF              0b11011111
-#define ADC_u8TMR1_CAPTURE_EVENT    0b11111111
+#define ADC_u8FREE_RUNNING          0b00000000
+#define ADC_u8ANALOG_CMP            0b00100000
+#define ADC_u8EXT_INT               0b01000000
+#define ADC_u8TMR0_CMp_MATCH        0b01100000
+#define ADC_u8TMR0_OVF              0b10000000
+#define ADC_u8TMR1_CMP_MATCH_B      0b10100000
+#define ADC_u8TMR1_OVF              0b11000000
+#define ADC_u8TMR1_CAPTURE_EVENT    0b11100000
 
 #define ADCSRA      (*(volatile u8 *)0x26)
 #define ADEN    0x07

@@ -14,34 +14,30 @@ void __vector_16(void) {
 }
 
 ES_t ADC_enuInit(u8 ADC_u8Prescaler,u8 ADC_u8Adjustment,u8 ADC_u8RefVoltage){
-    if (((ADC_u8Prescaler &0b11111000) != 0b11111000)||
-        ((ADC_u8Adjustment&0b11011111) != 0b11011111)||
-        ((ADC_u8RefVoltage&0b00111111) != 0b00111111)||
-         (ADC_u8RefVoltage == 0b10111111)) 
+    if (((ADC_u8Prescaler &0b11111000) != 0)||
+        ((ADC_u8Adjustment&0b11011111) != 0)||
+        ((ADC_u8RefVoltage&0b00111111) != 0)||
+         (ADC_u8RefVoltage == 0b10000000)) 
         return ES_OUT_OF_RANGE;
 
-    // set the adjustment
-    ADMUX  &= ADC_u8Adjustment;
-    // set the reference voltage
-    ADMUX  &= ADC_u8RefVoltage;
-    // set the prescaler 
-    ADCSRA &= ADC_u8Prescaler;
-    // set ADEN
-    SetBit(ADCSRA,ADEN);
+    // set the adjustment, set the reference voltage
+    ADMUX  = (ADC_u8Adjustment|ADC_u8RefVoltage);
+    // set the prescaler and enable the ADC
+    ADCSRA = ADC_u8Prescaler|(1<<ADEN);
     return ES_OK;
 }
 
 ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger){
     // check if the trigger is valid
-    if (ADC_u8Trigger < 0b00011111) 
+    if ((ADC_u8Trigger&0b00011111) != 0)
         return ES_OUT_OF_RANGE;
     // overwrite the trigger
-    SFIOR &=ADC_u8Trigger;
+    SFIOR =(SFIOR & 0x0F)|ADC_u8Trigger;
     // enable the ADC auto trigger 
     SetBit(ADCSRA,ADATE);
     return ES_OK;
 }
-void ADC_enuDisableTrigger(){
+void ADC_voidDisableTrigger(){
     // disable the ADC auto trigger 
     ClrBit(ADCSRA,ADATE);
 }
@@ -55,32 +51,28 @@ ES_t ADC_enuSetChannel(u8 ADC_u8Channel){
     return ES_OK;
 }
 
-void ADC_enuStartOneConversion(){
+void ADC_voidStartOneConversion(){
     // start conversion
     SetBit(ADCSRA,ADSC);
 }
 
-u16 ADC_enuGetValue(){
-    // store the result
+u16 ADC_u16GetValue(){
     return ADC_VALUE;
 }
 
-u8 ADC_enuGetHighValue(){
-    // store the result
+u8 ADC_u8GetHighValue(){
     return ADCH;
 }
 
-u16 ADC_enuGetValuePolling(){
+u16 ADC_u16GetValuePolling(){
     // wait until conversion is done
     while (GetBit(ADCSRA,ADSC));
-    // store the result
     return  ADC_VALUE;
 }
 
-u8 ADC_enuGetHighValuePolling(){
+u8 ADC_u8GetHighValuePolling(){
     // wait until conversion is done
     while (GetBit(ADCSRA,ADSC));
-    // store the result
     return ADCH;
 }
 
@@ -91,16 +83,16 @@ ES_t ADC_enuSetCallBack(void (*Copy_ptr)(void)){
     return ES_OK;
 }
 
-void ADC_enuEnableInterrupt(){
+void ADC_voidEnableInterrupt(){
     // enable the ADC interrupt
     SetBit(ADCSRA,ADIE);
 }
 
-void ADC_enuDisableInterrupt(){
+void ADC_voidDisableInterrupt(){
     // disable the ADC interrupt
     ClrBit(ADCSRA,ADIE);
 }
 
-void ADC_enuHultADC(){
+void ADC_voidHultADC(){
     ADCSRA = 0;
 }

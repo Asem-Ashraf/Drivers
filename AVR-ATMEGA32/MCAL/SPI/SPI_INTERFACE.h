@@ -59,8 +59,8 @@
 *        SPI_u8SAMPLE_TRAILING
 *
 * @param Copy_u8Duplex: Selects the duplex mode
-* @value SPI_MASTER_INPUT_ONLY,
-*        SPI_MASTER_INPUT_OUTPUT
+* @value SPI_u8MASTER_INPUT_ONLY,
+*        SPI_u8MASTER_INPUT_OUTPUT
 *
 * return: Error state
 *      ES_OK: No error,
@@ -89,8 +89,8 @@ ES_t SPI_enuMasterInit(u8 Copy_u8SBFirst, u8 Copy_u8DoubleSpeed,
 *        SPI_u8SAMPLE_TRAILING
 *
 * @param Copy_u8Duplex: Selects the duplex mode
-* @value SPI_SLAVE_INPUT_ONLY,
-*        SPI_SLAVE_INPUT_OUTPUT
+* @value SPI_u8SLAVE_INPUT_ONLY,
+*        SPI_u8SLAVE_INPUT_OUTPUT
 *
 * return: Error state
 *    ES_OK: No error,

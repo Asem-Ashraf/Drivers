@@ -72,6 +72,10 @@
 #define I2C_SLAVE_DATA_RECEIVED_ACK_SENT                (0x80)
 // Previously addressed, data received, NACK returned
 #define I2C_SLAVE_DATA_RECEIVED_NACK_SENT               (0x88)
+// Previously addressed from general call, data received, ACK returned
+#define I2C_SLAVE_GEN_CALL_DATA_RECEIVED_ACK_SENT       (0x90)
+// Previously addressed from general call, data received, NACK returned
+#define I2C_SLAVE_GEN_CALL_DATA_RECEIVED_NACK_SENT      (0x98)
 
 
 
@@ -94,8 +98,8 @@
 
 
 // general call
-#define I2C_GENERAL_CALL_ACCEPT                         (0x00)
-#define I2C_GENERAL_CALL_REJECT                         (0x01)
+#define I2C_GENERAL_CALL_ACCEPT                         (0x01)
+#define I2C_GENERAL_CALL_REJECT                         (0x00)
 
 /* 
 * @brief: This function is used to initialize the I2C peripheral as a master and 
@@ -298,6 +302,26 @@ ES_t I2C_enuSendDataByte_Master(u8 Copy_u8Data, u8 * Copy_pu8StatusCode);
 ES_t I2C_enuReceiveDataByte_Master(u8 * Copy_pu8Data, u8 Copy_u8AcknowledgeBit, u8 * Copy_pu8StatusCode);
 
 
+/*
+* @brief: Check the operation and the status of the I2C peripheral as a slave
+* 
+* Called after calling 
+*  - I2C_enuInit_Slave() function
+*  - I2C_enuSendDataByte_Slave function
+*  - I2C_enuReceiveDataByte_Slave function
+*
+* @param Copy_pu8StatusCode:
+* a variable to hold the status code of the I2C peripheral after sending the 
+* data byte. Expected status codes after sending the data byte:
+*      - I2C_SLAVE_SLA_W_RECEIVED_ACK_SENT
+*      - I2C_SLAVE_SLA_R_RECEIVED_ACK_SENT
+*      - I2C_SLAVE_GEN_CALL_RECEIVED_ACK_SENT
+*
+*
+* @return: Error code
+*  - ES_OK: If the data byte is sent successfully
+*/
+ES_t I2C_enuResetAndCheckStatus_Slave(u8 * Copy_pu8StatusCode);
 
 
 /*
@@ -319,7 +343,7 @@ ES_t I2C_enuReceiveDataByte_Master(u8 * Copy_pu8Data, u8 Copy_u8AcknowledgeBit, 
 * @return: Error code
 *  - ES_OK: If the data byte is sent successfully
 */
-ES_t I2C_enuCheckSLA_R_W_Slave(u8 * Copy_pu8StatusCode);
+ES_t I2C_enuCheckStatus_Slave(u8 * Copy_pu8StatusCode);
 
 /*
 * @brief: This function is used to receive a byte of data as a slave

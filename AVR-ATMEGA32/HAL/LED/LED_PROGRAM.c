@@ -13,31 +13,17 @@ extern LED_t LED_AstructLed[];
    || FUNCTIONS' IMPLEMENTATION||
 \*  ============================ */
 
-ES_t LED_enuInit(LED_t* Copy_AstructLed){
+ES_t LED_enuInit(){
     ES_t local_enuErrorState = ES_NULL_POINTER;
 
-    // Error Checking
-    if (Copy_AstructLed == NULL)
-        return ES_NULL_POINTER;
-    if (LED_AstructLed!=Copy_AstructLed)
-        return ES_OUT_OF_RANGE;
-
     for(u8 local_u8LedCounter = 0; local_u8LedCounter < LED_u8NUM_OF_LEDS; local_u8LedCounter++){
-        if (Copy_AstructLed[local_u8LedCounter].LED_u8InitState> LED_u8ON||
-            Copy_AstructLed[local_u8LedCounter].LED_u8Connection> LED_u8SINK)
-            return ES_OUT_OF_RANGE;
+        if (LED_AstructLed[local_u8LedCounter].LED_u8InitState> LED_u8ON|| LED_AstructLed[local_u8LedCounter].LED_u8Connection> LED_u8SINK) return ES_OUT_OF_RANGE;
 
-        local_enuErrorState = DIO_enuSetPinDirection(Copy_AstructLed[local_u8LedCounter].LED_u8PORTID,
-                                                     Copy_AstructLed[local_u8LedCounter].LED_u8PINID,
-                                                     DIO_u8OUTPUT);
-        if (local_enuErrorState != ES_OK)
-            return local_enuErrorState;
+        local_enuErrorState = DIO_enuSetPinDirection(LED_AstructLed[local_u8LedCounter].LED_u8PORTID, LED_AstructLed[local_u8LedCounter].LED_u8PINID, DIO_u8OUTPUT);
+        if (local_enuErrorState != ES_OK) return local_enuErrorState;
 
-        local_enuErrorState = DIO_enuSetPinValue    (Copy_AstructLed[local_u8LedCounter].LED_u8PORTID,
-                                                     Copy_AstructLed[local_u8LedCounter].LED_u8PINID,
-                                                     (Copy_AstructLed[local_u8LedCounter].LED_u8InitState!=Copy_AstructLed[local_u8LedCounter].LED_u8Connection));
-        if (local_enuErrorState != ES_OK)
-            return local_enuErrorState;
+        local_enuErrorState = DIO_enuSetPinValue    (LED_AstructLed[local_u8LedCounter].LED_u8PORTID, LED_AstructLed[local_u8LedCounter].LED_u8PINID, (LED_AstructLed[local_u8LedCounter].LED_u8InitState!=LED_AstructLed[local_u8LedCounter].LED_u8Connection));
+        if (local_enuErrorState != ES_OK) return local_enuErrorState;
     }
     return local_enuErrorState;
 }

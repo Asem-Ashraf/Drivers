@@ -17,42 +17,41 @@
 #include "../../LIB/STD_TYPE.h"
 #include "../../LIB/ERR_TYPE.h"
 
-// ADMUX Register
-#define ADC_u8CH0           0
-#define ADC_u8CH1           1
-#define ADC_u8CH2           2
-#define ADC_u8CH3           3
-#define ADC_u8CH4           4
-#define ADC_u8CH5           5
-#define ADC_u8CH6           6
-#define ADC_u8CH7           7
+#define ADC_u8CH0           0x00
+#define ADC_u8CH1           0x01
+#define ADC_u8CH2           0x02
+#define ADC_u8CH3           0x03
+#define ADC_u8CH4           0x04
+#define ADC_u8CH5           0x05
+#define ADC_u8CH6           0x06
+#define ADC_u8CH7           0x07
 
-#define ADC_u8AREF          0b00111111
-#define ADC_u8AVCC          0b01111111
-#define ADC_u8INTERNAL      0b11111111
+#define ADC_u8AREF          0b00000000
+#define ADC_u8AVCC          0b01000000
+#define ADC_u8INTERNAL      0b11000000
 
-#define ADC_u8RIGHT_ADJ     0b11011111
-#define ADC_u8LEFT_ADJ      0b11111111
+#define ADC_u8RIGHT_ADJ     0b00000000
+#define ADC_u8LEFT_ADJ      0b00100000
 
-#define ADC_u8PRESCALER_2           0b11111001
-#define ADC_u8PRESCALER_4           0b11111010
-#define ADC_u8PRESCALER_8           0b11111011
-#define ADC_u8PRESCALER_16          0b11111100
-#define ADC_u8PRESCALER_32          0b11111101
-#define ADC_u8PRESCALER_64          0b11111110
-#define ADC_u8PRESCALER_128         0b11111111
+#define ADC_u8PRESCALER_2           0b00000001
+#define ADC_u8PRESCALER_4           0b00000010
+#define ADC_u8PRESCALER_8           0b00000011
+#define ADC_u8PRESCALER_16          0b00000100
+#define ADC_u8PRESCALER_32          0b00000101
+#define ADC_u8PRESCALER_64          0b00000110
+#define ADC_u8PRESCALER_128         0b00000111
 
 #define ADC_u8INTERRUPT             0x01
 #define ADC_u8POLLING               0x00
 
-#define ADC_u8FREE_RUNNING          0b00011111
-#define ADC_u8ANALOG_CMP            0b00111111
-#define ADC_u8EXT_INT               0b01011111
-#define ADC_u8TMR0_CMp_MATCH        0b01111111
-#define ADC_u8TMR0_OVF              0b10011111
-#define ADC_u8TMR1_CMP_MATCH_B      0b10111111
-#define ADC_u8TMR1_OVF              0b11011111
-#define ADC_u8TMR1_CAPTURE_EVENT    0b11111111
+#define ADC_u8FREE_RUNNING          0b00000000
+#define ADC_u8ANALOG_CMP            0b00100000
+#define ADC_u8EXT_INT               0b01000000
+#define ADC_u8TMR0_CMp_MATCH        0b01100000
+#define ADC_u8TMR0_OVF              0b10000000
+#define ADC_u8TMR1_CMP_MATCH_B      0b10100000
+#define ADC_u8TMR1_OVF              0b11000000
+#define ADC_u8TMR1_CAPTURE_EVENT    0b11100000
 
 /**
  * @brief Initialize the ADC.
@@ -97,7 +96,7 @@ ES_t ADC_enuSetTrigger(u8 ADC_u8Trigger);
  *
  * This function disables the ADC trigger.
  */
-void ADC_enuDisableTrigger(void);
+void ADC_voidDisableTrigger(void);
 
 
 
@@ -123,7 +122,7 @@ ES_t ADC_enuSetChannel(u8 ADC_u8Channel);
 /**
  * @brief Start one ADC conversion.
  */
-void ADC_enuStartOneConversion(void);
+void ADC_voidStartOneConversion(void);
 
 
 
@@ -139,7 +138,7 @@ void ADC_enuStartOneConversion(void);
  *
  * @return u16 The ADC value.
  */
-u16 ADC_enuGetValue();
+u16 ADC_u16GetValue();
 
 /**
  * @brief Get the high byte of the ADC value.
@@ -149,7 +148,7 @@ u16 ADC_enuGetValue();
  *
  * @return u8 The high byte of the ADC value.
  */
-u8 ADC_enuGetHighValue();
+u8 ADC_u8GetHighValue();
 
 
 
@@ -164,7 +163,7 @@ u8 ADC_enuGetHighValue();
  *
  * @return u16 The ADC value.
  */
-u16 ADC_enuGetValuePolling();
+u16 ADC_u16GetValuePolling();
 
 /**
  * @brief Get the high byte of the ADC value using polling.
@@ -174,7 +173,7 @@ u16 ADC_enuGetValuePolling();
  *
  * @return u8 The high byte of the ADC value.
  */
-u8 ADC_enuGetHighValuePolling();
+u8 ADC_u8GetHighValuePolling();
 
 
 
@@ -195,18 +194,18 @@ ES_t ADC_enuSetCallBack(void (*Copy_pFuncAppFun)(void));
 /**
  * @brief Disable the ADC interrupt.
  */
-void ADC_enuDisableInterrupt(void);
+void ADC_voidDisableInterrupt(void);
 
 /**
  * @brief Enable the ADC interrupt.
  */
-void ADC_enuEnableInterrupt(void);
+void ADC_voidEnableInterrupt(void);
 
 
 
 /**
  * @brief Halt the ADC without changing the settings.
  */
-void ADC_enuHultADC(void);
+void ADC_voidHultADC(void);
 
 #endif /* ADC_INTERFACE_H_ */

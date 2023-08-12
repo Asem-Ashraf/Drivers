@@ -4,20 +4,20 @@
 
 #include "../../MCAL/DIO/DIO_INTERFACE.h"
 
-#define LCD_u8MODE_8BIT 0x1
-#define LCD_u8MODE_4BIT 0x0
+#define LCD_u8MODE_8BIT 0x01
+#define LCD_u8MODE_4BIT 0x00
 
-#define LCD_u8CURSOR_ON 0x1
-#define LCD_u8CURSOR_OFF 0x0
+#define LCD_u8CURSOR_ON 0x01
+#define LCD_u8CURSOR_OFF 0x00
 
-#define LCD_u8CURSOR_BLINK_ON 0x1
-#define LCD_u8CURSOR_BLINK_OFF 0x0
+#define LCD_u8CURSOR_BLINK_ON 0x01
+#define LCD_u8CURSOR_BLINK_OFF 0x00
 
-#define LCD_u8LINES_2 0x1
-#define LCD_u8LINES_1 0x0
+#define LCD_u8LINES_1 0x00
+#define LCD_u8LINES_2 0x01
 
-#define LCD_u8BLOCK_SIZE_5x10 0x1
-#define LCD_u8BLOCK_SIZE_5x7 0x0
+#define LCD_u8BLOCK_SIZE_5x10 0x01
+#define LCD_u8BLOCK_SIZE_5x7 0x00
 
 #define LCD_u8NOT_USED 0xFF
 
@@ -81,18 +81,18 @@ typedef struct {
 u8 LCD_u8DisplayNum = LCD_u8DISPLAY_NUM;
 LCD_t LCD_AstructDisplays[LCD_u8DISPLAY_NUM] = {
         {
-        LCD_u8MODE_4BIT,
+        LCD_u8MODE_8BIT,
         LCD_u8CURSOR_OFF,LCD_u8CURSOR_BLINK_OFF,
-        LCD_u8LINES_1,
+        LCD_u8LINES_2,
         LCD_u8BLOCK_SIZE_5x7,
-        DIO_u8PORTC,DIO_u8PIN0,
-        DIO_u8PORTC,DIO_u8PIN1,
-        DIO_u8PORTC,DIO_u8PIN2,
+        DIO_u8PORTC,DIO_u8PIN5,
+        DIO_u8PORTC,DIO_u8PIN6,
+        DIO_u8PORTC,DIO_u8PIN7,
 
-        LCD_u8NOT_USED,LCD_u8NOT_USED,
-        LCD_u8NOT_USED,LCD_u8NOT_USED,
-        LCD_u8NOT_USED,LCD_u8NOT_USED,
-        LCD_u8NOT_USED,LCD_u8NOT_USED,
+        DIO_u8PORTD,DIO_u8PIN0,
+        DIO_u8PORTD,DIO_u8PIN1,
+        DIO_u8PORTD,DIO_u8PIN2,
+        DIO_u8PORTD,DIO_u8PIN3,
         DIO_u8PORTD,DIO_u8PIN4,
         DIO_u8PORTD,DIO_u8PIN5,
         DIO_u8PORTD,DIO_u8PIN6,

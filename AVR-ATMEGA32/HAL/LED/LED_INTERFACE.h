@@ -23,7 +23,7 @@ typedef struct {
  *         - ES_NULL_POINTER: Null pointer passed as argument.
  *         - ES_OUT_OF_RANGE: Invalid pointer or LED configuration passed as argument.
  */
-ES_t LED_enuInit(LED_t* Copy_AstructLed);
+ES_t LED_enuInit();
 
 /**
  * @brief Turn on an LED.

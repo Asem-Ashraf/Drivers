@@ -98,6 +98,8 @@ ES_t LCD_enuInit(void);
  *        y - Row number (0-1) to move the cursor to.
  *
  * @return ES_t - Error status.
+ *         ES_NULL_POINTER if any of the args are nulls
+ *         ES_OUT_OF_RANGE if the pointer to the lcd struct is invalid
  *         ES_OK if the cursor is moved successfully, ES_NOK otherwise.
  */ 
 ES_t LCD_enuGotoPosition(LCD_t* LCD_pstructDisplay, u8 x, u8 y);
@@ -114,10 +116,31 @@ ES_t LCD_enuGotoPosition(LCD_t* LCD_pstructDisplay, u8 x, u8 y);
  *        Data - The character to write to the LCD display.
  *
  * @return ES_t - Error status.
- *         ES_OK if the character is written successfully, ES_NOK otherwise.
+ *         ES_OK if the character is written successfully
+ *         ES_NULL_POINTER if any of the args are nulls
+ *         ES_OUT_OF_RANGE if the pointer to the lcd struct is invalid
+ *         ES_NOK otherwise.
  */
 ES_t LCD_enuWriteChar(LCD_t* LCD_pstructDisplay, u8 Data);
 
+/**
+ * @brief Writes a string to the LCD display.
+ *
+ * This function writes the provided string to the LCD display starting at the 
+ * current cursor position. If the string is bigger than the remaining line, 
+ * the remaining of the string will NOT be shown on the screen.
+ *
+ * @param LCD_pstructDisplay - Pointer to an LCD_t struct containing the LCD 
+ * display configuration settings.
+ * @param Data - Pointer to the string to write to the LCD display.
+ *
+ * @return ES_t - Error status.
+ *         ES_OK if the character is written successfully
+ *         ES_NULL_POINTER if any of the args are nulls
+ *         ES_OUT_OF_RANGE if the pointer to the lcd struct is invalid
+ *         ES_NOK otherwise.
+ */
+ES_t LCD_enuWriteString(LCD_t* LCD_pstructDisplay,u8* Data);
 
 /**
  * @brief Clears the LCD display.
@@ -128,6 +151,8 @@ ES_t LCD_enuWriteChar(LCD_t* LCD_pstructDisplay, u8 Data);
  * display configuration settings.
  *
  * @return ES_t - Error status.
+ *         ES_NULL_POINTER if any of the args are nulls
+ *         ES_OUT_OF_RANGE if the pointer to the lcd struct is invalid
  *         ES_OK if the display is cleared successfully, ES_NOK otherwise.
  */
 ES_t LCD_enuClear(LCD_t* LCD_pstructDisplay);
@@ -142,6 +167,8 @@ ES_t LCD_enuClear(LCD_t* LCD_pstructDisplay);
  * display configuration settings.
  *
  * @return ES_t - Error status.
+ *         ES_NULL_POINTER if any of the args are nulls
+ *         ES_OUT_OF_RANGE if the pointer to the lcd struct is invalid
  *         ES_OK if the display is turned on successfully, ES_NOK otherwise.
  */
 ES_t LCD_enuDisplayOn(LCD_t* LCD_pstructDisplay);
@@ -156,6 +183,8 @@ ES_t LCD_enuDisplayOn(LCD_t* LCD_pstructDisplay);
  * display configurationsettings.
  *
  * @return ES_t - Error status.
+ *         ES_NULL_POINTER if any of the args are nulls
+ *         ES_OUT_OF_RANGE if the pointer to the lcd struct is invalid
  *         ES_OK if the display is turned off successfully, ES_NOK otherwise.
  */
 ES_t LCD_enuDisplayOff(LCD_t* LCD_pstructDisplay);
@@ -171,6 +200,8 @@ ES_t LCD_enuDisplayOff(LCD_t* LCD_pstructDisplay);
  *        Command - The command code to send to the LCD display.
  *
  * @return ES_t - Error status.
+ *         ES_NULL_POINTER if any of the args are nulls
+ *         ES_OUT_OF_RANGE if the pointer to the lcd struct is invalid
  *         ES_OK if the command is sent successfully, ES_NOK otherwise.
  */
 ES_t LCD_enuSendWriteCommand(LCD_t* LCD_pstructDisplay, u8 Command);

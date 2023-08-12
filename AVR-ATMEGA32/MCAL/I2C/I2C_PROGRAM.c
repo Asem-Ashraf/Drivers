@@ -47,7 +47,7 @@ ES_t I2C_enuInit_Master(u16 Copy_u16BitRate){
     // Set the bit rate or master clock
     TWBR = GETTWBR(Copy_u16BitRate);
 
-    TWCR = (1<<TWEN);
+    TWCR = (1<<TWEN)|(1<<TWINT);
     return ES_OK;
 }
 
@@ -61,7 +61,7 @@ ES_t I2C_enuInit_Slave(u8 Copy_u8Address, u8 Copy_u8GeneralCall){
     TWAR = Copy_u8Address<<1|Copy_u8GeneralCall;
 
     // Enable the I2C and clear the flag
-    TWCR = (1<<TWEN);
+    TWCR = (1<<TWEN)|(1<<TWEA)|(1<<TWINT);
 
     return ES_OK;
 }
@@ -149,7 +149,20 @@ ES_t I2C_enuReceiveDataByte_Master(u8 * Copy_pu8Data, u8 Copy_u8AcknowledgeBit, 
     return ES_OK;
 }
 
-ES_t I2C_enuCheckSLA_R_W_Slave(u8 * Copy_pu8StatusCode){
+ES_t I2C_enuResetAndCheckStatus_Slave(u8 * Copy_pu8StatusCode){
+    if(Copy_pu8StatusCode == NULL)
+        return ES_NULL_POINTER;
+
+    TWCR = (1<<TWINT)|(1<<TWEN);
+    // Wait for the flag to be set and operation to be done
+    while(GetBit(TWCR, TWINT) == 0);
+
+    // Get the status code
+    *Copy_pu8StatusCode = TWSR & 0xF8;
+
+    return ES_OK;
+}
+ES_t I2C_enuCheckStatus_Slave(u8 * Copy_pu8StatusCode){
     if(Copy_pu8StatusCode == NULL)
         return ES_NULL_POINTER;
 
@@ -170,7 +183,7 @@ ES_t I2C_enuSendDataByte_Slave(u8 Copy_u8Data, u8 Copy_u8AcknowledgeBit){
     TWDR = Copy_u8Data;
 
     // clear the flag
-    TWCR |= (1<<TWINT)|(Copy_u8AcknowledgeBit<<TWEN);
+    TWCR = (1<<TWEN)|(1<<TWINT)|(Copy_u8AcknowledgeBit<<TWEA);
 
     return ES_OK;
 }
@@ -182,7 +195,7 @@ ES_t I2C_enuReceiveDataByte_Slave(u8 * Copy_pu8Data, u8 Copy_u8AcknowledgeBit){
         return ES_OUT_OF_RANGE;
 
     // clear the flag
-    TWCR |= (1<<TWINT)|(Copy_u8AcknowledgeBit<<TWEN);
+    TWCR = (1<<TWINT)|(Copy_u8AcknowledgeBit<<TWEA)|(1<<TWEN);
 
     // Wait for the flag to be set and operation to be done
     while(GetBit(TWCR, TWINT) == 0);

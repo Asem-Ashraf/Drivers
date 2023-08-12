@@ -50,10 +50,8 @@ ES_t TH_enuGetTemp(TH_t* Copy_pstructThemistor, f32 *pf32temp){
 
     Local_enuErrorState = ADC_enuSetChannel(Copy_pstructThemistor->TH_u8PINID);
     if (Local_enuErrorState != ES_OK) { return Local_enuErrorState; }
-    ADC_enuStartOneConversion();
-    u16 local_u16reading;
-    Local_enuErrorState = ADC_enuGetValuePolling(&local_u16reading);
-    if (Local_enuErrorState != ES_OK) { return Local_enuErrorState; }
+    ADC_voidStartOneConversion();
+    u16 local_u16reading = ADC_u16GetValuePolling();
     if (Copy_pstructThemistor->TH_u8Type == TH_u8Positive)
         local_u16reading = 1023 - local_u16reading;
     *pf32temp = (f64)local_u16reading * 0.488;

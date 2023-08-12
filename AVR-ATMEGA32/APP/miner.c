@@ -24,7 +24,7 @@
 #define MINER_REQUEST_OUTPUT_PIN DIO_u8PORTB, DIO_u8PIN3
 #define MINER_STOP_OUTPUT_PIN DIO_u8PORTB, DIO_u8PIN2
 
-#define Delay _delay_ms(0)
+#define Delay _delay_ms(1000)
 
 extern LCD_t LCD_AstructDisplays[];
 

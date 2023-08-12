@@ -23,7 +23,7 @@
 #include "transaction/transaction.h"
 #include "generate/generate.h"
 
-#define Delay _delay_ms(0)
+#define Delay _delay_ms(1000)
 
 #define EEPROM_LAST_HASH_ADDRESS 0xFF
 

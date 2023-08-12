@@ -31,7 +31,7 @@
 #define MINER_STOP_INTPUT_PIN             DIO_u8PORTC, DIO_u8PIN4
 #define MINERS_READY_INPUT_PIN            DIO_u8PORTC, DIO_u8PIN3
 
-#define Delay _delay_ms(0)
+#define Delay _delay_ms(1000)
 
 
 

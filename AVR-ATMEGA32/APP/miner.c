@@ -24,7 +24,7 @@
 #define MINER_REQUEST_OUTPUT_PIN DIO_u8PORTB, DIO_u8PIN3
 #define MINER_STOP_OUTPUT_PIN DIO_u8PORTB, DIO_u8PIN2
 
-#define Delay _delay_ms(1000)
+#define Delay _delay_ms(100)
 
 extern LCD_t LCD_AstructDisplays[];
 
@@ -34,6 +34,11 @@ extern LCD_t LCD_AstructDisplays[];
 
 #define GENERATOR_ADDRESS 0b00000010
 
+#define ACK_SUCCESS 0
+#define BAD_ACK 1
+
+#define GOOD_BOUNDS 0
+#define BAD_BOUNDS 1
 
 ES_t Global_error = ES_NOK;
 
@@ -169,35 +174,28 @@ ES_t enuReceiveBlock(Block* pBlock){
 }
 
 
-void voidReceiveBounds(u32* nonceMin, u32* nonceMax){
+u8 u8ReceiveBounds(u32* nonceMin, u32* nonceMax){
     // receive the first byte
     *nonceMin = (u32)SPI_enuReceiveByte();
 
     // receive the first byte
     *nonceMax = (u32)SPI_enuReceiveByte();
 
-    LCD_enuClear(&LCD_AstructDisplays[0]);
-    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"Range received");
+    if (*nonceMax<=*nonceMin) {
+        return BAD_BOUNDS;
+    }
+    return GOOD_BOUNDS;
+    
 }
 
-ES_t enuReceiveACK(){
+u8 u8ReceiveRecognition(){
     // The function receives the ID of the miner twice.
-retry:
     Global_ID = SPI_enuReceiveByte();
     if(Global_ID - SPI_enuSendReceiveByte(Global_ID) == 0) {
         // not checking error because I know I have input the correct arguments
-        DIO_enuSetPinValue(MINER_REQUEST_OUTPUT_PIN, DIO_u8LOW);
-        LCD_enuClear(&LCD_AstructDisplays[0]);
-        LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"recognized");
-        LCD_enuGotoPosition(&LCD_AstructDisplays[0], 1, 0);
-        LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"ID: ");
-        integerToString(Global_ID, Global_String);
-        LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)Global_String);
-        return ES_OK;
+        return ACK_SUCCESS;
     }
-    LCD_enuClear(&LCD_AstructDisplays[0]);
-    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"Error in ACK");
-    goto retry;
+    return BAD_ACK;
 }
 
 
@@ -236,7 +234,7 @@ int main() {
 
 
     Global_error = SPI_enuSlaveInit(SPI_u8LSB_FIRST, SPI_u8RISING_LEADING, 
-                             SPI_u8SAMPLE_TRAILING,SPI_u8SLAVE_INPUT_ONLY);
+                             SPI_u8SAMPLE_TRAILING,SPI_u8SLAVE_INPUT_OUTPUT);
     if (Global_error != ES_OK)  { 
         LCD_enuClear(&LCD_AstructDisplays[0]);
         LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"SPI init failed");
@@ -248,17 +246,44 @@ int main() {
     LCD_enuGotoPosition(&LCD_AstructDisplays[0], 1,0);
     LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"recognition");
 
-
-    Global_error = enuReceiveACK(); if (Global_error != ES_OK)  { return 0; }
-
-
+retry:
+    switch(u8ReceiveRecognition()){
+        case ACK_SUCCESS:
+            DIO_enuSetPinValue(MINER_REQUEST_OUTPUT_PIN, DIO_u8LOW);
+            LCD_enuClear(&LCD_AstructDisplays[0]);
+            LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"recognized");
+            LCD_enuGotoPosition(&LCD_AstructDisplays[0], 1, 0);
+            LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"ID: ");
+            integerToString(Global_ID, Global_String);
+            LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)Global_String);
+            break;
+        case BAD_ACK:
+            goto retry;
+    }
 
     Delay;
 
 
     u32 nonceMin,nonceMax;
+GetBounds:
+    switch(u8ReceiveBounds(&nonceMin, &nonceMax)){
+        case BAD_BOUNDS:
+            goto GetBounds;
+        case GOOD_BOUNDS:
+            LCD_enuClear(&LCD_AstructDisplays[0]);
+            LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"Range received");
+            break;
+    }
 
-    voidReceiveBounds(&nonceMin, &nonceMax);
+
+    LCD_enuGotoPosition(&LCD_AstructDisplays[0], 1,0);
+    integerToString(nonceMin, Global_String);
+    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)Global_String);
+    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)" : ");
+    integerToString(nonceMax, Global_String);
+    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)Global_String);
+
+    Delay;
 
     nonceMin <<= 24;
     nonceMax <<= 24;
@@ -276,13 +301,15 @@ int main() {
         Delay;
         LCD_enuClear(&LCD_AstructDisplays[0]);
         LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"block received");
-        Delay;
+        // Delay;
         LCD_enuGotoPosition(&LCD_AstructDisplays[0], 1,0);
         LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"mining...");
 
 
         switch (mine(&Global_block, nonceMin, nonceMax)) {
         case NONCE_NOT_FOUND:
+            LCD_enuClear(&LCD_AstructDisplays[0]);
+            LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"Nonce not found");
             continue;
         case 2: 
             LCD_enuClear(&LCD_AstructDisplays[0]);

@@ -31,8 +31,7 @@
 #define MINER_STOP_INTPUT_PIN             DIO_u8PORTC, DIO_u8PIN4
 #define MINERS_READY_INPUT_PIN            DIO_u8PORTC, DIO_u8PIN3
 
-#define Delay _delay_ms(1000)
-
+#define Delay _delay_ms(100)
 
 
 extern LCD_t LCD_AstructDisplays[];
@@ -63,7 +62,7 @@ int main() {
     if (Global_error != ES_OK)  { DIO_enuSetPortValue(DIO_u8PORTB, Global_error); }
 
 
-    Global_error = SPI_enuMasterInit(SPI_u8LSB_FIRST,  SPI_u8CLK_1X,SPI_u8CLK_4, 
+    Global_error = SPI_enuMasterInit(SPI_u8LSB_FIRST,  SPI_u8CLK_1X,SPI_u8CLK_16, 
                                      SPI_u8RISING_LEADING, SPI_u8SAMPLE_TRAILING, 
                                      SPI_u8MASTER_INPUT_OUTPUT);
     if (Global_error != ES_OK)  { 
@@ -72,7 +71,7 @@ int main() {
         return 0;
     }
 
-    // Delay;
+    Delay;
 
     LCD_enuClear(&LCD_AstructDisplays[0]);
     LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"Detecting miners");
@@ -85,26 +84,34 @@ int main() {
 
     DIO_enuGetPinValue(MINER_REQUEST_INPUT_PIN, &pinval);
 
+    _delay_ms(50);
 
     while(pinval == DIO_u8LOW) {
-        DIO_enuSetPortValue(MINER_SELECTOR_OUTPUT_PORT,i );
+        DIO_enuSetPortValue(MINER_SELECTOR_OUTPUT_PORT,i);
         DIO_enuSetPinValue(MINER_SELECTOR_ENABLE_OUTPUT_PIN, DIO_u8LOW);
-        _delay_ms(1);
+        _delay_ms(10);
         SPI_voidSendByte(i);
-        _delay_ms(1);
-        SPI_voidSendByte(i);
+        _delay_ms(10);
+        if (i==SPI_enuSendReceiveByte(i)) {
+            i++;
+        }else{
+            continue;
+        }
+
         DIO_enuSetPinValue(MINER_SELECTOR_ENABLE_OUTPUT_PIN, DIO_u8HIGH);
-        _delay_ms(1);
+        _delay_ms(10);
         DIO_enuGetPinValue(MINER_REQUEST_INPUT_PIN, &pinval);
-        i++;
-        Global_minerCount++;
-        if (i==8) {i=0; }
     }
+    Global_minerCount=i;
 
     
 
     LCD_enuClear(&LCD_AstructDisplays[0]);
-    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"ACK sent");
+    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"ACK sent to");
+    LCD_enuGotoPosition(&LCD_AstructDisplays[0], 1, 0);
+    integerToString(Global_minerCount,Global_String);
+    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)Global_String);
+    LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)" miners");
     Delay;
     LCD_enuClear(&LCD_AstructDisplays[0]);
     LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"Sending ranges");
@@ -131,20 +138,21 @@ int main() {
     _delay_ms(10);
 
     while (1) {
+        LCD_enuClear(&LCD_AstructDisplays[0]);
+        LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"broadcasting...");
+
         // signal for generator to start broadcasting blocks
         // the generator receives this through INT2 so it does not need to be 
         // too long
         DIO_enuSetPinValue(BROADCAST_ENABLE_OUTPUT_PIN, DIO_u8HIGH);
         DIO_enuSetPinValue(BROADCAST_ENABLE_OUTPUT_PIN, DIO_u8LOW);
 
-        LCD_enuClear(&LCD_AstructDisplays[0]);
-        LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"broadcasting...");
-
         Delay;
 
         LCD_enuClear(&LCD_AstructDisplays[0]);
         LCD_enuWriteString(&LCD_AstructDisplays[0], (u8*)"Sleeping");
 
+        Delay;
         u8 MinersReady= DIO_u8LOW;
         u8 StopMining = DIO_u8LOW;
         while(!( MinersReady == DIO_u8HIGH && StopMining == DIO_u8HIGH)){
